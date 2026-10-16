@@ -6,49 +6,61 @@
     <title>App Experts Network</title>
     <style>
         :root {
-            --bg-main: #0d1117;
-            --bg-card: #161b22;
-            --border: #30363d;
+            /* Rich midnight obsidian background */
+            --bg-main: #05070a;
+            --bg-card: #0d1117;
+            --border: #21262d;
             --text-primary: #f0f6fc;
             --text-secondary: #8b949e;
             --accent: #58a6ff;
             --btn-green: #238636;
             --btn-green-hover: #2ea043;
-            /* Premium easing function for physics-based fluid movement */
             --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            /* Mouse radial coordinates (updated by script) */
+            --mouse-x: 50%;
+            --mouse-y: 50%;
         }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-main);
+            /* Implements the reactive dark-green backlight matrix glow */
+            background-image: radial-gradient(
+                600px circle at var(--mouse-x) var(--mouse-y),
+                rgba(35, 134, 54, 0.07),
+                transparent 80%
+            );
             color: var(--text-secondary);
             margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            position: relative;
         }
+        
         header, main { width: 100%; max-width: 1000px; box-sizing: border-box; }
-        header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
+        header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
         .logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
         .badge { background-color: #388bfd1a; color: var(--accent); border: 1px solid #388bfd33; padding: 2px 8px; font-size: 12px; border-radius: 20px; }
-        main { padding: 20px; display: flex; flex-direction: column; gap: 40px; }
+        
+        main { padding: 20px; display: flex; flex-direction: column; gap: 40px; z-index: 10; }
         .hero-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; padding: 20px 0; }
         .hero-text { flex: 1; text-align: left; }
         
-        /* Interactive Hero Logo */
         .hero-logo { 
             max-width: 100%; height: auto; width: 400px; border-radius: 50%; 
-            box-shadow: 0 0 20px rgba(88, 166, 255, 0.1); 
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.05); 
             border: 2px solid var(--border); 
             transition: var(--transition-fluid);
         }
         .hero-logo:hover {
             transform: scale(1.03) rotate(1deg);
-            box-shadow: 0 0 35px rgba(88, 166, 255, 0.25);
-            border-color: var(--accent);
+            box-shadow: 0 0 35px rgba(35, 134, 54, 0.2);
+            border-color: #2ea043;
         }
 
         h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         
-        /* Fluid Interactive Cards */
         .card { 
             background-color: var(--bg-card); 
             border: 1px solid var(--border); 
@@ -59,16 +71,15 @@
             top: 0;
         }
         .card:hover { 
-            top: -6px; /* Smooth vertical lift effect */
-            border-color: #8b949e; 
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
-            background-color: #1c2128;
+            top: -6px;
+            border-color: #2ea043; 
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(35, 134, 54, 0.1);
+            background-color: #121821;
         }
         .card h3 { color: var(--text-primary); margin: 0 0 10px 0; font-size: 18px; transition: var(--transition-fluid); }
-        .card:hover h3 { color: var(--accent); } /* Highlights the heading on hover */
+        .card:hover h3 { color: #2ea043; }
         .card p { margin: 0; font-size: 14px; line-height: 1.5; }
         
-        /* Interactive CTA Button */
         .btn { 
             display: inline-block; 
             background-color: var(--btn-green); 
@@ -84,11 +95,9 @@
         .btn:hover { 
             background-color: var(--btn-green-hover); 
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.4);
+            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.5);
         }
-        .btn:active {
-            transform: translateY(0);
-        }
+        .btn:active { transform: translateY(0); }
 
         @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; gap: 30px; }
@@ -123,5 +132,17 @@
             </div>
         </div>
     </main>
+
+    <!-- Kinetic Background Vector Script -->
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const body = document.body;
+            // Calculates mouse coordinates relative to the browser viewport layout
+            const x = e.clientX + window.scrollX;
+            const y = e.clientY + window.scrollY;
+            body.style.setProperty('--mouse-x', `${x}px`);
+            body.style.setProperty('--mouse-y', `${y}px`);
+        });
+    </script>
 </body>
 </html>
