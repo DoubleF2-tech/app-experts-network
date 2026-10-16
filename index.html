@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Experts Network</title>
+    <style>
+        :root {
+            --bg-main: #0d1117;
+            --bg-card: #161b22;
+            --border: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --btn-green: #238636;
+            --btn-green-hover: #2ea043;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-secondary);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            background-color: #388bfd1a;
+            color: var(--accent);
+            border: 1px solid #388bfd33;
+            padding: 2px 8px;
+            font-size: 12px;
+            border-radius: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .hero-section {
+            text-align: left;
+            padding: 20px 0;
+        }
+
+        h1 {
+            color: var(--text-primary);
+            font-size: 42px;
+            margin: 0 0 16px 0;
+            line-height: 1.15;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 0 24px 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: #8b949e;
+        }
+
+        .card h3 {
+            color: var(--text-primary);
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .cta-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--btn-green);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover {
+            background-color: var(--btn-green-hover);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">⚙️ App Experts Network <span class="badge">Active</span></div>
+    </header>
+
+    <main>
+        <div class="hero-section">
+            <h1>Next-Gen Development <br>& Game Systems Engineering</h1>
+            <p class="subtitle">High-performance technical execution, environment optimizations, and robust pipeline scaling for complex online ecosystems.</p>
+            <div class="cta-container">
+                <!-- Replace with your exact Duck address -->
+                <a href="mailto:yourhandle@duck.com" class="btn">Secure Console Access</a>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🖥️ Core Architecture</h3>
+                <p>Custom data pipelines and gameplay engineering optimized down to the thread layer for seamless multi-platform scaling.</p>
+            </div>
+            <div class="card">
+                <h3>⚡ Heavy Compute Cluster</h3>
+                <p>Distributed backend computing powered by multi-GPU nodes and massive system memory redundancy.</p>
+            </div>
+            <div class="card">
+                <h3>🌐 Community Ecosystems</h3>
+                <p>Integrated moderation models and multi-tier management structures built to scale global user groups efficiently.</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
