@@ -14,6 +14,8 @@
             --accent: #58a6ff;
             --btn-green: #238636;
             --btn-green-hover: #2ea043;
+            /* Premium easing function for physics-based fluid movement */
+            --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -29,16 +31,65 @@
         main { padding: 20px; display: flex; flex-direction: column; gap: 40px; }
         .hero-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; padding: 20px 0; }
         .hero-text { flex: 1; text-align: left; }
-        .hero-logo { max-width: 100%; height: auto; width: 400px; border-radius: 50%; box-shadow: 0 0 30px rgba(88, 166, 255, 0.2); border: 2px solid var(--border); }
-        h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 16px 0; line-height: 1.15; }
-        .subtitle { font-size: 18px; line-height: 1.6; margin: 0 0 24px 0; }
+        
+        /* Interactive Hero Logo */
+        .hero-logo { 
+            max-width: 100%; height: auto; width: 400px; border-radius: 50%; 
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.1); 
+            border: 2px solid var(--border); 
+            transition: var(--transition-fluid);
+        }
+        .hero-logo:hover {
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 0 35px rgba(88, 166, 255, 0.25);
+            border-color: var(--accent);
+        }
+
+        h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: transform 0.2s, border-color 0.2s; }
-        .card:hover { transform: translateY(-2px); border-color: #8b949e; }
-        .card h3 { color: var(--text-primary); margin: 0 0 10px 0; font-size: 18px; }
+        
+        /* Fluid Interactive Cards */
+        .card { 
+            background-color: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            padding: 24px; 
+            transition: var(--transition-fluid);
+            position: relative;
+            top: 0;
+        }
+        .card:hover { 
+            top: -6px; /* Smooth vertical lift effect */
+            border-color: #8b949e; 
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            background-color: #1c2128;
+        }
+        .card h3 { color: var(--text-primary); margin: 0 0 10px 0; font-size: 18px; transition: var(--transition-fluid); }
+        .card:hover h3 { color: var(--accent); } /* Highlights the heading on hover */
         .card p { margin: 0; font-size: 14px; line-height: 1.5; }
-        .btn { display: inline-block; background-color: var(--btn-green); color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 6px; font-weight: 600; font-size: 16px; transition: background-color 0.2s; }
-        .btn:hover { background-color: var(--btn-green-hover); }
+        
+        /* Interactive CTA Button */
+        .btn { 
+            display: inline-block; 
+            background-color: var(--btn-green); 
+            color: #ffffff; 
+            text-decoration: none; 
+            padding: 14px 28px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            font-size: 16px; 
+            transition: var(--transition-fluid); 
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
+        }
+        .btn:hover { 
+            background-color: var(--btn-green-hover); 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+
         @media (max-width: 768px) {
             .hero-container { flex-direction: column-reverse; text-align: center; gap: 30px; }
             .hero-text { text-align: center; }
@@ -53,7 +104,6 @@
         <div class="hero-container">
             <div class="hero-text">
                 <h1>Next-Gen Development <br>& Systems Engineering</h1>
-                <p class="subtitle">High-performance technical execution, environment optimizations, and robust pipeline scaling for complex online ecosystems.</p>
                 <div class="cta-container"><a href="mailto:admin@appexpertsnetwork.com" class="btn">Secure Console Access</a></div>
             </div>
             <div class="hero-image-container"><img src="logo.png.png" alt="App Experts Network Logo" class="hero-logo"></div>
