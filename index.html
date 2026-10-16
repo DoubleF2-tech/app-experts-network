@@ -85,10 +85,6 @@
         h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding-bottom: 60px; }
         
-        /* 
-           SCROLL REVEAL STYLE ENGINE 
-           Elements start invisible, shifted 30px downwards, with scale slightly compressed.
-        */
         .reveal-element {
             opacity: 0;
             transform: translateY(30px) scale(0.98);
@@ -96,12 +92,7 @@
                         transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
             will-change: opacity, transform;
         }
-
-        /* Active class triggered smoothly via JavaScript intersection tracking */
-        .reveal-element.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        .reveal-element.active { opacity: 1; transform: translateY(0) scale(1); }
 
         .card { 
             background-color: var(--bg-card); 
@@ -123,6 +114,9 @@
         .card:hover h3 { color: #2ea043; }
         .card p { margin: 0; font-size: 15px; line-height: 1.6; }
         
+        /* Action Button Alignment Group */
+        .cta-container { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+
         .btn { 
             display: inline-block; 
             background-color: var(--btn-green); 
@@ -134,6 +128,8 @@
             font-size: 16px; 
             transition: var(--transition-fluid); 
             box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
+            border: none;
+            cursor: pointer;
         }
         .btn:hover { 
             background-color: var(--btn-green-hover); 
@@ -141,6 +137,77 @@
             box-shadow: 0 6px 20px rgba(46, 160, 67, 0.5);
         }
         .btn:active { transform: translateY(0); }
+
+        /* Sleek "Email Us" Border Accent Button */
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(240, 246, 252, 0.05);
+            border-color: var(--text-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 
+           SECURE LOGIN INTERFACE MODAL 
+           Completely isolated overlay layer positioned over viewport coordinates
+        */
+        .login-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(3, 5, 8, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 100;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .login-modal.open { opacity: 1; pointer-events: auto; }
+
+        .login-box {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.8), 0 0 30px rgba(46, 160, 67, 0.05);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .login-modal.open .login-box { transform: scale(1); }
+
+        .login-box h2 { color: var(--text-primary); margin: 0 0 8px 0; font-size: 26px; }
+        .login-box p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px 0; }
+        
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; color: var(--text-primary); font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+        .input-group input {
+            width: 100%;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            box-sizing: border-box;
+            transition: var(--transition-fluid);
+        }
+        .input-group input:focus { outline: none; border-color: #2ea043; box-shadow: 0 0 10px rgba(35, 134, 54, 0.2); }
+        
+        .login-box .btn { width: 100%; margin-top: 10px; }
+        
+        .close-modal {
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 14px; cursor: pointer; margin-top: 16px; text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .close-modal:hover { color: var(--text-primary); }
 
         @keyframes rollingWaves {
             0% { transform: rotate(0deg); }
@@ -152,72 +219,24 @@
             .hero-text { text-align: center; }
             .hero-logo { width: 280px; }
             h1 { font-size: 32px; }
+            .cta-container { justify-content: center; }
         }
     </style>
 </head>
 <body>
     <div class="interactive-glow"></div>
 
-    <header><div class="logo-text">⚙️ App Experts Network <span class="badge">Active</span></div></header>
-    <main>
-        <!-- Hero area fades in gracefully right at initialization -->
-        <div class="hero-container reveal-element">
-            <div class="hero-text">
-                <h1>Next-Gen Development <br>& Systems Engineering</h1>
-                <div class="cta-container"><a href="mailto:admin@appexpertsnetwork.com" class="btn">Secure Console Access</a></div>
-            </div>
-            <div class="hero-image-container"><img src="logo.png.png" alt="App Experts Network Logo" class="hero-logo"></div>
-        </div>
-
-        <!-- The grid cards materialize flawlessly as the operator scrolls down -->
-        <div class="grid">
-            <div class="card reveal-element">
-                <h3>🎮 Alpha Environment Testing</h3>
-                <p>Comprehensive gameplay stress-testing and mechanical evaluation across early engine builds to isolate critical bugs before deployment.</p>
-            </div>
-            <div class="card reveal-element">
-                <h3>⚡ Network Load Analysis</h3>
-                <p>Simulating high-capacity player concurrency to verify cluster scaling, minimize package delay, and prevent unexpected server faults.</p>
-            </div>
-            <div class="card reveal-element">
-                <h3>🛠️ Mechanics Optimization</h3>
-                <p>Deep-dive diagnostic reviews of application frameworks and scripts to optimize thread usage and ensure high hardware stability.</p>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        // Track mouse positioning variables
-        document.addEventListener('mousemove', (e) => {
-            const body = document.body;
-            const x = e.clientX + window.scrollX;
-            const y = e.clientY + window.scrollY;
-            body.style.setProperty('--mouse-x', `${x}px`);
-            body.style.setProperty('--mouse-y', `${y}px`);
-        });
-
-        /*
-           SCROLL INTERSECTION ANIMATION CONTROLLER
-           Monitors viewport coordinates and applies the active rendering rules cleanly.
-        */
-        const revealOptions = {
-            threshold: 0.1, // Element activates when 10% of its container crosses the viewport boundary
-            rootMargin: "0px 0px -50px 0px" // Triggers slightly before crossing completely to ensure a fluid transition
-        };
-
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Stops observation once rendered to save system runtime processing
-                }
-            });
-        }, revealOptions);
-
-        // Bind tracking to all targeted interface elements
-        document.querySelectorAll('.reveal-element').forEach(element => {
-            revealObserver.observe(element);
-        });
-    </script>
-</body>
-</html>
+    <!-- Login Portal Interface Box Overlay -->
+    <div class="login-modal" id="loginPortal">
+        <div class="login-box">
+            <h2>Secure Network Portal</h2>
+            <p>Enter operator terminal authorization codes.</p>
+            <form onsubmit="event.preventDefault();">
+                <div class="input-group">
+                    <label for="operatorID">Operator Access ID</label>
+                    <input type="text" id="operatorID" placeholder="admin@appexpertsnetwork.com">
+                </div>
+                <div class="input-group">
+                    <label for="passkey">Access Passkey</label>
+                    <input type="password" id="passkey" placeholder="••••••••">
+                </div>
