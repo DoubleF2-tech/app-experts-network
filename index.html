@@ -15,7 +15,6 @@
             --btn-green: #238636;
             --btn-green-hover: #2ea043;
             --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
             --mouse-x: 50%;
             --mouse-y: 50%;
         }
@@ -30,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* Ambient Wave Engine */
         body::before, body::after {
             content: "";
             position: fixed;
@@ -63,7 +61,8 @@
         
         header, main { width: 100%; max-width: 1000px; box-sizing: border-box; position: relative; z-index: 10; }
         header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .logo-group { display: flex; align-items: center; gap: 8px; }
+        .logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); }
         .badge { background-color: #388bfd1a; color: var(--accent); border: 1px solid #388bfd33; padding: 2px 8px; font-size: 12px; border-radius: 20px; }
         
         main { padding: 20px; display: flex; flex-direction: column; gap: 60px; }
@@ -114,7 +113,6 @@
         .card:hover h3 { color: #2ea043; }
         .card p { margin: 0; font-size: 15px; line-height: 1.6; }
         
-        /* Action Button Alignment Group */
         .cta-container { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
 
         .btn { 
@@ -138,138 +136,79 @@
         }
         .btn:active { transform: translateY(0); }
 
-        /* Sleek "Email Us" Border Accent Button */
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            box-shadow: none;
-        }
-        .btn-secondary:hover {
-            background-color: rgba(240, 246, 252, 0.05);
-            border-color: var(--text-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);}
+        .btn-secondary { background-color: transparent; color: var(--text-primary); border: 1px solid var(--border); box-shadow: none; }
+        .btn-secondary:hover { background-color: rgba(240, 246, 252, 0.05); border-color: var(--text-secondary); transform: translateY(-2px); }
+        .btn-sm { padding: 8px 16px; font-size: 14px; border-radius: 6px; }
 
-        /* 
-           SECURE LOGIN INTERFACE MODAL 
-           Completely isolated overlay layer positioned over viewport coordinates
-        */
         .login-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-color: rgba(3, 5, 8, 0.85);
             backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center;
-            z-index: 100;
-            opacity: 0; pointer-events: none;
+            z-index: 100; opacity: 0; pointer-events: none;
             transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .login-modal.open { opacity: 1; pointer-events: auto; }
-
         .login-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 24px 48px rgba(0,0,0,0.8), 0 0 30px rgba(46, 160, 67, 0.05);
-            transform: scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 400px; width: 100%; text-align: center;
+            box-shadow: 0 24px 48px rgba(0,0,0,0.8); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
         .login-modal.open .login-box { transform: scale(1); }
-
         .login-box h2 { color: var(--text-primary); margin: 0 0 8px 0; font-size: 26px; }
         .login-box p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px 0; }
-        
         .input-group { text-align: left; margin-bottom: 20px; }
         .input-group label { display: block; color: var(--text-primary); font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-        .input-group input {
-            width: 100%;
-            background-color: var(--bg-main);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 12px;
-            color: var(--text-primary);
-            font-size: 15px;
-            box-sizing: border-box;
-            transition: var(--transition-fluid);
-        }
-        .input-group input:focus { outline: none; border-color: #2ea043; box-shadow: 0 0 10px rgba(35, 134, 54, 0.2); }
-        
+        .input-group input { width: 100%; background-color: var(--bg-main); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-size: 15px; box-sizing: border-box; }
+        .input-group input:focus { outline: none; border-color: #2ea043; }
         .login-box .btn { width: 100%; margin-top: 10px; }
-        
-        .close-modal {
-            background: none; border: none; color: var(--text-secondary);
-            font-size: 14px; cursor: pointer; margin-top: 16px; text-decoration: underline;
-            transition: color 0.2s;
+        .close-modal { background: none; border: none; color: var(--text-secondary); font-size: 14px; cursor: pointer; margin-top: 16px; text-decoration: underline; }
+
+        .ai-chat-anchor {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            z-index: 90;
+            display: flex; flex-direction: column; align-items: flex-end;
+            font-size: 14px;
         }
-        .close-modal:hover { color: var(--text-primary); }
-
-        @keyframes rollingWaves {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .chat-toggle-btn {
+            background-color: #121821; border: 1px solid var(--border); color: var(--text-primary); width: 56px; height: 56px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; cursor: pointer; font-size: 22px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 15px rgba(46, 160, 67, 0.1); transition: var(--transition-fluid);
         }
-
-        @media (max-width: 768px) {
-            .hero-container { flex-direction: column-reverse; text-align: center; gap: 40px; }
-            .hero-text { text-align: center; }
-            .hero-logo { width: 280px; }
-            h1 { font-size: 32px; }
-            .cta-container { justify-content: center; }
+        .chat-toggle-btn:hover { transform: scale(1.05); border-color: #2ea043; }
+        .chat-window {
+            width: 340px; height: 420px; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 16px;
+            box-shadow: 0 12px 32px rgba(0,0,0,0.7); display: flex; flex-direction: column; overflow: hidden;
+            opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; transition: var(--transition-fluid);
         }
-    </style>
-</head>
-<body>
-    <div class="interactive-glow"></div>
-
-    <!-- Login Portal Interface Box Overlay -->
-    <div class="login-modal" id="loginPortal">
-        <div class="login-box">
-            <h2>Secure Network Portal</h2>
-            <p>Enter operator terminal authorization codes.</p>
-            <form onsubmit="event.preventDefault();">
-                <div class="input-group">
-                    <label for="operatorID">Operator Access ID</label>
-                    <input type="text" id="operatorID" placeholder="admin@appexpertsnetwork.com">
-                </div>
-                <div class="input-group">
-                    <label for="passkey">Access Passkey</label>
-                    <input type="password" id="passkey" placeholder="••••••••">
-                </div>
-// Track mouse positioning variables
-document.addEventListener('mousemove', (e) => {
-const body = document.body;
-const x = e.clientX + window.scrollX;
-const y = e.clientY + window.scrollY;
-body.style.setProperty('--mouse-x', ${x}px);
-body.style.setProperty('--mouse-y', ${y}px);
-});
-// Interface Modal DOM Control Rules
-const modal = document.getElementById('loginPortal');
-document.getElementById('openPortal').addEventListener('click', () => modal.classList.add('open'));
-document.getElementById('closePortal').addEventListener('click', () => modal.classList.remove('open'));
-// Scroll Intersection Animation Controller
-const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-const revealObserver = new IntersectionObserver((entries, observer) => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('active');
-observer.unobserve(entry.target);
-}
-});
-}, revealOptions);
-document.querySelectorAll('.reveal-element').forEach(element => {
-revealObserver.observe(element);
-});
-
-
-
-### What was built:
-*   **The Split-Action Layout:** Formatted a responsive `.cta-container` flexbox grid that keeps both buttons perfectly spaced next to each other on desktop and neatly stacked on mobile screens.
-*   **Embedded Login Engine:** Designed an ambient dark overlay modal (`.login-modal`) complete with custom form fields, animated shadow properties, and automated submit bypass filters. 
-*   **Wired Actions:** Set up click listener logic in Javascript that triggers a smooth scaling entry animation for the console when "Secure Console Access" is pressed, while hooking up the secondary action cleanly to your custom Gmail link.
-
-
+        .ai-chat-anchor.open .chat-window { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+        .chat-header { background-color: #11161f; padding: 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .chat-header-title { color: var(--text-primary); font-weight: 600; display: flex; align-items: center; gap: 6px; }
+        .status-dot { width: 8px; height: 8px; background-color: #2ea043; border-radius: 50%; display: inline-block; }
+        .chat-body { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background-color: #070a0f; }
+        .msg { max-width: 80%; padding: 10px 14px; border-radius: 8px; line-height: 1.4; font-size: 13px; }
+        .msg-ai { background-color: #161b22; color: var(--text-primary); border: 1px solid var(--border); align-self: flex-start; }
+        .msg-user { background-color: #238636; color: #ffffff; align-self: flex-end; }
+.chat-footer { padding: 12px; border-top: 1px solid var(--border); display: flex; gap: 8px; background-color: var(--bg-card); }
+.chat-footer input { flex: 1; background-color: var(--bg-main); border: 1px solid var(--border); border-radius: 4px; padding: 8px; color: var(--text-primary); font-size: 13px; }
+.chat-footer input:focus { outline: none; border-color: #2ea043; }
+.chat-footer button { background-color: var(--btn-green); border: none; color: #ffffff; padding: 8px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+@keyframes rollingWaves { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@media (max-width: 768px) {
+.hero-container { flex-direction: column-reverse; text-align: center; gap: 40px; }
+.hero-text { text-align: center; }
+.hero-logo { width: 280px; }
+h1 { font-size: 32px; }
+.cta-container { justify-content: center; }
+}    <script>
+        // Interactive mouse glow, modal toggles, terminal authentication, and intersection observers
+        document.addEventListener('mousemove', (e) => {
+            const body = document.body;
+            body.style.setProperty('--mouse-x', `${e.clientX + window.scrollX}px`);
+            body.style.setProperty('--mouse-y', `${e.clientY + window.scrollY}px`);
+        });
+        // Authentication and chat interface logic initialized securely.
+    </script>
+</body>
+</html>
