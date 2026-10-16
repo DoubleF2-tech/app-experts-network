@@ -1,161 +1,223 @@
-:root {
---bg-main: #030508;
---bg-card: #0a0d14;
---border: #1f242c;
---text-primary: #f0f6fc;
---text-secondary: #8b949e;
---accent: #58a6ff;
---btn-green: #238636;
---btn-green-hover: #2ea043;
---transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
---mouse-x: 50%;
---mouse-y: 50%;
-}
-body {
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-background-color: var(--bg-main);
-color: var(--text-secondary);
-margin: 0; padding: 0;
-display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-position: relative;
-overflow-x: hidden;
-}
-body::before, body::after {
-content: "";
-position: fixed;
-top: -50%; left: -50%; width: 200%; height: 200%;
-background: linear-gradient(
-45deg,
-rgba(35, 134, 54, 0.04) 25%,
-transparent 25%, transparent 50%,
-rgba(35, 134, 54, 0.04) 50%, rgba(35, 134, 54, 0.04) 75%,
-transparent 75%, transparent
-);
-background-size: 120px 120px;
-z-index: 1;
-pointer-events: none;
-}
-body::before { animation: rollingWaves 25s linear infinite; opacity: 0.8; }
-body::after { animation: rollingWaves 40s linear infinite reverse; opacity: 0.5; filter: blur(2px); }
-.interactive-glow {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background-image: radial-gradient(
-700px circle at var(--mouse-x) var(--mouse-y),
-rgba(46, 160, 67, 0.06),
-transparent 80%
-);
-z-index: 2;
-pointer-events: none;
-}
-header, main { width: 100%; max-width: 1000px; box-sizing: border-box; position: relative; z-index: 10; }
-header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
-.logo-group { display: flex; align-items: center; gap: 8px; }
-.logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); }
-.badge { background-color: #388bfd1a; color: var(--accent); border: 1px solid #388bfd33; padding: 2px 8px; font-size: 12px; border-radius: 20px; }
-main { padding: 20px; display: flex; flex-direction: column; gap: 60px; }
-.hero-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; padding: 40px 0; }
-.hero-text { flex: 1; text-align: left; }
-.hero-logo {
-max-width: 100%; height: auto; width: 400px; border-radius: 50%;
-box-shadow: 0 0 20px rgba(46, 160, 67, 0.05);
-border: 2px solid var(--border);
-transition: var(--transition-fluid);
-}
-.hero-logo:hover {
-transform: scale(1.03) rotate(1deg);
-box-shadow: 0 0 35px rgba(46, 160, 67, 0.25);
-border-color: #2ea043;
-}
-h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding-bottom: 60px; }
-.reveal-element {
-opacity: 0;
-transform: translateY(30px) scale(0.98);
-transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1),
-transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
-will-change: opacity, transform;
-}
-.reveal-element.active { opacity: 1; transform: translateY(0) scale(1); }
-.card {
-background-color: var(--bg-card);
-border: 1px solid var(--border);
-border-radius: 12px;
-padding: 32px;
-transition: var(--transition-fluid);
-position: relative;
-top: 0;
-backdrop-filter: blur(4px);
-}
-.card:hover {
-top: -6px;
-border-color: #2ea043;
-box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(46, 160, 67, 0.15);
-background-color: #0f141c;
-}
-.card h3 { color: var(--text-primary); margin: 0 0 12px 0; font-size: 20px; transition: var(--transition-fluid); }
-.card:hover h3 { color: #2ea043; }
-.card p { margin: 0; font-size: 15px; line-height: 1.6; }
-.cta-container { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
-.btn {
-display: inline-block;
-background-color: var(--btn-green);
-color: #ffffff;
-text-decoration: none;
-padding: 14px 28px;
-border-radius: 6px;
-font-weight: 600;
-font-size: 16px;
-transition: var(--transition-fluid);
-box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
-border: none;
-cursor: pointer;
-}
-.btn:hover {
-background-color: var(--btn-green-hover);
-transform: translateY(-2px);
-box-shadow: 0 6px 20px rgba(46, 160, 67, 0.5);
-}
-.btn:active { transform: translateY(0); }
-.btn-secondary { background-color: transparent; color: var(--text-primary); border: 1px solid var(--border); box-shadow: none; }
-.btn-secondary:hover { background-color: rgba(240, 246, 252, 0.05); border-color: var(--text-secondary); transform: translateY(-2px); }
-.btn-sm { padding: 8px 16px; font-size: 14px; border-radius: 6px; }
-.login-modal {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background-color: rgba(3, 5, 8, 0.85);
-backdrop-filter: blur(8px);
-display: flex; justify-content: center; align-items: center;
-z-index: 100; opacity: 0; pointer-events: none;
-transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.login-modal.open { opacity: 1; pointer-events: auto; }
-.login-box {
-background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 400px; width: 100%; text-align: center;
-box-shadow: 0 24px 48px rgba(0,0,0,0.8); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-.login-modal.open .login-box { transform: scale(1); }
-.login-box h2 { color: var(--text-primary); margin: 0 0 8px 0; font-size: 26px; }
-.login-box p { color: var(--text-secondary); font-size: 14px; margin: 0 0 24px 0; }
-.input-group { text-align: left; margin-bottom: 20px; }
-.input-group label { display: block; color: var(--text-primary); font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-.input-group input { width: 100%; background-color: var(--bg-main); border: 1px solid var(--border); border-radius: 6px; padding: 12px; color: var(--text-primary); font-size: 15px; box-sizing: border-box; }
-.input-group input:focus { outline: none; border-color: #2ea043; }
-.login-box .btn { width: 100%; margin-top: 10px; }
-.close-modal { background: none; border: none; color: var(--text-secondary); font-size: 14px; cursor: pointer; margin-top: 16px; text-decoration: underline; }
-        /* Remaining CSS styling for the AI chat anchor, toggle button, window, and responsive media queries */
-        .ai-chat-anchor {
-            position: fixed;
-            bottom: 24px; right: 24px;
-            z-index: 90;
-            display: flex; flex-direction: column; align-items: flex-end;
-            font-size: 14px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Experts Network</title>
+    <style>
+        :root {
+            --bg-main: #030508;
+            --bg-card: #0a0d14;
+            --border: #1f242c;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent: #58a6ff;
+            --btn-green: #238636;
+            --btn-green-hover: #2ea043;
+            --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            --mouse-x: 50%;
+            --mouse-y: 50%;
         }
-        /* ... additional chat and responsive layout rules ... */
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-secondary);
+            margin: 0; padding: 0;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient Wave Engine */
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(
+                45deg,
+                rgba(35, 134, 54, 0.04) 25%,
+                transparent 25%, transparent 50%,
+                rgba(35, 134, 54, 0.04) 50%, rgba(35, 134, 54, 0.04) 75%,
+                transparent 75%, transparent
+            );
+            background-size: 120px 120px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        body::before { animation: rollingWaves 25s linear infinite; opacity: 0.8; }
+        body::after { animation: rollingWaves 40s linear infinite reverse; opacity: 0.5; filter: blur(2px); }
+
+        .interactive-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(
+                700px circle at var(--mouse-x) var(--mouse-y),
+                rgba(46, 160, 67, 0.06),
+                transparent 80%
+            );
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        header, main { width: 100%; max-width: 1000px; box-sizing: border-box; position: relative; z-index: 10; }
+        header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .badge { background-color: #388bfd1a; color: var(--accent); border: 1px solid #388bfd33; padding: 2px 8px; font-size: 12px; border-radius: 20px; }
+        
+        main { padding: 20px; display: flex; flex-direction: column; gap: 60px; }
+        .hero-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; padding: 40px 0; }
+        .hero-text { flex: 1; text-align: left; }
+        
+        .hero-logo { 
+            max-width: 100%; height: auto; width: 400px; border-radius: 50%; 
+            box-shadow: 0 0 20px rgba(46, 160, 67, 0.05); 
+            border: 2px solid var(--border); 
+            transition: var(--transition-fluid);
+        }
+        .hero-logo:hover {
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 0 35px rgba(46, 160, 67, 0.25);
+            border-color: #2ea043;
+        }
+
+        h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding-bottom: 60px; }
+        
+        /* 
+           SCROLL REVEAL STYLE ENGINE 
+           Elements start invisible, shifted 30px downwards, with scale slightly compressed.
+        */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
+                        transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
+            will-change: opacity, transform;
+        }
+
+        /* Active class triggered smoothly via JavaScript intersection tracking */
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .card { 
+            background-color: var(--bg-card); 
+            border: 1px solid var(--border); 
+            border-radius: 12px; 
+            padding: 32px; 
+            transition: var(--transition-fluid);
+            position: relative;
+            top: 0;
+            backdrop-filter: blur(4px);
+        }
+        .card:hover { 
+            top: -6px;
+            border-color: #2ea043; 
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(46, 160, 67, 0.15);
+            background-color: #0f141c;
+        }
+        .card h3 { color: var(--text-primary); margin: 0 0 12px 0; font-size: 20px; transition: var(--transition-fluid); }
+        .card:hover h3 { color: #2ea043; }
+        .card p { margin: 0; font-size: 15px; line-height: 1.6; }
+        
+        .btn { 
+            display: inline-block; 
+            background-color: var(--btn-green); 
+            color: #ffffff; 
+            text-decoration: none; 
+            padding: 14px 28px; 
+            border-radius: 6px; 
+            font-weight: 600; 
+            font-size: 16px; 
+            transition: var(--transition-fluid); 
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
+        }
+        .btn:hover { 
+            background-color: var(--btn-green-hover); 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.5);
+        }
+        .btn:active { transform: translateY(0); }
+
+        @keyframes rollingWaves {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column-reverse; text-align: center; gap: 40px; }
+            .hero-text { text-align: center; }
+            .hero-logo { width: 280px; }
+            h1 { font-size: 32px; }
+        }
     </style>
 </head>
 <body>
-    <!-- Closing body elements, modals, header, main grid sections, and interaction scripts -->
-    <!-- You can find the complete continuation code block in the referenced source documents -->
+    <div class="interactive-glow"></div>
+
+    <header><div class="logo-text">⚙️ App Experts Network <span class="badge">Active</span></div></header>
+    <main>
+        <!-- Hero area fades in gracefully right at initialization -->
+        <div class="hero-container reveal-element">
+            <div class="hero-text">
+                <h1>Next-Gen Development <br>& Systems Engineering</h1>
+                <div class="cta-container"><a href="mailto:admin@appexpertsnetwork.com" class="btn">Secure Console Access</a></div>
+            </div>
+            <div class="hero-image-container"><img src="logo.png.png" alt="App Experts Network Logo" class="hero-logo"></div>
+        </div>
+
+        <!-- The grid cards materialize flawlessly as the operator scrolls down -->
+        <div class="grid">
+            <div class="card reveal-element">
+                <h3>🎮 Alpha Environment Testing</h3>
+                <p>Comprehensive gameplay stress-testing and mechanical evaluation across early engine builds to isolate critical bugs before deployment.</p>
+            </div>
+            <div class="card reveal-element">
+                <h3>⚡ Network Load Analysis</h3>
+                <p>Simulating high-capacity player concurrency to verify cluster scaling, minimize package delay, and prevent unexpected server faults.</p>
+            </div>
+            <div class="card reveal-element">
+                <h3>🛠️ Mechanics Optimization</h3>
+                <p>Deep-dive diagnostic reviews of application frameworks and scripts to optimize thread usage and ensure high hardware stability.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Track mouse positioning variables
+        document.addEventListener('mousemove', (e) => {
+            const body = document.body;
+            const x = e.clientX + window.scrollX;
+            const y = e.clientY + window.scrollY;
+            body.style.setProperty('--mouse-x', `${x}px`);
+            body.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        /*
+           SCROLL INTERSECTION ANIMATION CONTROLLER
+           Monitors viewport coordinates and applies the active rendering rules cleanly.
+        */
+        const revealOptions = {
+            threshold: 0.1, // Element activates when 10% of its container crosses the viewport boundary
+            rootMargin: "0px 0px -50px 0px" // Triggers slightly before crossing completely to ensure a fluid transition
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); // Stops observation once rendered to save system runtime processing
+                }
+            });
+        }, revealOptions);
+
+        // Bind tracking to all targeted interface elements
+        document.querySelectorAll('.reveal-element').forEach(element => {
+            revealObserver.observe(element);
+        });
+    </script>
 </body>
 </html>
