@@ -18,7 +18,6 @@ a{color:var(--green)}
 .navlinks a:not(.btn){color:var(--text);text-decoration:none}
 .btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}
 .btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}
-button,input,textarea,select{font:inherit}
 .hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}
 .tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}
 .hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}
@@ -29,30 +28,15 @@ section{padding:75px 7%}
 .section-title{text-align:center;font-size:clamp(28px,4vw,42px)}
 .section-desc{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 35px;line-height:1.7}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
-.card,.request,.admin-panel{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}
+.card,.request{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}
 .card h3{color:var(--green)}
 .card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
 .status{display:inline-block;padding:6px 10px;border-radius:20px;background:#193624;color:#b9ffcf;font-size:12px}
 .status.complete{background:#064c32;color:#8dffbd}
 .empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}
 .request{text-align:center;max-width:750px;margin:auto}
-.admin-panel{max-width:1000px;margin:0 auto}
-.admin-panel h3{color:var(--green)}
-.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
-.field label{font-size:14px;color:var(--muted)}
-.field input,.field textarea,.field select,.modal-content input{width:100%;padding:12px;background:#061009;color:white;border:1px solid #245338;border-radius:7px}
-.field textarea{min-height:100px;resize:vertical}
-.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
-.project-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
-.project-actions button{padding:9px 11px;font-size:12px}
 footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}
 footer a{color:var(--green)}
-.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}
-.modal.show{display:flex}
-.modal-content{width:min(420px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}
-.modal-content h2{color:var(--green)}
-.modal-content input{margin:8px 0}
-.modal-content .btn{width:100%;margin-top:10px}
 .chatbox{position:fixed;bottom:20px;right:20px;width:min(340px,calc(100vw - 40px));background:#09140e;border:1px solid var(--green);border-radius:14px;overflow:hidden;z-index:10}
 .chathead{padding:14px;background:#10331f;color:var(--green);font-weight:bold;display:flex;justify-content:space-between}
 .chatmessages{height:190px;overflow:auto;padding:12px;font-size:14px}
@@ -67,18 +51,15 @@ footer a{color:var(--green)}
 </head>
 <body>
 <div id="glow"></div>
-
 <header class="nav">
 <a class="logo" href="#home">APP EXPERTS NETWORK</a>
 <nav class="navlinks">
 <a href="#services">Services</a>
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
-<button class="btn" onclick="openModal()">Admin Login</button>
 <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
 </nav>
 </header>
-
 <main>
 <section class="hero" id="home">
 <div class="tag">Testing • Quality • Innovation</div>
@@ -86,10 +67,9 @@ footer a{color:var(--green)}
 <p>App Experts Network helps developers and businesses improve their applications through game testing, quality assurance, and useful feedback.</p>
 <div class="actions">
 <a class="btn" href="#contact">Submit a Request</a>
-<a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">✉ Email Us</a>
+<a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us</a>
 </div>
 </section>
-
 <section id="services">
 <h2 class="section-title">What We Do</h2>
 <p class="section-desc">Helping teams identify issues and deliver better app experiences.</p>
@@ -99,236 +79,42 @@ footer a{color:var(--green)}
 <article class="card"><h3>💡 User Feedback</h3><p>Review usability, navigation, and the overall experience of an application.</p></article>
 </div>
 </section>
-
 <section id="projects">
 <h2 class="section-title">Our Projects</h2>
-<p class="section-desc">Explore projects added by the App Experts Network team and see which ones have been completed.</p>
+<p class="section-desc">Our project portfolio will showcase work and milestones as they become available.</p>
 <div id="publicProjects" class="grid"></div>
 </section>
-
-<section id="admin" class="closed">
-<h2 class="section-title">Admin Dashboard</h2>
-<p class="section-desc">Manage the projects displayed on your website.</p>
-<div class="admin-panel">
-<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-<h3>Project Management</h3>
-<button class="btn secondary" onclick="logout()">Log Out</button>
-</div>
-<p style="color:var(--muted)">Add projects, update their status, edit details, or remove them.</p>
-<form id="projectForm">
-<input type="hidden" id="editId">
-<div class="admin-grid">
-<div class="field"><label for="projectName">Project Name</label><input id="projectName" maxlength="100" required placeholder="Example: Game Testing Project"></div>
-<div class="field"><label for="projectStatus">Project Status</label><select id="projectStatus"><option value="In Progress">In Progress</option><option value="Completed">Completed</option></select></div>
-</div>
-<div class="field"><label for="projectDescription">Description</label><textarea id="projectDescription" maxlength="1000" required placeholder="Describe this project..."></textarea></div>
-<div class="actions" style="justify-content:flex-start">
-<button class="btn" id="saveProject" type="submit">Add Project</button>
-<button class="btn secondary" type="button" onclick="resetForm()">Clear Form</button>
-</div>
-</form>
-<hr style="border-color:#17462e;margin:28px 0">
-<h3>Manage Existing Projects</h3>
-<div id="adminProjects" class="grid"></div>
-</div>
-</section>
-
 <section id="contact">
 <h2 class="section-title">Contact Us</h2>
 <p class="section-desc">Have a question or want to work with us? We'd love to hear from you.</p>
 <div class="request">
-<h3>Email App Experts Network</h3>
-<p>Click below to open your email app and contact us directly.</p>
-<a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us: appexpertsnetwork@gmail.com</a>
+<h3>Let's Discuss Your App</h3>
+<p>Tell us about your game-testing, quality-assurance, or application-feedback needs.</p>
+<a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Submit a Request</a>
+<p><a href="mailto:appexpertsnetwork@gmail.com">✉ Email Us: appexpertsnetwork@gmail.com</a></p>
 </div>
 </section>
 </main>
-
-<footer>
-© <span id="year"></span> App Experts Network. All rights reserved.<br>
-<a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a>
-</footer>
-
+<footer>© <span id="year"></span> App Experts Network. All rights reserved.<br><a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a></footer>
 <button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">💬 Chat with us</button>
 <div class="chatbox closed" id="chatbox">
 <div class="chathead">App Experts Assistant <button onclick="toggleChat()" style="background:none;border:0;color:white;cursor:pointer">✕</button></div>
 <div class="chatmessages" id="chatmessages"><div class="message">Hi! 👋 Welcome to App Experts Network. Ask me about our services or project requests.</div></div>
 <form class="chatinput" id="chatform"><input id="chatinput" placeholder="Type your message..." autocomplete="off" required><button type="submit">Send</button></form>
 </div>
-
-<div class="modal" id="modal">
-<div class="modal-content">
-<button onclick="closeModal()" style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">✕</button>
-<h2>Admin Login</h2>
-<form id="loginForm">
-<input id="username" placeholder="Admin username" autocomplete="username" required>
-<input id="password" type="password" placeholder="Admin password" autocomplete="current-password" required>
-<button class="btn" type="submit">Log In</button>
-</form>
-<p id="loginMessage" style="color:var(--muted);font-size:13px;line-height:1.6">Demo login: admin / admin@admin@123</p>
-<a href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
-</div>
-</div>
-
 <script>
 const EMAIL="appexpertsnetwork@gmail.com";
-const STORAGE_KEY="aen_demo_projects_v1";
 document.getElementById("year").textContent=new Date().getFullYear();
-
 document.addEventListener("mousemove",event=>{
 const glow=document.getElementById("glow");
 glow.style.left=event.clientX+"px";
 glow.style.top=event.clientY+"px";
 });
-
-function openModal(){document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-
-function getProjects(){
-try{
-const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
-return Array.isArray(data)?data:[];
-}catch{return []}
-}
-
-function saveProjects(projects){
-localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));
-renderProjects();
-}
-
-function safeText(value){
-return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
-}
-
-function renderProjects(){
-const projects=getProjects();
-const publicArea=document.getElementById("publicProjects");
-const adminArea=document.getElementById("adminProjects");
-
-if(!projects.length){
-publicArea.innerHTML='<div class="empty" style="grid-column:1/-1">No projects have been published yet. Check back soon!</div>';
-adminArea.innerHTML='<div class="empty" style="grid-column:1/-1">You have not added any projects yet.</div>';
-return;
-}
-
-publicArea.innerHTML=projects.map(project=>`
-<article class="card">
-<h3>${safeText(project.name)}</h3>
-<p>${safeText(project.description)}</p>
-<span class="status ${project.status==="Completed"?"complete":""}">${safeText(project.status)}</span>
-</article>`).join("");
-
-adminArea.innerHTML=projects.map(project=>`
-<article class="card">
-<h3>${safeText(project.name)}</h3>
-<p>${safeText(project.description)}</p>
-<span class="status ${project.status==="Completed"?"complete":""}">${safeText(project.status)}</span>
-<div class="project-actions">
-<button class="btn secondary" onclick="editProject('${project.id}')">Edit</button>
-<button class="btn" onclick="toggleComplete('${project.id}')">${project.status==="Completed"?"Reopen":"Mark Complete"}</button>
-<button class="btn secondary" onclick="deleteProject('${project.id}')">Delete</button>
-</div>
-</article>`).join("");
-}
-
-function resetForm(){
-document.getElementById("projectForm").reset();
-document.getElementById("editId").value="";
-document.getElementById("saveProject").textContent="Add Project";
-}
-
-document.getElementById("projectForm").addEventListener("submit",event=>{
-event.preventDefault();
-if(sessionStorage.getItem("aen_admin")!=="yes"){
-alert("Please log in as admin first.");
-return;
-}
-const name=document.getElementById("projectName").value.trim();
-const description=document.getElementById("projectDescription").value.trim();
-const status=document.getElementById("projectStatus").value;
-const editId=document.getElementById("editId").value;
-if(!name||!description)return;
-
-const projects=getProjects();
-if(editId){
-const project=projects.find(item=>item.id===editId);
-if(project){
-project.name=name;
-project.description=description;
-project.status=status;
-}
-}else{
-projects.unshift({
-id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),
-name,description,status
-});
-}
-saveProjects(projects);
-resetForm();
-});
-
-function editProject(id){
-if(sessionStorage.getItem("aen_admin")!=="yes")return;
-const project=getProjects().find(item=>item.id===id);
-if(!project)return;
-document.getElementById("editId").value=project.id;
-document.getElementById("projectName").value=project.name;
-document.getElementById("projectDescription").value=project.description;
-document.getElementById("projectStatus").value=project.status;
-document.getElementById("saveProject").textContent="Save Changes";
-document.getElementById("admin").scrollIntoView({behavior:"smooth"});
-}
-
-function toggleComplete(id){
-if(sessionStorage.getItem("aen_admin")!=="yes")return;
-const projects=getProjects();
-const project=projects.find(item=>item.id===id);
-if(!project)return;
-project.status=project.status==="Completed"?"In Progress":"Completed";
-saveProjects(projects);
-}
-
-function deleteProject(id){
-if(sessionStorage.getItem("aen_admin")!=="yes")return;
-if(!confirm("Are you sure you want to delete this project?"))return;
-saveProjects(getProjects().filter(project=>project.id!==id));
-if(document.getElementById("editId").value===id)resetForm();
-}
-
-document.getElementById("loginForm").addEventListener("submit",event=>{
-event.preventDefault();
-const username=document.getElementById("username").value;
-const password=document.getElementById("password").value;
-
-if(username==="admin"&&password==="admin@admin@123"){
-sessionStorage.setItem("aen_admin","yes");
-document.getElementById("admin").classList.remove("closed");
-document.getElementById("loginMessage").textContent="Admin demo session started.";
-closeModal();
-renderProjects();
-document.getElementById("admin").scrollIntoView({behavior:"smooth"});
-}else{
-document.getElementById("loginMessage").textContent="Incorrect demo credentials.";
-}
-});
-
-function logout(){
-sessionStorage.removeItem("aen_admin");
-document.getElementById("admin").classList.add("closed");
-resetForm();
-document.getElementById("home").scrollIntoView({behavior:"smooth"});
-}
-
-document.getElementById("modal").addEventListener("click",event=>{
-if(event.target.id==="modal")closeModal();
-});
-
 function toggleChat(){
 const box=document.getElementById("chatbox");
 box.classList.toggle("closed");
 document.getElementById("chatToggle").style.display=box.classList.contains("closed")?"block":"none";
 }
-
 function addMessage(text){
 const message=document.createElement("div");
 message.className="message";
@@ -337,7 +123,6 @@ const area=document.getElementById("chatmessages");
 area.appendChild(message);
 area.scrollTop=area.scrollHeight;
 }
-
 document.getElementById("chatform").addEventListener("submit",event=>{
 event.preventDefault();
 const input=document.getElementById("chatinput");
@@ -360,12 +145,8 @@ reply="Thanks for reaching out! Email "+EMAIL+" for further assistance.";
 }
 setTimeout(()=>addMessage("Assistant: "+reply),250);
 });
-
-renderProjects();
-
-if(sessionStorage.getItem("aen_admin")==="yes"){
-document.getElementById("admin").classList.remove("closed");
-}
+const projectsArea=document.getElementById("publicProjects");
+projectsArea.innerHTML='<div class="empty" style="grid-column:1/-1">Our project portfolio is coming soon. Have a project in mind? <a href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Contact us</a>.</div>';
 </script>
 </body>
 </html>
