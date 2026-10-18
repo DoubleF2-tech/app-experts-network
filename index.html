@@ -1353,23 +1353,57 @@ document.getElementById("ghCheck").onclick = async () => {
     }
 };
 
+/*
+ * FIX:
+ * Always publish the public homepage, even if publishing is started
+ * while the admin dashboard is open.
+ */
 function pageForPublishing() {
     const clone = document.documentElement.cloneNode(true);
 
+    // Always make the public homepage visible in the published file.
+    const publicSite = clone.querySelector("#publicSite");
+    const dashboard = clone.querySelector("#dashboard");
+    const publicNav = clone.querySelector("#publicNav");
+    const adminNav = clone.querySelector("#adminNav");
+
+    if (publicSite) publicSite.style.display = "block";
+    if (dashboard) dashboard.style.display = "none";
+    if (publicNav) publicNav.style.display = "flex";
+    if (adminNav) adminNav.style.display = "none";
+
+    // Never publish an open login modal.
+    const modal = clone.querySelector("#modal");
+    if (modal) modal.classList.remove("show");
+
+    // Always publish with the chat closed and its button visible.
+    const chatbox = clone.querySelector("#chatbox");
+    const chatToggle = clone.querySelector("#chatToggle");
+
+    if (chatbox) chatbox.classList.add("closed");
+    if (chatToggle) chatToggle.style.display = "block";
+
+    // Clear login fields and reset login messaging in the published file.
+    const loginForm = clone.querySelector("#loginForm");
+    if (loginForm) loginForm.reset();
+
+    const loginMessage = clone.querySelector("#loginMessage");
+    if (loginMessage) {
+        loginMessage.textContent = "Enter your admin login details.";
+    }
+
+    // Remove the GitHub token input entirely from the published HTML.
     const token = clone.querySelector("#ghToken");
+    if (token) token.remove();
 
-    if (token) {
-        token.value = "";
-        token.removeAttribute("value");
-        token.remove();
-    }
-
+    // Reset publishing status so it does not show old admin messages.
     const status = clone.querySelector("#ghStatus");
-
     if (status) {
-        status.textContent = "Enter your GitHub token in the admin dashboard to publish changes.";
+        status.textContent =
+            "Enter your GitHub token in the admin dashboard to publish changes.";
     }
 
+    // Embed the current projects and reviews in the published page.
     const pd = clone.querySelector("#" + DATA_ID);
 
     if (pd) {
