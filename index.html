@@ -2,620 +2,370 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Experts Network</title>
-  <style>
-    :root {
-      --bg: #050b08;
-      --green: #00ff88;
-      --panel: #0b1711;
-      --text: #e8fff0;
-      --muted: #9ab6a4;
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
-
-    #glow {
-      position: fixed;
-      width: 350px;
-      height: 350px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(0,255,136,.15), transparent 70%);
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: -1;
-    }
-
-    .nav {
-      position: sticky;
-      top: 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      padding: 18px 7%;
-      background: rgba(5,11,8,.9);
-      backdrop-filter: blur(15px);
-      border-bottom: 1px solid #143c27;
-      z-index: 5;
-    }
-
-    .logo {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--green);
-      text-decoration: none;
-    }
-
-    .navlinks {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-
-    .nav a, .email {
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      border-radius: 9px;
-      background: var(--green);
-      color: #031108 !important;
-      font-weight: bold;
-      text-decoration: none;
-      border: 0;
-      cursor: pointer;
-    }
-
-    .btn.secondary {
-      background: transparent;
-      border: 1px solid var(--green);
-      color: var(--green) !important;
-    }
-
-    .hero {
-      min-height: 76vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 70px 7%;
-    }
-
-    .tag {
-      color: var(--green);
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .hero h1 {
-      font-size: clamp(38px, 7vw, 76px);
-      max-width: 900px;
-      margin: 18px 0;
-      line-height: 1.05;
-    }
-
-    .hero h1 span { color: var(--green); }
-
-    .hero p {
-      max-width: 650px;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-    }
-
-    section { padding: 75px 7%; }
-
-    .section-title {
-      text-align: center;
-      font-size: clamp(28px, 4vw, 42px);
-    }
-
-    .section-desc {
-      text-align: center;
-      color: var(--muted);
-      max-width: 650px;
-      margin: 0 auto 35px;
-      line-height: 1.7;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      padding: 25px;
-      border: 1px solid #17462e;
-      border-radius: 15px;
-      background: rgba(11,23,17,.85);
-    }
-
-    .card h3 { color: var(--green); }
-
-    .card p {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .request {
-      text-align: center;
-      max-width: 750px;
-      margin: auto;
-      padding: 35px;
-      border: 1px solid #17462e;
-      border-radius: 18px;
-      background: var(--panel);
-    }
-
-    .request p {
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: var(--muted);
-      border-top: 1px solid #143c27;
-    }
-
-    footer a { color: var(--green); }
-
-    .chatbox {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: min(340px, calc(100vw - 40px));
-      background: #09140e;
-      border: 1px solid var(--green);
-      border-radius: 14px;
-      overflow: hidden;
-      z-index: 10;
-    }
-
-    .chathead {
-      padding: 14px;
-      background: #10331f;
-      color: var(--green);
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .chatmessages {
-      height: 190px;
-      overflow: auto;
-      padding: 12px;
-      font-size: 14px;
-    }
-
-    .message {
-      padding: 9px 11px;
-      margin: 7px 0;
-      border-radius: 9px;
-      background: #12261a;
-      line-height: 1.5;
-    }
-
-    .chatinput {
-      display: flex;
-      border-top: 1px solid #17462e;
-    }
-
-    .chatinput input {
-      min-width: 0;
-      flex: 1;
-      padding: 12px;
-      background: transparent;
-      border: 0;
-      color: white;
-      outline: none;
-    }
-
-    .chatinput button {
-      background: var(--green);
-      border: 0;
-      padding: 0 14px;
-      cursor: pointer;
-    }
-
-    .chat-toggle {
-      position: fixed;
-      right: 20px;
-      bottom: 20px;
-      z-index: 9;
-    }
-
-    .chatbox.closed { display: none; }
-
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #000c;
-      z-index: 20;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal.show { display: flex; }
-
-    .modal-content {
-      width: min(400px, 100%);
-      background: #0b1711;
-      border: 1px solid var(--green);
-      border-radius: 15px;
-      padding: 25px;
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      background: #061009;
-      color: white;
-      border: 1px solid #245338;
-      border-radius: 7px;
-    }
-
-    .modal-content h2 { color: var(--green); }
-
-    .modal-content .btn {
-      width: 100%;
-      margin-top: 8px;
-    }
-
-    @media (max-width: 600px) {
-      .nav {
-        padding: 15px 4%;
-        align-items: flex-start;
-      }
-
-      .navlinks {
-        gap: 10px;
-        font-size: 13px;
-      }
-
-      .logo { font-size: 16px; }
-
-      .chatbox {
-        bottom: 10px;
-        right: 10px;
-      }
-
-      .hero { min-height: 65vh; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Experts Network</title>
+<style>
+:root{--bg:#050b08;--green:#00ff88;--panel:#0b1711;--text:#e8fff0;--muted:#9ab6a4}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden}
+#glow{position:fixed;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.15),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:-1}
+a{color:var(--green)}
+.nav{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 7%;background:rgba(5,11,8,.94);backdrop-filter:blur(15px);border-bottom:1px solid #143c27;z-index:5}
+.logo{font-size:20px;font-weight:bold;color:var(--green);text-decoration:none}
+.navlinks{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.navlinks a:not(.btn){color:var(--text);text-decoration:none}
+.btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}
+.btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}
+button,input,textarea,select{font:inherit}
+.hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}
+.tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}
+.hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}
+.hero h1 span{color:var(--green)}
+.hero p{max-width:650px;color:var(--muted);line-height:1.8}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+section{padding:75px 7%}
+.section-title{text-align:center;font-size:clamp(28px,4vw,42px)}
+.section-desc{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 35px;line-height:1.7}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+.card,.request,.admin-panel{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}
+.card h3{color:var(--green)}
+.card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
+.status{display:inline-block;padding:6px 10px;border-radius:20px;background:#193624;color:#b9ffcf;font-size:12px}
+.status.complete{background:#064c32;color:#8dffbd}
+.empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}
+.request{text-align:center;max-width:750px;margin:auto}
+.admin-panel{max-width:1000px;margin:0 auto}
+.admin-panel h3{color:var(--green)}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}
+.field label{font-size:14px;color:var(--muted)}
+.field input,.field textarea,.field select,.modal-content input{width:100%;padding:12px;background:#061009;color:white;border:1px solid #245338;border-radius:7px}
+.field textarea{min-height:100px;resize:vertical}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.project-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.project-actions button{padding:9px 11px;font-size:12px}
+footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}
+footer a{color:var(--green)}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-content{width:min(420px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}
+.modal-content h2{color:var(--green)}
+.modal-content input{margin:8px 0}
+.modal-content .btn{width:100%;margin-top:10px}
+.chatbox{position:fixed;bottom:20px;right:20px;width:min(340px,calc(100vw - 40px));background:#09140e;border:1px solid var(--green);border-radius:14px;overflow:hidden;z-index:10}
+.chathead{padding:14px;background:#10331f;color:var(--green);font-weight:bold;display:flex;justify-content:space-between}
+.chatmessages{height:190px;overflow:auto;padding:12px;font-size:14px}
+.message{padding:9px 11px;margin:7px 0;border-radius:9px;background:#12261a;line-height:1.5;overflow-wrap:anywhere}
+.chatinput{display:flex;border-top:1px solid #17462e}
+.chatinput input{min-width:0;flex:1;padding:12px;background:transparent;border:0;color:white;outline:none}
+.chatinput button{background:var(--green);border:0;padding:0 14px;cursor:pointer}
+.chat-toggle{position:fixed;right:20px;bottom:20px;z-index:9}
+.closed{display:none!important}
+@media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
+</style>
 </head>
 <body>
-  <div id="glow"></div>
+<div id="glow"></div>
 
-  <header class="nav">
-    <a class="logo" href="#home">APP EXPERTS NETWORK</a>
+<header class="nav">
+<a class="logo" href="#home">APP EXPERTS NETWORK</a>
+<nav class="navlinks">
+<a href="#services">Services</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+<button class="btn" onclick="openModal()">Admin Login</button>
+<a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
+</nav>
+</header>
 
-    <nav class="navlinks">
-      <a href="#services">Services</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
+<main>
+<section class="hero" id="home">
+<div class="tag">Testing • Quality • Innovation</div>
+<h1>We Help Apps Become <span>Exceptional.</span></h1>
+<p>App Experts Network helps developers and businesses improve their applications through game testing, quality assurance, and useful feedback.</p>
+<div class="actions">
+<a class="btn" href="#contact">Submit a Request</a>
+<a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">✉ Email Us</a>
+</div>
+</section>
 
-      <button class="btn" onclick="openModal('login')">
-        Login
-      </button>
+<section id="services">
+<h2 class="section-title">What We Do</h2>
+<p class="section-desc">Helping teams identify issues and deliver better app experiences.</p>
+<div class="grid">
+<article class="card"><h3>🎮 Game Testing</h3><p>Explore gameplay, identify bugs, and provide feedback to improve the player experience.</p></article>
+<article class="card"><h3>🔍 Quality Assurance</h3><p>Review application functionality, report issues, and identify improvements.</p></article>
+<article class="card"><h3>💡 User Feedback</h3><p>Review usability, navigation, and the overall experience of an application.</p></article>
+</div>
+</section>
 
-      <a class="btn secondary"
-         href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">
-        Email Us
-      </a>
-    </nav>
-  </header>
+<section id="projects">
+<h2 class="section-title">Our Projects</h2>
+<p class="section-desc">Explore projects added by the App Experts Network team and see which ones have been completed.</p>
+<div id="publicProjects" class="grid"></div>
+</section>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="tag">Testing • Quality • Innovation</div>
+<section id="admin" class="closed">
+<h2 class="section-title">Admin Dashboard</h2>
+<p class="section-desc">Manage the projects displayed on your website.</p>
+<div class="admin-panel">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+<h3>Project Management</h3>
+<button class="btn secondary" onclick="logout()">Log Out</button>
+</div>
+<p style="color:var(--muted)">Add projects, update their status, edit details, or remove them.</p>
+<form id="projectForm">
+<input type="hidden" id="editId">
+<div class="admin-grid">
+<div class="field"><label for="projectName">Project Name</label><input id="projectName" maxlength="100" required placeholder="Example: Game Testing Project"></div>
+<div class="field"><label for="projectStatus">Project Status</label><select id="projectStatus"><option value="In Progress">In Progress</option><option value="Completed">Completed</option></select></div>
+</div>
+<div class="field"><label for="projectDescription">Description</label><textarea id="projectDescription" maxlength="1000" required placeholder="Describe this project..."></textarea></div>
+<div class="actions" style="justify-content:flex-start">
+<button class="btn" id="saveProject" type="submit">Add Project</button>
+<button class="btn secondary" type="button" onclick="resetForm()">Clear Form</button>
+</div>
+</form>
+<hr style="border-color:#17462e;margin:28px 0">
+<h3>Manage Existing Projects</h3>
+<div id="adminProjects" class="grid"></div>
+</div>
+</section>
 
-      <h1>
-        We Help Apps Become
-        <span>Exceptional.</span>
-      </h1>
+<section id="contact">
+<h2 class="section-title">Contact Us</h2>
+<p class="section-desc">Have a question or want to work with us? We'd love to hear from you.</p>
+<div class="request">
+<h3>Email App Experts Network</h3>
+<p>Click below to open your email app and contact us directly.</p>
+<a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us: appexpertsnetwork@gmail.com</a>
+</div>
+</section>
+</main>
 
-      <p>
-        App Experts Network helps developers and businesses
-        improve their applications through thoughtful testing,
-        useful feedback, and quality-focused collaboration.
-      </p>
+<footer>
+© <span id="year"></span> App Experts Network. All rights reserved.<br>
+<a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a>
+</footer>
 
-      <div class="actions">
-        <a class="btn" href="#contact">Submit a Request</a>
+<button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">💬 Chat with us</button>
+<div class="chatbox closed" id="chatbox">
+<div class="chathead">App Experts Assistant <button onclick="toggleChat()" style="background:none;border:0;color:white;cursor:pointer">✕</button></div>
+<div class="chatmessages" id="chatmessages"><div class="message">Hi! 👋 Welcome to App Experts Network. Ask me about our services or project requests.</div></div>
+<form class="chatinput" id="chatform"><input id="chatinput" placeholder="Type your message..." autocomplete="off" required><button type="submit">Send</button></form>
+</div>
 
-        <a class="btn secondary"
-           href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">
-          ✉ Email Us
-        </a>
+<div class="modal" id="modal">
+<div class="modal-content">
+<button onclick="closeModal()" style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">✕</button>
+<h2>Admin Login</h2>
+<form id="loginForm">
+<input id="username" placeholder="Admin username" autocomplete="username" required>
+<input id="password" type="password" placeholder="Admin password" autocomplete="current-password" required>
+<button class="btn" type="submit">Log In</button>
+</form>
+<p id="loginMessage" style="color:var(--muted);font-size:13px;line-height:1.6">Demo login: admin / admin@admin@123</p>
+<a href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
+</div>
+</div>
 
-        <button class="btn secondary" onclick="openModal('signup')">
-          Sign Up
-        </button>
-      </div>
-    </section>
+<script>
+const EMAIL="appexpertsnetwork@gmail.com";
+const STORAGE_KEY="aen_demo_projects_v1";
+document.getElementById("year").textContent=new Date().getFullYear();
 
-    <section id="services">
-      <h2 class="section-title">What We Do</h2>
+document.addEventListener("mousemove",event=>{
+const glow=document.getElementById("glow");
+glow.style.left=event.clientX+"px";
+glow.style.top=event.clientY+"px";
+});
 
-      <p class="section-desc">
-        Helping teams identify issues, improve usability,
-        and deliver better app experiences.
-      </p>
+function openModal(){document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
 
-      <div class="grid">
-        <article class="card">
-          <h3>🎮 Game Testing</h3>
-          <p>
-            Explore gameplay, identify bugs, and provide useful
-            feedback to improve the player experience.
-          </p>
-        </article>
+function getProjects(){
+try{
+const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+return Array.isArray(data)?data:[];
+}catch{return []}
+}
 
-        <article class="card">
-          <h3>🔍 Quality Assurance</h3>
-          <p>
-            Review application functionality, report issues,
-            and identify areas for improvement.
-          </p>
-        </article>
+function saveProjects(projects){
+localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));
+renderProjects();
+}
 
-        <article class="card">
-          <h3>💡 User Feedback</h3>
-          <p>
-            Get practical feedback about usability, navigation,
-            and the overall experience of your application.
-          </p>
-        </article>
-      </div>
-    </section>
+function safeText(value){
+return String(value??"").replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+}
 
-    <section id="projects">
-      <h2 class="section-title">Have a Project?</h2>
+function renderProjects(){
+const projects=getProjects();
+const publicArea=document.getElementById("publicProjects");
+const adminArea=document.getElementById("adminProjects");
 
-      <p class="section-desc">
-        Tell us what you need and get in touch with our team.
-      </p>
+if(!projects.length){
+publicArea.innerHTML='<div class="empty" style="grid-column:1/-1">No projects have been published yet. Check back soon!</div>';
+adminArea.innerHTML='<div class="empty" style="grid-column:1/-1">You have not added any projects yet.</div>';
+return;
+}
 
-      <div class="request">
-        <h3>Let's Discuss Your App</h3>
+publicArea.innerHTML=projects.map(project=>`
+<article class="card">
+<h3>${safeText(project.name)}</h3>
+<p>${safeText(project.description)}</p>
+<span class="status ${project.status==="Completed"?"complete":""}">${safeText(project.status)}</span>
+</article>`).join("");
 
-        <p>
-          Need game testing, application feedback, or help
-          reviewing your project? Email us with a description
-          of your requirements.
-        </p>
+adminArea.innerHTML=projects.map(project=>`
+<article class="card">
+<h3>${safeText(project.name)}</h3>
+<p>${safeText(project.description)}</p>
+<span class="status ${project.status==="Completed"?"complete":""}">${safeText(project.status)}</span>
+<div class="project-actions">
+<button class="btn secondary" onclick="editProject('${project.id}')">Edit</button>
+<button class="btn" onclick="toggleComplete('${project.id}')">${project.status==="Completed"?"Reopen":"Mark Complete"}</button>
+<button class="btn secondary" onclick="deleteProject('${project.id}')">Delete</button>
+</div>
+</article>`).join("");
+}
 
-        <a class="btn"
-           href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request&body=Hello%20App%20Experts%20Network%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project.%0A%0AProject%20details%3A%0A">
-          Submit a Request
-        </a>
-      </div>
-    </section>
+function resetForm(){
+document.getElementById("projectForm").reset();
+document.getElementById("editId").value="";
+document.getElementById("saveProject").textContent="Add Project";
+}
 
-    <section id="contact">
-      <h2 class="section-title">Contact Us</h2>
+document.getElementById("projectForm").addEventListener("submit",event=>{
+event.preventDefault();
+if(sessionStorage.getItem("aen_admin")!=="yes"){
+alert("Please log in as admin first.");
+return;
+}
+const name=document.getElementById("projectName").value.trim();
+const description=document.getElementById("projectDescription").value.trim();
+const status=document.getElementById("projectStatus").value;
+const editId=document.getElementById("editId").value;
+if(!name||!description)return;
 
-      <p class="section-desc">
-        Have a question or want to work with us?
-        We would love to hear from you.
-      </p>
+const projects=getProjects();
+if(editId){
+const project=projects.find(item=>item.id===editId);
+if(project){
+project.name=name;
+project.description=description;
+project.status=status;
+}
+}else{
+projects.unshift({
+id:Date.now().toString(36)+Math.random().toString(36).slice(2,8),
+name,description,status
+});
+}
+saveProjects(projects);
+resetForm();
+});
 
-      <div class="request">
-        <h3>Email App Experts Network</h3>
+function editProject(id){
+if(sessionStorage.getItem("aen_admin")!=="yes")return;
+const project=getProjects().find(item=>item.id===id);
+if(!project)return;
+document.getElementById("editId").value=project.id;
+document.getElementById("projectName").value=project.name;
+document.getElementById("projectDescription").value=project.description;
+document.getElementById("projectStatus").value=project.status;
+document.getElementById("saveProject").textContent="Save Changes";
+document.getElementById("admin").scrollIntoView({behavior:"smooth"});
+}
 
-        <p>
-          Click below to open your email app and contact us directly.
-        </p>
+function toggleComplete(id){
+if(sessionStorage.getItem("aen_admin")!=="yes")return;
+const projects=getProjects();
+const project=projects.find(item=>item.id===id);
+if(!project)return;
+project.status=project.status==="Completed"?"In Progress":"Completed";
+saveProjects(projects);
+}
 
-        <a class="btn"
-           href="mailto:appexpertsnetwork@gmail.com">
-          ✉ Email Us: appexpertsnetwork@gmail.com
-        </a>
-      </div>
-    </section>
-  </main>
+function deleteProject(id){
+if(sessionStorage.getItem("aen_admin")!=="yes")return;
+if(!confirm("Are you sure you want to delete this project?"))return;
+saveProjects(getProjects().filter(project=>project.id!==id));
+if(document.getElementById("editId").value===id)resetForm();
+}
 
-  <footer>
-    © <span id="year"></span> App Experts Network. All rights reserved.
-    <br><br>
-    <a href="mailto:appexpertsnetwork@gmail.com">
-      appexpertsnetwork@gmail.com
-    </a>
-  </footer>
+document.getElementById("loginForm").addEventListener("submit",event=>{
+event.preventDefault();
+const username=document.getElementById("username").value;
+const password=document.getElementById("password").value;
 
-  <button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">
-    💬 Chat with us
-  </button>
+if(username==="admin"&&password==="admin@admin@123"){
+sessionStorage.setItem("aen_admin","yes");
+document.getElementById("admin").classList.remove("closed");
+document.getElementById("loginMessage").textContent="Admin demo session started.";
+closeModal();
+renderProjects();
+document.getElementById("admin").scrollIntoView({behavior:"smooth"});
+}else{
+document.getElementById("loginMessage").textContent="Incorrect demo credentials.";
+}
+});
 
-  <div class="chatbox closed" id="chatbox">
-    <div class="chathead">
-      App Experts Assistant
-      <button onclick="toggleChat()"
-              style="background:none;border:0;color:white;cursor:pointer">
-        ✕
-      </button>
-    </div>
+function logout(){
+sessionStorage.removeItem("aen_admin");
+document.getElementById("admin").classList.add("closed");
+resetForm();
+document.getElementById("home").scrollIntoView({behavior:"smooth"});
+}
 
-    <div class="chatmessages" id="chatmessages">
-      <div class="message">
-        Hi! 👋 Welcome to App Experts Network.
-        Ask me about our services or project requests.
-      </div>
-    </div>
+document.getElementById("modal").addEventListener("click",event=>{
+if(event.target.id==="modal")closeModal();
+});
 
-    <form class="chatinput" id="chatform">
-      <input id="chatinput"
-             placeholder="Type your message..."
-             autocomplete="off"
-             required>
-      <button type="submit">Send</button>
-    </form>
-  </div>
+function toggleChat(){
+const box=document.getElementById("chatbox");
+box.classList.toggle("closed");
+document.getElementById("chatToggle").style.display=box.classList.contains("closed")?"block":"none";
+}
 
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <button onclick="closeModal()"
-              style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">
-        ✕
-      </button>
+function addMessage(text){
+const message=document.createElement("div");
+message.className="message";
+message.textContent=text;
+const area=document.getElementById("chatmessages");
+area.appendChild(message);
+area.scrollTop=area.scrollHeight;
+}
 
-      <h2 id="modalTitle">Login</h2>
+document.getElementById("chatform").addEventListener("submit",event=>{
+event.preventDefault();
+const input=document.getElementById("chatinput");
+const text=input.value.trim();
+if(!text)return;
+addMessage("You: "+text);
+input.value="";
+const question=text.toLowerCase();
+let reply;
+if(question.includes("email")||question.includes("contact")){
+reply="Email our team at "+EMAIL+".";
+}else if(question.includes("project")||question.includes("request")){
+reply="To discuss a project, email "+EMAIL+".";
+}else if(question.includes("game")||question.includes("test")){
+reply="We focus on game testing, bug reporting, and gameplay feedback. Contact us at "+EMAIL+".";
+}else if(question.includes("service")){
+reply="We offer game testing, quality assurance, and user feedback.";
+}else{
+reply="Thanks for reaching out! Email "+EMAIL+" for further assistance.";
+}
+setTimeout(()=>addMessage("Assistant: "+reply),250);
+});
 
-      <form id="authform">
-        <input id="username" placeholder="Username" required>
-        <input id="password" type="password" placeholder="Password" required>
-        <button class="btn" type="submit" id="authSubmit">
-          Login
-        </button>
-      </form>
+renderProjects();
 
-      <p id="authMessage" style="color:#9ab6a4;font-size:13px;line-height:1.6">
-        Demo interface only. Secure authentication requires a backend.
-      </p>
-
-      <button class="btn secondary"
-              style="width:100%"
-              onclick="switchAuth()">
-        Switch to Sign Up
-      </button>
-
-      <a class="email"
-         style="display:block;text-align:center;margin-top:15px"
-         href="mailto:appexpertsnetwork@gmail.com">
-        Email Us
-      </a>
-    </div>
-  </div>
-
-  <script>
-    const EMAIL = "appexpertsnetwork@gmail.com";
-
-    document.getElementById("year").textContent =
-      new Date().getFullYear();
-
-    document.addEventListener("mousemove", event => {
-      const glow = document.getElementById("glow");
-      glow.style.left = event.clientX + "px";
-      glow.style.top = event.clientY + "px";
-    });
-
-    let authMode = "login";
-
-    function openModal(mode) {
-      authMode = mode;
-      updateAuth();
-      document.getElementById("modal").classList.add("show");
-    }
-
-    function closeModal() {
-      document.getElementById("modal").classList.remove("show");
-    }
-
-    function switchAuth() {
-      authMode = authMode === "login" ? "signup" : "login";
-      updateAuth();
-    }
-
-    function updateAuth() {
-      document.getElementById("modalTitle").textContent =
-        authMode === "login" ? "Login" : "Create Account";
-
-      document.getElementById("authSubmit").textContent =
-        authMode === "login" ? "Login" : "Sign Up";
-
-      document.getElementById("authMessage").textContent =
-        "Demo interface only. Do not enter a real password. Secure authentication requires a backend.";
-    }
-
-    document.getElementById("authform").addEventListener("submit", event => {
-      event.preventDefault();
-
-      document.getElementById("authMessage").textContent =
-        "This is a front-end demo and does not create accounts or authenticate users. Email " +
-        EMAIL + " for assistance.";
-    });
-
-    function toggleChat() {
-      const box = document.getElementById("chatbox");
-      box.classList.toggle("closed");
-
-      document.getElementById("chatToggle").style.display =
-        box.classList.contains("closed") ? "block" : "none";
-    }
-
-    function addMessage(text) {
-      const message = document.createElement("div");
-      message.className = "message";
-      message.textContent = text;
-
-      const messages = document.getElementById("chatmessages");
-      messages.appendChild(message);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    document.getElementById("chatform").addEventListener("submit", event => {
-      event.preventDefault();
-
-      const input = document.getElementById("chatinput");
-      const text = input.value.trim();
-
-      if (!text) return;
-
-      addMessage("You: " + text);
-      input.value = "";
-
-      const question = text.toLowerCase();
-      let reply;
-
-      if (question.includes("email") || question.includes("contact")) {
-        reply = "You can contact our team at " + EMAIL + ".";
-      } else if (question.includes("game") || question.includes("test")) {
-        reply = "We focus on game testing, bug reporting, and gameplay feedback. Email us to discuss your project.";
-      } else if (question.includes("project") || question.includes("request")) {
-        reply = "To submit a project request, use the Submit a Request button or email " + EMAIL + ".";
-      } else if (question.includes("service")) {
-        reply = "We offer game testing, quality assurance, and user feedback.";
-      } else {
-        reply = "Thanks for reaching out! For further assistance, please email " + EMAIL + ".";
-      }
-
-      setTimeout(() => addMessage("Assistant: " + reply), 250);
-    });
-
-    document.getElementById("modal").addEventListener("click", event => {
-      if (event.target.id === "modal") closeModal();
-    });
-  </script>
+if(sessionStorage.getItem("aen_admin")==="yes"){
+document.getElementById("admin").classList.remove("closed");
+}
+</script>
 </body>
 </html>
