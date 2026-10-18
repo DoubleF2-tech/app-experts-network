@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>App Experts Network</title>
 <style>
-:root{--bg:#050b08;--green:#00ff88;--panel:#0b1711;--text:#e8fff0;--muted:#9ab6a4}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden}#glow{position:fixed;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.15),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:-1}a{color:var(--green)}.nav{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 7%;background:rgba(5,11,8,.94);backdrop-filter:blur(15px);border-bottom:1px solid #143c27;z-index:5}.logo{font-size:20px;font-weight:bold;color:var(--green);text-decoration:none}.navlinks{display:flex;align-items:center;gap:15px;flex-wrap:wrap}.navlinks a:not(.btn){color:var(--text);text-decoration:none}.btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}.btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}.btn.danger{background:#702b2b;color:white!important}.hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}.tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}.hero h1 span{color:var(--green)}.hero p{max-width:650px;color:var(--muted);line-height:1.8}section{padding:75px 7%}.section-title{text-align:center;font-size:clamp(28px,4vw,42px)}.section-desc{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 35px;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}.card,.request{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}.card h3{color:var(--green)}.card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}.empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}.review-stars{color:var(--green);font-size:23px;letter-spacing:3px;margin:8px 0}.review-card{position:relative}.review-card h3{overflow-wrap:anywhere}.review-quote{font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere}footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}footer a{color:var(--green)}.chatbox{position:fixed;bottom:20px;right:20px;width:min(340px,calc(100vw - 40px));background:#09140e;border:1px solid var(--green);border-radius:14px;overflow:hidden;z-index:10}.chathead{padding:14px;background:#10331f;color:var(--green);font-weight:bold;display:flex;justify-content:space-between}.chatmessages{height:190px;overflow:auto;padding:12px;font-size:14px}.message{padding:9px 11px;margin:7px 0;border-radius:9px;background:#12261a;line-height:1.5;overflow-wrap:anywhere}.chatinput{display:flex;border-top:1px solid #17462e}.chatinput input{min-width:0;flex:1;padding:12px;background:transparent;border:0;color:white;outline:none}.chatinput button{background:var(--green);border:0;padding:0 14px;cursor:pointer}.chat-toggle{position:fixed;right:20px;bottom:20px;z-index:9}.closed{display:none!important}.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-content{width:min(440px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}.modal-content h2,.admin-panel h2,.admin-panel h3{color:var(--green)}.modal-content input{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.modal-content .btn{width:100%;margin-top:10px}#dashboard{display:none;min-height:75vh}.admin-panel{max-width:1000px;margin:auto}.admin-form{padding:22px;border:1px solid #17462e;border-radius:14px;margin:25px 0}.admin-input,.admin-textarea,.admin-select{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.admin-textarea{min-height:100px;resize:vertical}.project-actions,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.actions{justify-content:center}.status{color:var(--green);font-size:13px;overflow-wrap:anywhere;white-space:pre-wrap}.admin-label{display:block;margin-top:12px;color:var(--muted);font-size:13px}.admin-note{color:var(--muted);font-size:13px;line-height:1.6}.service-editor{border:1px solid #17462e;border-radius:10px;padding:14px;margin:12px 0}.service-editor .admin-input,.service-editor .admin-textarea{margin:5px 0}.account-card{padding:16px;border:1px solid #17462e;border-radius:10px;margin:10px 0;background:#09140e;overflow-wrap:anywhere}.account-card strong{color:var(--green)}@media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
+:root{--bg:#050b08;--green:#00ff88;--panel:#0b1711;--text:#e8fff0;--muted:#9ab6a4}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden}#glow{position:fixed;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.15),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:-1}a{color:var(--green)}.nav{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 7%;background:rgba(5,11,8,.94);backdrop-filter:blur(15px);border-bottom:1px solid #143c27;z-index:5}.logo{font-size:20px;font-weight:bold;color:var(--green);text-decoration:none}.navlinks{display:flex;align-items:center;gap:15px;flex-wrap:wrap}.navlinks a:not(.btn){color:var(--text);text-decoration:none}.btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}.btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}.btn.danger{background:#702b2b;color:white!important}.hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}.tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}.hero h1 span{color:var(--green)}.hero p{max-width:650px;color:var(--muted);line-height:1.8}section{padding:75px 7%}.section-title{text-align:center;font-size:clamp(28px,4vw,42px)}.section-desc{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 35px;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}.card,.request{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}.card h3{color:var(--green)}.card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}.empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}.review-stars{color:var(--green);font-size:23px;letter-spacing:3px;margin:8px 0}.review-card{position:relative}.review-card h3{overflow-wrap:anywhere}.review-quote{font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere}footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}footer a{color:var(--green)}.chatbox{position:fixed;bottom:20px;right:20px;width:min(340px,calc(100vw - 40px));background:#09140e;border:1px solid var(--green);border-radius:14px;overflow:hidden;z-index:10}.chathead{padding:14px;background:#10331f;color:var(--green);font-weight:bold;display:flex;justify-content:space-between}.chatmessages{height:190px;overflow:auto;padding:12px;font-size:14px}.message{padding:9px 11px;margin:7px 0;border-radius:9px;background:#12261a;line-height:1.5;overflow-wrap:anywhere}.chatinput{display:flex;border-top:1px solid #17462e}.chatinput input{min-width:0;flex:1;padding:12px;background:transparent;border:0;color:white;outline:none}.chatinput button{background:var(--green);border:0;padding:0 14px;cursor:pointer}.chat-toggle{position:fixed;right:20px;bottom:20px;z-index:9}.closed{display:none!important}.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-content{width:min(440px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}.modal-content h2,.admin-panel h2,.admin-panel h3{color:var(--green)}.modal-content input{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.modal-content .btn{width:100%;margin-top:10px}#dashboard{display:none;min-height:75vh}.admin-panel{max-width:1000px;margin:auto}.admin-form{padding:22px;border:1px solid #17462e;border-radius:14px;margin:25px 0}.admin-input,.admin-textarea,.admin-select{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.admin-textarea{min-height:100px;resize:vertical}.project-actions,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.actions{justify-content:center}.status{color:var(--green);font-size:13px;overflow-wrap:anywhere;white-space:pre-wrap}.admin-label{display:block;margin-top:12px;color:var(--muted);font-size:13px}.admin-note{color:var(--muted);font-size:13px;line-height:1.6}.service-editor{border:1px solid #17462e;border-radius:10px;padding:14px;margin:12px 0}.service-editor .admin-input,.service-editor .admin-textarea{margin:5px 0}.account-card{padding:16px;border:1px solid #17462e;border-radius:10px;margin:10px 0;background:#09140e;overflow-wrap:anywhere}@media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
 </style>
 </head>
 <body>
@@ -194,9 +194,84 @@ document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="
 function ghConfig(){const owner=document.getElementById("ghOwner").value.trim(),repo=document.getElementById("ghRepo").value.trim(),branch=document.getElementById("ghBranch").value.trim(),path=document.getElementById("ghPath").value.trim(),token=document.getElementById("ghToken").value.trim();if(!owner||!repo||!branch||!path||!token)throw Error("Fill in all GitHub settings and enter your token.");return{owner,repo,branch,path,token,url:"https://api.github.com/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(repo)+"/contents/"+path.split("/").map(encodeURIComponent).join("/")}}
 async function ghRequest(url,token,options={}){const r=await fetch(url,{...options,headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"X-GitHub-Api-Version":"2022-11-28","Content-Type":"application/json",...(options.headers||{})}});let d={};try{d=await r.json()}catch(e){}if(!r.ok)throw Error(d.message||"GitHub API error "+r.status);return d}
 document.getElementById("ghCheck").onclick=async()=>{const b=document.getElementById("ghCheck"),s=document.getElementById("ghStatus");b.disabled=true;try{const c=ghConfig(),d=await ghRequest(c.url+"?ref="+encodeURIComponent(c.branch),c.token);if(d.type!=="file")throw Error("The selected path is not a file.");s.textContent="Connected! Found "+c.path+" on branch "+c.branch+". Ready to publish.";document.getElementById("ghPublish").disabled=false}catch(e){s.textContent="Connection failed: "+e.message;document.getElementById("ghPublish").disabled=true}finally{b.disabled=false}};
-function pageForPublishing(){const clone=document.documentElement.cloneNode(true),publicSite=clone.querySelector("#publicSite"),dashboard=clone.querySelector("#dashboard"),publicNav=clone.querySelector("#publicNav"),adminNav=clone.querySelector("#adminNav");if(publicSite)publicSite.style.display="block";if(dashboard)dashboard.style.display="none";if(publicNav)publicNav.style.display="flex";if(adminNav)adminNav.style.display="none";const modal=clone.querySelector("#modal");if(modal)modal.classList.remove("show");const chatbox=clone.querySelector("#chatbox"),chatToggle=clone.querySelector("#chatToggle");if(chatbox)chatbox.classList.add("closed");if(chatToggle)chatToggle.style.display="block";const loginForm=clone.querySelector("#loginForm");if(loginForm)loginForm.reset();const loginMessage=clone.querySelector("#loginMessage");if(loginMessage)loginMessage.textContent="Enter your login details.";const token=clone.querySelector("#ghToken");if(token)token.remove();const status=clone.querySelector("#ghStatus");if(status)status.textContent="Enter your GitHub token in the admin dashboard to publish changes.";const pd=clone.querySelector("#"+DATA_ID);if(pd)pd.textContent=JSON.stringify(projects).replace(/</g,"\\u003c");const rd=clone.querySelector("#"+REVIEW_DATA_ID);if(rd)rd.textContent=JSON.stringify(reviews).replace(/</g,"\\u003c");return"<!DOCTYPE html>\n"+clone.outerHTML}
-document.getElementById("ghPublish").onclick=async()=>{const b=document.getElementById("ghPublish"),s=document.getElementById("ghStatus");b.disabled=true;try{if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")throw Error("Please log in to the admin dashboard first.");const c=ghConfig();if(!confirm("Publish the complete website, including projects and reviews, to "+c.owner+"/"+c.repo+" on branch "+c.branch+"?"))return;s.textContent="Checking the current GitHub file…";const latest=await ghRequest(c.url+"?ref="+encodeURIComponent(c.branch),c.token);if(latest.type!=="file")throw Error("The selected path is not a file.");applyWebsiteEdits();const html=pageForPublishing(),bytes=new TextEncoder().encode(html);let binary="";for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));const payload={message:"Update App Experts Network website",content:btoa(binary),branch:c.branch,sha:latest.sha};s.textContent="Publishing your website…";const result=await ghRequest(c.url,c.token,{method:"PUT",body:JSON.stringify(payload)});try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(reviews))}catch(e){}s.textContent="Published successfully! Commit: "+(result.commit?.sha||"created")+"\nGitHub updated index.html. GitHub Pages may take a few minutes to show the changes."}catch(e){s.textContent="Publish failed: "+e.message+"\nCheck your token permissions, repository, branch, and file path."}finally{b.disabled=false}};
-loadAccounts();loadProjects();loadReviews();
+
+function pageForPublishing(){
+const clone=document.documentElement.cloneNode(true);
+const publicSite=clone.querySelector("#publicSite");
+const dashboard=clone.querySelector("#dashboard");
+const publicNav=clone.querySelector("#publicNav");
+const adminNav=clone.querySelector("#adminNav");
+
+if(publicSite){
+publicSite.style.setProperty("display","block","important");
+publicSite.removeAttribute("hidden");
+}
+if(dashboard){
+dashboard.style.setProperty("display","none","important");
+dashboard.removeAttribute("hidden");
+}
+if(publicNav)publicNav.style.display="flex";
+if(adminNav)adminNav.style.display="none";
+
+const modal=clone.querySelector("#modal");
+if(modal)modal.classList.remove("show");
+
+const chatbox=clone.querySelector("#chatbox");
+const chatToggle=clone.querySelector("#chatToggle");
+if(chatbox)chatbox.classList.add("closed");
+if(chatToggle)chatToggle.style.display="block";
+
+const loginForm=clone.querySelector("#loginForm");
+if(loginForm)loginForm.reset();
+const loginMessage=clone.querySelector("#loginMessage");
+if(loginMessage)loginMessage.textContent="Enter your login details.";
+
+const token=clone.querySelector("#ghToken");
+if(token)token.remove();
+const status=clone.querySelector("#ghStatus");
+if(status)status.textContent="Enter your GitHub token in the admin dashboard to publish changes.";
+
+const pd=clone.querySelector("#"+DATA_ID);
+if(pd)pd.textContent=JSON.stringify(projects).replace(/</g,"\\u003c");
+const rd=clone.querySelector("#"+REVIEW_DATA_ID);
+if(rd)rd.textContent=JSON.stringify(reviews).replace(/</g,"\\u003c");
+
+return "<!DOCTYPE html>\n"+clone.outerHTML;
+}
+
+document.getElementById("ghPublish").onclick=async()=>{
+const b=document.getElementById("ghPublish"),s=document.getElementById("ghStatus");
+b.disabled=true;
+try{
+if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")throw Error("Please log in to the admin dashboard first.");
+const c=ghConfig();
+if(!confirm("Publish the complete website, including projects and reviews, to "+c.owner+"/"+c.repo+" on branch "+c.branch+"?"))return;
+s.textContent="Checking the current GitHub file…";
+const latest=await ghRequest(c.url+"?ref="+encodeURIComponent(c.branch),c.token);
+if(latest.type!=="file")throw Error("The selected path is not a file.");
+applyWebsiteEdits();
+const html=pageForPublishing(),bytes=new TextEncoder().encode(html);
+let binary="";
+for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
+const payload={message:"Update App Experts Network website",content:btoa(binary),branch:c.branch,sha:latest.sha};
+s.textContent="Publishing your website…";
+const result=await ghRequest(c.url,c.token,{method:"PUT",body:JSON.stringify(payload)});
+try{
+localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));
+localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(reviews));
+}catch(e){}
+s.textContent="Published successfully! Commit: "+(result.commit?.sha||"created")+"\nGitHub updated index.html. GitHub Pages may take a few minutes to show the changes.";
+}catch(e){
+s.textContent="Publish failed: "+e.message+"\nCheck your token permissions, repository, branch, and file path.";
+}finally{
+b.disabled=false;
+}
+};
+
+loadAccounts();
+loadProjects();
+loadReviews();
+showPublic();
 </script>
 </body>
 </html>
