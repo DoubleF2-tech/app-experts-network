@@ -31,8 +31,6 @@ section{padding:75px 7%}
 .card,.request{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}
 .card h3{color:var(--green)}
 .card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}
-.status{display:inline-block;padding:6px 10px;border-radius:20px;background:#193624;color:#b9ffcf;font-size:12px}
-.status.complete{background:#064c32;color:#8dffbd}
 .empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}
 .request{text-align:center;max-width:750px;margin:auto}
 footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}
@@ -46,20 +44,29 @@ footer a{color:var(--green)}
 .chatinput button{background:var(--green);border:0;padding:0 14px;cursor:pointer}
 .chat-toggle{position:fixed;right:20px;bottom:20px;z-index:9}
 .closed{display:none!important}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-content{width:min(420px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}
+.modal-content h2{color:var(--green)}
+.modal-content input{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}
+.modal-content .btn{width:100%;margin-top:10px}
 @media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
 </style>
 </head>
 <body>
 <div id="glow"></div>
+
 <header class="nav">
 <a class="logo" href="#home">APP EXPERTS NETWORK</a>
 <nav class="navlinks">
 <a href="#services">Services</a>
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
+<button class="btn" onclick="openModal()">Admin Login</button>
 <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
 </nav>
 </header>
+
 <main>
 <section class="hero" id="home">
 <div class="tag">Testing • Quality • Innovation</div>
@@ -70,6 +77,7 @@ footer a{color:var(--green)}
 <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us</a>
 </div>
 </section>
+
 <section id="services">
 <h2 class="section-title">What We Do</h2>
 <p class="section-desc">Helping teams identify issues and deliver better app experiences.</p>
@@ -79,11 +87,13 @@ footer a{color:var(--green)}
 <article class="card"><h3>💡 User Feedback</h3><p>Review usability, navigation, and the overall experience of an application.</p></article>
 </div>
 </section>
+
 <section id="projects">
 <h2 class="section-title">Our Projects</h2>
 <p class="section-desc">Our project portfolio will showcase work and milestones as they become available.</p>
 <div id="publicProjects" class="grid"></div>
 </section>
+
 <section id="contact">
 <h2 class="section-title">Contact Us</h2>
 <p class="section-desc">Have a question or want to work with us? We'd love to hear from you.</p>
@@ -95,26 +105,57 @@ footer a{color:var(--green)}
 </div>
 </section>
 </main>
-<footer>© <span id="year"></span> App Experts Network. All rights reserved.<br><a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a></footer>
+
+<footer>
+© <span id="year"></span> App Experts Network. All rights reserved.<br>
+<a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a>
+</footer>
+
 <button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">💬 Chat with us</button>
 <div class="chatbox closed" id="chatbox">
 <div class="chathead">App Experts Assistant <button onclick="toggleChat()" style="background:none;border:0;color:white;cursor:pointer">✕</button></div>
 <div class="chatmessages" id="chatmessages"><div class="message">Hi! 👋 Welcome to App Experts Network. Ask me about our services or project requests.</div></div>
 <form class="chatinput" id="chatform"><input id="chatinput" placeholder="Type your message..." autocomplete="off" required><button type="submit">Send</button></form>
 </div>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<button onclick="closeModal()" style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">✕</button>
+<h2>Admin Login</h2>
+<form id="loginForm">
+<input id="username" placeholder="Username" autocomplete="username" required>
+<input id="password" type="password" placeholder="Password" autocomplete="current-password" required>
+<button class="btn" type="submit">Log In</button>
+</form>
+<p id="loginMessage" style="color:var(--muted);font-size:13px;line-height:1.6">Enter your admin login details to continue.</p>
+<a href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
+</div>
+</div>
+
 <script>
 const EMAIL="appexpertsnetwork@gmail.com";
 document.getElementById("year").textContent=new Date().getFullYear();
+
 document.addEventListener("mousemove",event=>{
 const glow=document.getElementById("glow");
 glow.style.left=event.clientX+"px";
 glow.style.top=event.clientY+"px";
 });
+
+function openModal(){document.getElementById("modal").classList.add("show")}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+
+document.getElementById("loginForm").addEventListener("submit",event=>{
+event.preventDefault();
+document.getElementById("loginMessage").textContent="Login authentication has not been connected. Contact "+EMAIL+" for assistance.";
+});
+
 function toggleChat(){
 const box=document.getElementById("chatbox");
 box.classList.toggle("closed");
 document.getElementById("chatToggle").style.display=box.classList.contains("closed")?"block":"none";
 }
+
 function addMessage(text){
 const message=document.createElement("div");
 message.className="message";
@@ -123,6 +164,7 @@ const area=document.getElementById("chatmessages");
 area.appendChild(message);
 area.scrollTop=area.scrollHeight;
 }
+
 document.getElementById("chatform").addEventListener("submit",event=>{
 event.preventDefault();
 const input=document.getElementById("chatinput");
@@ -145,8 +187,12 @@ reply="Thanks for reaching out! Email "+EMAIL+" for further assistance.";
 }
 setTimeout(()=>addMessage("Assistant: "+reply),250);
 });
-const projectsArea=document.getElementById("publicProjects");
-projectsArea.innerHTML='<div class="empty" style="grid-column:1/-1">Our project portfolio is coming soon. Have a project in mind? <a href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Contact us</a>.</div>';
+
+document.getElementById("modal").addEventListener("click",event=>{
+if(event.target.id==="modal")closeModal();
+});
+
+document.getElementById("publicProjects").innerHTML='<div class="empty" style="grid-column:1/-1">Our project portfolio is coming soon. Have a project in mind? <a href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Contact us</a>.</div>';
 </script>
 </body>
 </html>
