@@ -1,223 +1,407 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Experts Network</title>
-    <style>
-        :root {
-            --bg-main: #030508;
-            --bg-card: #0a0d14;
-            --border: #1f242c;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --accent: #58a6ff;
-            --btn-green: #238636;
-            --btn-green-hover: #2ea043;
-            --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
-            --mouse-x: 50%;
-            --mouse-y: 50%;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-secondary);
-            margin: 0; padding: 0;
-            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Experts Network | Game Testing</title>
+<style>
+:root {
+  --bg:#030508;
+  --card:#0a0d14;
+  --border:#202936;
+  --text:#f0f6fc;
+  --muted:#8b949e;
+  --green:#2ea043;
+  --blue:#58a6ff;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; min-height:100vh; color:var(--muted);
+  background:var(--bg);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+}
+body::before {
+  content:"";position:fixed;inset:-50%;z-index:0;
+  pointer-events:none;opacity:.4;
+  background:repeating-linear-gradient(45deg,
+    transparent 0 80px,#12321b22 81px 82px);
+  animation:move 35s linear infinite;
+}
+@keyframes move { to { transform:rotate(360deg); } }
+header,main,footer { position:relative;z-index:1; }
+header {
+  max-width:1150px;margin:auto;padding:25px 22px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;
+}
+.logo { color:var(--text);font-size:20px;font-weight:800; }
+.status { color:#3fb950;font-size:11px;border:1px solid #23863666;
+  padding:4px 8px;border-radius:20px; }
+nav { display:flex;align-items:center;gap:10px;flex-wrap:wrap; }
+button,a { font:inherit;cursor:pointer; }
+a { color:inherit;text-decoration:none; }
+.btn {
+  border:1px solid var(--border);border-radius:8px;
+  padding:11px 16px;background:#101620;color:var(--text);
+  transition:.2s;display:inline-flex;align-items:center;
+  justify-content:center;gap:7px;
+}
+.btn:hover { border-color:var(--green);transform:translateY(-2px); }
+.btn.primary { background:var(--green);border-color:var(--green);color:white; }
+.btn.primary:hover { background:#238636; }
+.btn.blue { border-color:#58a6ff55;color:var(--blue); }
+main { max-width:1100px;margin:auto;padding:35px 22px 70px; }
+.hero {
+  display:grid;grid-template-columns:1.2fr .8fr;
+  align-items:center;gap:45px;padding:60px 0 85px;
+}
+.eyebrow { color:#3fb950;font-size:12px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase; }
+h1 { font-size:clamp(38px,6vw,64px);line-height:1.06;
+  color:var(--text);letter-spacing:-2px;margin:18px 0; }
+h1 span { color:var(--green); }
+p { line-height:1.75; }
+.hero p { max-width:560px;font-size:17px; }
+.actions { display:flex;gap:12px;flex-wrap:wrap;margin-top:28px; }
+.console {
+  background:linear-gradient(145deg,#101a18,#080b11);
+  border:1px solid #285638;border-radius:18px;padding:24px;
+  box-shadow:0 0 60px #23863616;
+}
+.terminal-head { display:flex;justify-content:space-between;
+  border-bottom:1px solid var(--border);padding-bottom:15px; }
+.dots { color:#3fb950;letter-spacing:4px; }
+.terminal-line { font-family:monospace;font-size:13px;margin:19px 0; }
+.ok { color:#3fb950; }
+.terminal-bar { height:6px;background:#202936;border-radius:8px;overflow:hidden; }
+.terminal-bar div { height:100%;width:82%;background:var(--green); }
+.metrics { display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:75px; }
+.metric,.card {
+  border:1px solid var(--border);border-radius:12px;
+  background:#0a0d14eF;padding:22px;
+}
+.metric strong { color:var(--text);font-size:26px;display:block; }
+.metric span { font-size:12px; }
+.section-title { color:var(--text);font-size:30px;margin:0 0 10px; }
+.section-sub { margin:0 0 28px; }
+.grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
+.card { transition:.25s; }
+.card:hover { transform:translateY(-5px);border-color:var(--green); }
+.card .icon { font-size:27px; }
+.card h3 { color:var(--text);margin:15px 0 8px; }
+.card p { font-size:14px;margin-bottom:0; }
+.projects { margin-top:75px; }
+.project-row { display:flex;justify-content:space-between;align-items:center;
+  gap:15px;flex-wrap:wrap;border:1px solid var(--border);
+  border-radius:10px;padding:17px;margin-top:12px;background:var(--card); }
+.project-row strong { color:var(--text); }
+.tag { font-size:11px;padding:5px 9px;border-radius:20px;
+  background:#23863622;color:#3fb950; }
+footer { text-align:center;border-top:1px solid var(--border);
+  padding:28px 15px;font-size:12px; }
 
-        /* Ambient Wave Engine */
-        body::before, body::after {
-            content: "";
-            position: fixed;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(
-                45deg,
-                rgba(35, 134, 54, 0.04) 25%,
-                transparent 25%, transparent 50%,
-                rgba(35, 134, 54, 0.04) 50%, rgba(35, 134, 54, 0.04) 75%,
-                transparent 75%, transparent
-            );
-            background-size: 120px 120px;
-            z-index: 1;
-            pointer-events: none;
-        }
-        body::before { animation: rollingWaves 25s linear infinite; opacity: 0.8; }
-        body::after { animation: rollingWaves 40s linear infinite reverse; opacity: 0.5; filter: blur(2px); }
-
-        .interactive-glow {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(
-                700px circle at var(--mouse-x) var(--mouse-y),
-                rgba(46, 160, 67, 0.06),
-                transparent 80%
-            );
-            z-index: 2;
-            pointer-events: none;
-        }
-        
-        header, main { width: 100%; max-width: 1000px; box-sizing: border-box; position: relative; z-index: 10; }
-        header { padding: 40px 20px 20px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .logo-text { font-size: 22px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-        .badge { background-color: #388bfd1a; color: var(--accent); border: 1px solid #388bfd33; padding: 2px 8px; font-size: 12px; border-radius: 20px; }
-        
-        main { padding: 20px; display: flex; flex-direction: column; gap: 60px; }
-        .hero-container { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; padding: 40px 0; }
-        .hero-text { flex: 1; text-align: left; }
-        
-        .hero-logo { 
-            max-width: 100%; height: auto; width: 400px; border-radius: 50%; 
-            box-shadow: 0 0 20px rgba(46, 160, 67, 0.05); 
-            border: 2px solid var(--border); 
-            transition: var(--transition-fluid);
-        }
-        .hero-logo:hover {
-            transform: scale(1.03) rotate(1deg);
-            box-shadow: 0 0 35px rgba(46, 160, 67, 0.25);
-            border-color: #2ea043;
-        }
-
-        h1 { color: var(--text-primary); font-size: 42px; margin: 0 0 24px 0; line-height: 1.15; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding-bottom: 60px; }
-        
-        /* 
-           SCROLL REVEAL STYLE ENGINE 
-           Elements start invisible, shifted 30px downwards, with scale slightly compressed.
-        */
-        .reveal-element {
-            opacity: 0;
-            transform: translateY(30px) scale(0.98);
-            transition: opacity 0.8s cubic-bezier(0.215, 0.610, 0.355, 1), 
-                        transform 0.8s cubic-bezier(0.215, 0.610, 0.355, 1);
-            will-change: opacity, transform;
-        }
-
-        /* Active class triggered smoothly via JavaScript intersection tracking */
-        .reveal-element.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .card { 
-            background-color: var(--bg-card); 
-            border: 1px solid var(--border); 
-            border-radius: 12px; 
-            padding: 32px; 
-            transition: var(--transition-fluid);
-            position: relative;
-            top: 0;
-            backdrop-filter: blur(4px);
-        }
-        .card:hover { 
-            top: -6px;
-            border-color: #2ea043; 
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(46, 160, 67, 0.15);
-            background-color: #0f141c;
-        }
-        .card h3 { color: var(--text-primary); margin: 0 0 12px 0; font-size: 20px; transition: var(--transition-fluid); }
-        .card:hover h3 { color: #2ea043; }
-        .card p { margin: 0; font-size: 15px; line-height: 1.6; }
-        
-        .btn { 
-            display: inline-block; 
-            background-color: var(--btn-green); 
-            color: #ffffff; 
-            text-decoration: none; 
-            padding: 14px 28px; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            font-size: 16px; 
-            transition: var(--transition-fluid); 
-            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.2);
-        }
-        .btn:hover { 
-            background-color: var(--btn-green-hover); 
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(46, 160, 67, 0.5);
-        }
-        .btn:active { transform: translateY(0); }
-
-        @keyframes rollingWaves {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @media (max-width: 768px) {
-            .hero-container { flex-direction: column-reverse; text-align: center; gap: 40px; }
-            .hero-text { text-align: center; }
-            .hero-logo { width: 280px; }
-            h1 { font-size: 32px; }
-        }
-    </style>
+.modal {
+  display:none;position:fixed;inset:0;z-index:10;
+  background:#000c;backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;padding:18px;
+}
+.modal.show { display:flex; }
+.dialog { width:100%;max-width:440px;max-height:90vh;overflow:auto;
+  background:#0a0d14;border:1px solid #283442;
+  border-radius:16px;padding:27px;position:relative; }
+.close { float:right;background:none;border:0;color:var(--muted);font-size:24px; }
+.dialog h2 { color:var(--text);margin:12px 0 5px; }
+.dialog p { font-size:13px; }
+.tabs { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0; }
+.tab { padding:10px;background:#101620;border:1px solid var(--border);
+  color:var(--muted);border-radius:7px; }
+.tab.active { border-color:var(--green);color:#3fb950; }
+.field { margin:15px 0; }
+.field label { display:block;font-size:12px;margin-bottom:7px; }
+.field input { width:100%;padding:12px;border-radius:7px;
+  background:#05080d;border:1px solid var(--border);color:var(--text); }
+.field input:focus { outline:1px solid var(--green); }
+.dialog form .btn { width:100%;margin-top:10px; }
+.notice { padding:11px;border-radius:7px;background:#111923;
+  font-size:12px;margin-top:14px; }
+#message { color:#3fb950;min-height:20px; }
+.chat-launch {
+  position:fixed;right:23px;bottom:23px;z-index:5;
+  width:57px;height:57px;border-radius:50%;border:0;
+  background:var(--green);color:white;font-size:24px;
+  box-shadow:0 5px 25px #23863666;
+}
+.chat {
+  display:none;position:fixed;right:20px;bottom:92px;z-index:5;
+  width:min(360px,calc(100vw - 32px));height:430px;
+  background:#0a0d14;border:1px solid #293441;border-radius:15px;
+  overflow:hidden;flex-direction:column;box-shadow:0 15px 60px #0009;
+}
+.chat.show { display:flex; }
+.chat-head { padding:15px;background:#101720;color:var(--text);
+  display:flex;justify-content:space-between; }
+.chat-body { padding:13px;flex:1;overflow:auto;font-size:13px; }
+.bubble { padding:10px 12px;border-radius:10px;margin:8px 0;
+  background:#141d27;max-width:90%;white-space:pre-wrap; }
+.bubble.user { margin-left:auto;background:#173822;color:#e8fff0; }
+.chat-form { display:flex;gap:7px;padding:10px;border-top:1px solid var(--border); }
+.chat-form input { min-width:0;flex:1;background:#05080d;color:white;
+  border:1px solid var(--border);border-radius:7px;padding:10px; }
+@media(max-width:760px) {
+  header { align-items:flex-start; }
+  .hero { grid-template-columns:1fr;padding:35px 0 55px; }
+  .grid { grid-template-columns:1fr; }
+  .metrics { gap:7px; }
+  .metric { padding:12px; }
+  .metric strong { font-size:21px; }
+  nav { justify-content:flex-end; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important;transition:none!important; }
+}
+</style>
 </head>
 <body>
-    <div class="interactive-glow"></div>
+<header>
+  <div class="logo">⚙ App Experts <span class="status">● ONLINE</span></div>
+  <nav>
+    <button class="btn" onclick="openModal('console')">🔐 Console</button>
+    <button class="btn blue" onclick="openModal('email')">✉ Email Login</button>
+    <button class="btn primary" onclick="openModal('signup')">Sign Up ↗</button>
+  </nav>
+</header>
 
-    <header><div class="logo-text">⚙️ App Experts Network <span class="badge">Active</span></div></header>
-    <main>
-        <!-- Hero area fades in gracefully right at initialization -->
-        <div class="hero-container reveal-element">
-            <div class="hero-text">
-                <h1>Next-Gen Development <br>& Systems Engineering</h1>
-                <div class="cta-container"><a href="mailto:admin@appexpertsnetwork.com" class="btn">Secure Console Access</a></div>
-            </div>
-            <div class="hero-image-container"><img src="logo.png.png" alt="App Experts Network Logo" class="hero-logo"></div>
-        </div>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Independent Game Testing Network</div>
+      <h1>Test harder.<br>Ship <span>better.</span></h1>
+      <p>Find bugs before your players do. Test gameplay mechanics, analyze performance, and help build more reliable gaming experiences.</p>
+      <div class="actions">
+        <button class="btn primary" onclick="openModal('signup')">Become a Tester →</button>
+        <a class="btn" href="#services">Explore Testing ↓</a>
+      </div>
+    </div>
+    <div class="console">
+      <div class="terminal-head">
+        <strong style="color:var(--text)">TEST ENVIRONMENT</strong>
+        <span class="dots">● ● ●</span>
+      </div>
+      <div class="terminal-line"><span class="ok">[OK]</span> Test environment initialized</div>
+      <div class="terminal-line"><span class="ok">[OK]</span> Gameplay diagnostics ready</div>
+      <div class="terminal-line"><span class="ok">[OK]</span> Bug reporting available</div>
+      <div class="terminal-line">> Awaiting test session_</div>
+      <div class="terminal-bar"><div></div></div>
+      <p style="font-size:12px">DEMO STATUS · No live game is connected</p>
+    </div>
+  </section>
 
-        <!-- The grid cards materialize flawlessly as the operator scrolls down -->
-        <div class="grid">
-            <div class="card reveal-element">
-                <h3>🎮 Alpha Environment Testing</h3>
-                <p>Comprehensive gameplay stress-testing and mechanical evaluation across early engine builds to isolate critical bugs before deployment.</p>
-            </div>
-            <div class="card reveal-element">
-                <h3>⚡ Network Load Analysis</h3>
-                <p>Simulating high-capacity player concurrency to verify cluster scaling, minimize package delay, and prevent unexpected server faults.</p>
-            </div>
-            <div class="card reveal-element">
-                <h3>🛠️ Mechanics Optimization</h3>
-                <p>Deep-dive diagnostic reviews of application frameworks and scripts to optimize thread usage and ensure high hardware stability.</p>
-            </div>
-        </div>
-    </main>
+  <section class="metrics">
+    <div class="metric"><strong>QA</strong><span>Quality assurance</span></div>
+    <div class="metric"><strong>24/7*</strong><span>Testing-ready workflow</span></div>
+    <div class="metric"><strong>DEV</strong><span>Developer-focused reports</span></div>
+  </section>
 
-    <script>
-        // Track mouse positioning variables
-        document.addEventListener('mousemove', (e) => {
-            const body = document.body;
-            const x = e.clientX + window.scrollX;
-            const y = e.clientY + window.scrollY;
-            body.style.setProperty('--mouse-x', `${x}px`);
-            body.style.setProperty('--mouse-y', `${y}px`);
-        });
+  <section id="services">
+    <h2 class="section-title">Testing Infrastructure</h2>
+    <p class="section-sub">Tools and workflows designed for better games.</p>
+    <div class="grid">
+      <article class="card">
+        <div class="icon">🎮</div><h3>Gameplay QA</h3>
+        <p>Test game mechanics, controls, progression, collision issues, and gameplay consistency across different builds.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🐛</div><h3>Bug Reporting</h3>
+        <p>Document reproducible issues, severity, steps to reproduce, and expected versus actual behavior.</p>
+      </article>
+      <article class="card">
+        <div class="icon">⚡</div><h3>Performance Testing</h3>
+        <p>Evaluate frame-rate stability, loading times, memory use, and network behavior using authorized test environments.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🌐</div><h3>Multiplayer QA</h3>
+        <p>Assess latency, synchronization, reconnect behavior, and multiplayer reliability in controlled tests.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🛡️</div><h3>Security Review</h3>
+        <p>Review authorized test builds for common security weaknesses and report findings responsibly.</p>
+      </article>
+      <article class="card">
+        <div class="icon">📊</div><h3>Test Analytics</h3>
+        <p>Organize test outcomes, identify recurring failures, and help teams prioritize fixes.</p>
+      </article>
+    </div>
+  </section>
 
-        /*
-           SCROLL INTERSECTION ANIMATION CONTROLLER
-           Monitors viewport coordinates and applies the active rendering rules cleanly.
-        */
-        const revealOptions = {
-            threshold: 0.1, // Element activates when 10% of its container crosses the viewport boundary
-            rootMargin: "0px 0px -50px 0px" // Triggers slightly before crossing completely to ensure a fluid transition
-        };
+  <section class="projects">
+    <h2 class="section-title">Test Lab</h2>
+    <p class="section-sub">Example project pipeline — illustrative data, not live results.</p>
+    <div class="project-row"><div><strong>Project: Neon Circuit</strong><br><small>Gameplay & controls</small></div><span class="tag">READY FOR QA</span></div>
+    <div class="project-row"><div><strong>Project: Outpost Zero</strong><br><small>Multiplayer stability</small></div><span class="tag">PLANNED</span></div>
+    <div class="project-row"><div><strong>Project: Pixel Forge</strong><br><small>Performance profiling</small></div><span class="tag">IN REVIEW</span></div>
+  </section>
+</main>
 
-        const revealObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target); // Stops observation once rendered to save system runtime processing
-                }
-            });
-        }, revealOptions);
+<footer>App Experts Network · Game Testing & Quality Assurance<br><br>© 2026 · Demo website</footer>
 
-        // Bind tracking to all targeted interface elements
-        document.querySelectorAll('.reveal-element').forEach(element => {
-            revealObserver.observe(element);
-        });
-    </script>
+<!-- Authentication dialog -->
+<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="dialog">
+    <button class="close" onclick="closeModal()" aria-label="Close">&times;</button>
+    <div class="eyebrow">App Experts Network</div>
+    <h2 id="modalTitle">Secure Console Access</h2>
+    <p id="modalDesc">Sign in to the demo administrator console.</p>
+    <div class="tabs">
+      <button class="tab active" id="consoleTab" onclick="setMode('console')">🔐 Console</button>
+      <button class="tab" id="emailTab" onclick="setMode('email')">✉ Email</button>
+    </div>
+    <form id="authForm">
+      <div class="field" id="usernameField">
+        <label for="username">Username</label>
+        <input id="username" autocomplete="username" placeholder="Enter username">
+      </div>
+      <div class="field" id="emailField" hidden>
+        <label for="email">Email address</label>
+        <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="field" id="nameField" hidden>
+        <label for="fullName">Display name</label>
+        <input id="fullName" autocomplete="name" placeholder="Your name">
+      </div>
+      <div class="field" id="passwordField">
+        <label for="password">Password</label>
+        <input id="password" type="password" autocomplete="current-password" placeholder="Enter password">
+      </div>
+      <button class="btn primary" id="submitBtn" type="submit">Sign In →</button>
+    </form>
+    <div id="message" role="status"></div>
+    <div class="notice">Demo only: this page does not provide real authentication, account storage, or protected server access. Do not enter a real password.</div>
+  </div>
+</div>
+
+<!-- Demo AI assistant -->
+<button class="chat-launch" id="chatLaunch" aria-label="Open AI assistant" onclick="toggleChat()">✦</button>
+<section class="chat" id="chatPanel" aria-label="Testing assistant">
+  <div class="chat-head"><strong>🤖 Testing Assistant</strong><button class="close" onclick="toggleChat()" aria-label="Close chat">&times;</button></div>
+  <div class="chat-body" id="chatBody" aria-live="polite">
+    <div class="bubble">Hey! I'm the App Experts demo assistant. Ask me about game testing, bug reports, QA, or performance testing.</div>
+  </div>
+  <form class="chat-form" id="chatForm">
+    <input id="chatInput" placeholder="Ask a testing question..." autocomplete="off" required>
+    <button class="btn primary" type="submit">Send</button>
+  </form>
+</section>
+
+<script>
+// Demo UI only. Never use client-side credentials to protect real data.
+let mode = "console";
+
+function openModal(nextMode) {
+  document.getElementById("authModal").classList.add("show");
+  setMode(nextMode);
+}
+function closeModal() {
+  document.getElementById("authModal").classList.remove("show");
+}
+function setMode(nextMode) {
+  mode = nextMode;
+  const signup = mode === "signup";
+  const emailMode = mode === "email" || signup;
+  document.getElementById("modalTitle").textContent =
+    signup ? "Create Tester Account" :
+    mode === "email" ? "Email Sign In" : "Secure Console Access";
+  document.getElementById("modalDesc").textContent =
+    signup ? "Join the game testing network demo." :
+    mode === "email" ? "Enter your email to try the demo." :
+    "Sign in to the demo administrator console.";
+  document.getElementById("usernameField").hidden = emailMode;
+  document.getElementById("emailField").hidden = !emailMode;
+  document.getElementById("nameField").hidden = !signup;
+  document.getElementById("passwordField").hidden = mode === "email";
+  document.getElementById("consoleTab").classList.toggle("active", mode === "console");
+  document.getElementById("emailTab").classList.toggle("active", emailMode);
+  document.getElementById("submitBtn").textContent =
+    signup ? "Create Demo Account →" :
+    mode === "email" ? "Continue with Email →" : "Sign In →";
+  document.getElementById("message").textContent = "";
+}
+document.querySelector('button[onclick="openModal(\'signup\')"]')
+  .addEventListener("click", () => setMode("signup"));
+
+document.getElementById("authForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const message = document.getElementById("message");
+
+  if (mode === "console") {
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    // Public demo credentials are NOT secure authentication.
+    if (username === "admin" && password === "admin@admin@123") {
+      message.textContent = "Demo login successful. Welcome, Admin!";
+      setTimeout(() => {
+        closeModal();
+        alert("Demo administrator view. No protected systems are connected.");
+      }, 600);
+    } else {
+      message.textContent = "Demo login failed. Check the credentials.";
+    }
+  } else if (mode === "email") {
+    message.textContent = "Email sign-in requires a real authentication service.";
+  } else {
+    message.textContent = "Demo sign-up received. Connect a backend to create accounts.";
+  }
+});
+
+document.getElementById("authModal").addEventListener("click", event => {
+  if (event.target.id === "authModal") closeModal();
+});
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closeModal();
+});
+
+// Local rule-based assistant, not a connected AI model.
+function toggleChat() {
+  document.getElementById("chatPanel").classList.toggle("show");
+}
+function addBubble(text, type) {
+  const bubble = document.createElement("div");
+  bubble.className = "bubble " + type;
+  bubble.textContent = text;
+  const body = document.getElementById("chatBody");
+  body.appendChild(bubble);
+  body.scrollTop = body.scrollHeight;
+}
+function assistantReply(input) {
+  const q = input.toLowerCase();
+  if (q.includes("bug") || q.includes("report")) {
+    return "A useful bug report includes the title, game/build version, steps to reproduce, expected result, actual result, severity, and screenshots or logs when safe to share.";
+  }
+  if (q.includes("performance") || q.includes("fps") || q.includes("lag")) {
+    return "Test performance in a repeatable scene. Record FPS, frame-time spikes, CPU/GPU use, memory, device specs, and whether the issue happens consistently.";
+  }
+  if (q.includes("multiplayer") || q.includes("network") || q.includes("ping")) {
+    return "Check latency, packet loss, synchronization, reconnects, and behavior with different player counts in an authorized test environment.";
+  }
+  if (q.includes("test") || q.includes("qa") || q.includes("game")) {
+    return "Start with a clear test plan: define the feature, expected behavior, supported platforms, test steps, and what counts as a failure. Then log reproducible results.";
+  }
+  if (q.includes("hello") || q.includes("hey") || q.includes("hi")) {
+    return "Hey! What game-testing problem are you working on today?";
+  }
+  return "I can help with gameplay QA, test plans, bug reports, performance profiling, and multiplayer testing. For real AI answers, connect this chat to a trusted AI API through a server-side backend.";
+}
+document.getElementById("chatForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const input = document.getElementById("chatInput");
+  const value = input.value.trim();
+  if (!value) return;
+  addBubble(value, "user");
+  input.value = "";
+  setTimeout(() => addBubble(assistantReply(value), "assistant"), 250);
+});
+</script>
 </body>
 </html>
