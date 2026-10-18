@@ -2,406 +2,620 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>App Experts Network | Game Testing</title>
-<style>
-:root {
-  --bg:#030508;
-  --card:#0a0d14;
-  --border:#202936;
-  --text:#f0f6fc;
-  --muted:#8b949e;
-  --green:#2ea043;
-  --blue:#58a6ff;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0; min-height:100vh; color:var(--muted);
-  background:var(--bg);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  overflow-x:hidden;
-}
-body::before {
-  content:"";position:fixed;inset:-50%;z-index:0;
-  pointer-events:none;opacity:.4;
-  background:repeating-linear-gradient(45deg,
-    transparent 0 80px,#12321b22 81px 82px);
-  animation:move 35s linear infinite;
-}
-@keyframes move { to { transform:rotate(360deg); } }
-header,main,footer { position:relative;z-index:1; }
-header {
-  max-width:1150px;margin:auto;padding:25px 22px;
-  display:flex;align-items:center;justify-content:space-between;
-  gap:16px;
-}
-.logo { color:var(--text);font-size:20px;font-weight:800; }
-.status { color:#3fb950;font-size:11px;border:1px solid #23863666;
-  padding:4px 8px;border-radius:20px; }
-nav { display:flex;align-items:center;gap:10px;flex-wrap:wrap; }
-button,a { font:inherit;cursor:pointer; }
-a { color:inherit;text-decoration:none; }
-.btn {
-  border:1px solid var(--border);border-radius:8px;
-  padding:11px 16px;background:#101620;color:var(--text);
-  transition:.2s;display:inline-flex;align-items:center;
-  justify-content:center;gap:7px;
-}
-.btn:hover { border-color:var(--green);transform:translateY(-2px); }
-.btn.primary { background:var(--green);border-color:var(--green);color:white; }
-.btn.primary:hover { background:#238636; }
-.btn.blue { border-color:#58a6ff55;color:var(--blue); }
-main { max-width:1100px;margin:auto;padding:35px 22px 70px; }
-.hero {
-  display:grid;grid-template-columns:1.2fr .8fr;
-  align-items:center;gap:45px;padding:60px 0 85px;
-}
-.eyebrow { color:#3fb950;font-size:12px;font-weight:800;
-  letter-spacing:2px;text-transform:uppercase; }
-h1 { font-size:clamp(38px,6vw,64px);line-height:1.06;
-  color:var(--text);letter-spacing:-2px;margin:18px 0; }
-h1 span { color:var(--green); }
-p { line-height:1.75; }
-.hero p { max-width:560px;font-size:17px; }
-.actions { display:flex;gap:12px;flex-wrap:wrap;margin-top:28px; }
-.console {
-  background:linear-gradient(145deg,#101a18,#080b11);
-  border:1px solid #285638;border-radius:18px;padding:24px;
-  box-shadow:0 0 60px #23863616;
-}
-.terminal-head { display:flex;justify-content:space-between;
-  border-bottom:1px solid var(--border);padding-bottom:15px; }
-.dots { color:#3fb950;letter-spacing:4px; }
-.terminal-line { font-family:monospace;font-size:13px;margin:19px 0; }
-.ok { color:#3fb950; }
-.terminal-bar { height:6px;background:#202936;border-radius:8px;overflow:hidden; }
-.terminal-bar div { height:100%;width:82%;background:var(--green); }
-.metrics { display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:75px; }
-.metric,.card {
-  border:1px solid var(--border);border-radius:12px;
-  background:#0a0d14eF;padding:22px;
-}
-.metric strong { color:var(--text);font-size:26px;display:block; }
-.metric span { font-size:12px; }
-.section-title { color:var(--text);font-size:30px;margin:0 0 10px; }
-.section-sub { margin:0 0 28px; }
-.grid { display:grid;grid-template-columns:repeat(3,1fr);gap:18px; }
-.card { transition:.25s; }
-.card:hover { transform:translateY(-5px);border-color:var(--green); }
-.card .icon { font-size:27px; }
-.card h3 { color:var(--text);margin:15px 0 8px; }
-.card p { font-size:14px;margin-bottom:0; }
-.projects { margin-top:75px; }
-.project-row { display:flex;justify-content:space-between;align-items:center;
-  gap:15px;flex-wrap:wrap;border:1px solid var(--border);
-  border-radius:10px;padding:17px;margin-top:12px;background:var(--card); }
-.project-row strong { color:var(--text); }
-.tag { font-size:11px;padding:5px 9px;border-radius:20px;
-  background:#23863622;color:#3fb950; }
-footer { text-align:center;border-top:1px solid var(--border);
-  padding:28px 15px;font-size:12px; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Experts Network</title>
+  <style>
+    :root {
+      --bg: #050b08;
+      --green: #00ff88;
+      --panel: #0b1711;
+      --text: #e8fff0;
+      --muted: #9ab6a4;
+    }
 
-.modal {
-  display:none;position:fixed;inset:0;z-index:10;
-  background:#000c;backdrop-filter:blur(8px);
-  align-items:center;justify-content:center;padding:18px;
-}
-.modal.show { display:flex; }
-.dialog { width:100%;max-width:440px;max-height:90vh;overflow:auto;
-  background:#0a0d14;border:1px solid #283442;
-  border-radius:16px;padding:27px;position:relative; }
-.close { float:right;background:none;border:0;color:var(--muted);font-size:24px; }
-.dialog h2 { color:var(--text);margin:12px 0 5px; }
-.dialog p { font-size:13px; }
-.tabs { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0; }
-.tab { padding:10px;background:#101620;border:1px solid var(--border);
-  color:var(--muted);border-radius:7px; }
-.tab.active { border-color:var(--green);color:#3fb950; }
-.field { margin:15px 0; }
-.field label { display:block;font-size:12px;margin-bottom:7px; }
-.field input { width:100%;padding:12px;border-radius:7px;
-  background:#05080d;border:1px solid var(--border);color:var(--text); }
-.field input:focus { outline:1px solid var(--green); }
-.dialog form .btn { width:100%;margin-top:10px; }
-.notice { padding:11px;border-radius:7px;background:#111923;
-  font-size:12px;margin-top:14px; }
-#message { color:#3fb950;min-height:20px; }
-.chat-launch {
-  position:fixed;right:23px;bottom:23px;z-index:5;
-  width:57px;height:57px;border-radius:50%;border:0;
-  background:var(--green);color:white;font-size:24px;
-  box-shadow:0 5px 25px #23863666;
-}
-.chat {
-  display:none;position:fixed;right:20px;bottom:92px;z-index:5;
-  width:min(360px,calc(100vw - 32px));height:430px;
-  background:#0a0d14;border:1px solid #293441;border-radius:15px;
-  overflow:hidden;flex-direction:column;box-shadow:0 15px 60px #0009;
-}
-.chat.show { display:flex; }
-.chat-head { padding:15px;background:#101720;color:var(--text);
-  display:flex;justify-content:space-between; }
-.chat-body { padding:13px;flex:1;overflow:auto;font-size:13px; }
-.bubble { padding:10px 12px;border-radius:10px;margin:8px 0;
-  background:#141d27;max-width:90%;white-space:pre-wrap; }
-.bubble.user { margin-left:auto;background:#173822;color:#e8fff0; }
-.chat-form { display:flex;gap:7px;padding:10px;border-top:1px solid var(--border); }
-.chat-form input { min-width:0;flex:1;background:#05080d;color:white;
-  border:1px solid var(--border);border-radius:7px;padding:10px; }
-@media(max-width:760px) {
-  header { align-items:flex-start; }
-  .hero { grid-template-columns:1fr;padding:35px 0 55px; }
-  .grid { grid-template-columns:1fr; }
-  .metrics { gap:7px; }
-  .metric { padding:12px; }
-  .metric strong { font-size:21px; }
-  nav { justify-content:flex-end; }
-}
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { animation:none!important;transition:none!important; }
-}
-</style>
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    #glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,255,136,.15), transparent 70%);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 18px 7%;
+      background: rgba(5,11,8,.9);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid #143c27;
+      z-index: 5;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    .navlinks {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .nav a, .email {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 9px;
+      background: var(--green);
+      color: #031108 !important;
+      font-weight: bold;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green) !important;
+    }
+
+    .hero {
+      min-height: 76vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 7%;
+    }
+
+    .tag {
+      color: var(--green);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 76px);
+      max-width: 900px;
+      margin: 18px 0;
+      line-height: 1.05;
+    }
+
+    .hero h1 span { color: var(--green); }
+
+    .hero p {
+      max-width: 650px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    section { padding: 75px 7%; }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      max-width: 650px;
+      margin: 0 auto 35px;
+      line-height: 1.7;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      padding: 25px;
+      border: 1px solid #17462e;
+      border-radius: 15px;
+      background: rgba(11,23,17,.85);
+    }
+
+    .card h3 { color: var(--green); }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .request {
+      text-align: center;
+      max-width: 750px;
+      margin: auto;
+      padding: 35px;
+      border: 1px solid #17462e;
+      border-radius: 18px;
+      background: var(--panel);
+    }
+
+    .request p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: var(--muted);
+      border-top: 1px solid #143c27;
+    }
+
+    footer a { color: var(--green); }
+
+    .chatbox {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: min(340px, calc(100vw - 40px));
+      background: #09140e;
+      border: 1px solid var(--green);
+      border-radius: 14px;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .chathead {
+      padding: 14px;
+      background: #10331f;
+      color: var(--green);
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .chatmessages {
+      height: 190px;
+      overflow: auto;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    .message {
+      padding: 9px 11px;
+      margin: 7px 0;
+      border-radius: 9px;
+      background: #12261a;
+      line-height: 1.5;
+    }
+
+    .chatinput {
+      display: flex;
+      border-top: 1px solid #17462e;
+    }
+
+    .chatinput input {
+      min-width: 0;
+      flex: 1;
+      padding: 12px;
+      background: transparent;
+      border: 0;
+      color: white;
+      outline: none;
+    }
+
+    .chatinput button {
+      background: var(--green);
+      border: 0;
+      padding: 0 14px;
+      cursor: pointer;
+    }
+
+    .chat-toggle {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 9;
+    }
+
+    .chatbox.closed { display: none; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #000c;
+      z-index: 20;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.show { display: flex; }
+
+    .modal-content {
+      width: min(400px, 100%);
+      background: #0b1711;
+      border: 1px solid var(--green);
+      border-radius: 15px;
+      padding: 25px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      background: #061009;
+      color: white;
+      border: 1px solid #245338;
+      border-radius: 7px;
+    }
+
+    .modal-content h2 { color: var(--green); }
+
+    .modal-content .btn {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .nav {
+        padding: 15px 4%;
+        align-items: flex-start;
+      }
+
+      .navlinks {
+        gap: 10px;
+        font-size: 13px;
+      }
+
+      .logo { font-size: 16px; }
+
+      .chatbox {
+        bottom: 10px;
+        right: 10px;
+      }
+
+      .hero { min-height: 65vh; }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="logo">⚙ App Experts <span class="status">● ONLINE</span></div>
-  <nav>
-    <button class="btn" onclick="openModal('console')">🔐 Console</button>
-    <button class="btn blue" onclick="openModal('email')">✉ Email Login</button>
-    <button class="btn primary" onclick="openModal('signup')">Sign Up ↗</button>
-  </nav>
-</header>
+  <div id="glow"></div>
 
-<main>
-  <section class="hero">
-    <div>
-      <div class="eyebrow">Independent Game Testing Network</div>
-      <h1>Test harder.<br>Ship <span>better.</span></h1>
-      <p>Find bugs before your players do. Test gameplay mechanics, analyze performance, and help build more reliable gaming experiences.</p>
+  <header class="nav">
+    <a class="logo" href="#home">APP EXPERTS NETWORK</a>
+
+    <nav class="navlinks">
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+
+      <button class="btn" onclick="openModal('login')">
+        Login
+      </button>
+
+      <a class="btn secondary"
+         href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">
+        Email Us
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="tag">Testing • Quality • Innovation</div>
+
+      <h1>
+        We Help Apps Become
+        <span>Exceptional.</span>
+      </h1>
+
+      <p>
+        App Experts Network helps developers and businesses
+        improve their applications through thoughtful testing,
+        useful feedback, and quality-focused collaboration.
+      </p>
+
       <div class="actions">
-        <button class="btn primary" onclick="openModal('signup')">Become a Tester →</button>
-        <a class="btn" href="#services">Explore Testing ↓</a>
+        <a class="btn" href="#contact">Submit a Request</a>
+
+        <a class="btn secondary"
+           href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">
+          ✉ Email Us
+        </a>
+
+        <button class="btn secondary" onclick="openModal('signup')">
+          Sign Up
+        </button>
+      </div>
+    </section>
+
+    <section id="services">
+      <h2 class="section-title">What We Do</h2>
+
+      <p class="section-desc">
+        Helping teams identify issues, improve usability,
+        and deliver better app experiences.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>🎮 Game Testing</h3>
+          <p>
+            Explore gameplay, identify bugs, and provide useful
+            feedback to improve the player experience.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>🔍 Quality Assurance</h3>
+          <p>
+            Review application functionality, report issues,
+            and identify areas for improvement.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>💡 User Feedback</h3>
+          <p>
+            Get practical feedback about usability, navigation,
+            and the overall experience of your application.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Have a Project?</h2>
+
+      <p class="section-desc">
+        Tell us what you need and get in touch with our team.
+      </p>
+
+      <div class="request">
+        <h3>Let's Discuss Your App</h3>
+
+        <p>
+          Need game testing, application feedback, or help
+          reviewing your project? Email us with a description
+          of your requirements.
+        </p>
+
+        <a class="btn"
+           href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request&body=Hello%20App%20Experts%20Network%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project.%0A%0AProject%20details%3A%0A">
+          Submit a Request
+        </a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Contact Us</h2>
+
+      <p class="section-desc">
+        Have a question or want to work with us?
+        We would love to hear from you.
+      </p>
+
+      <div class="request">
+        <h3>Email App Experts Network</h3>
+
+        <p>
+          Click below to open your email app and contact us directly.
+        </p>
+
+        <a class="btn"
+           href="mailto:appexpertsnetwork@gmail.com">
+          ✉ Email Us: appexpertsnetwork@gmail.com
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> App Experts Network. All rights reserved.
+    <br><br>
+    <a href="mailto:appexpertsnetwork@gmail.com">
+      appexpertsnetwork@gmail.com
+    </a>
+  </footer>
+
+  <button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">
+    💬 Chat with us
+  </button>
+
+  <div class="chatbox closed" id="chatbox">
+    <div class="chathead">
+      App Experts Assistant
+      <button onclick="toggleChat()"
+              style="background:none;border:0;color:white;cursor:pointer">
+        ✕
+      </button>
+    </div>
+
+    <div class="chatmessages" id="chatmessages">
+      <div class="message">
+        Hi! 👋 Welcome to App Experts Network.
+        Ask me about our services or project requests.
       </div>
     </div>
-    <div class="console">
-      <div class="terminal-head">
-        <strong style="color:var(--text)">TEST ENVIRONMENT</strong>
-        <span class="dots">● ● ●</span>
-      </div>
-      <div class="terminal-line"><span class="ok">[OK]</span> Test environment initialized</div>
-      <div class="terminal-line"><span class="ok">[OK]</span> Gameplay diagnostics ready</div>
-      <div class="terminal-line"><span class="ok">[OK]</span> Bug reporting available</div>
-      <div class="terminal-line">> Awaiting test session_</div>
-      <div class="terminal-bar"><div></div></div>
-      <p style="font-size:12px">DEMO STATUS · No live game is connected</p>
-    </div>
-  </section>
 
-  <section class="metrics">
-    <div class="metric"><strong>QA</strong><span>Quality assurance</span></div>
-    <div class="metric"><strong>24/7*</strong><span>Testing-ready workflow</span></div>
-    <div class="metric"><strong>DEV</strong><span>Developer-focused reports</span></div>
-  </section>
-
-  <section id="services">
-    <h2 class="section-title">Testing Infrastructure</h2>
-    <p class="section-sub">Tools and workflows designed for better games.</p>
-    <div class="grid">
-      <article class="card">
-        <div class="icon">🎮</div><h3>Gameplay QA</h3>
-        <p>Test game mechanics, controls, progression, collision issues, and gameplay consistency across different builds.</p>
-      </article>
-      <article class="card">
-        <div class="icon">🐛</div><h3>Bug Reporting</h3>
-        <p>Document reproducible issues, severity, steps to reproduce, and expected versus actual behavior.</p>
-      </article>
-      <article class="card">
-        <div class="icon">⚡</div><h3>Performance Testing</h3>
-        <p>Evaluate frame-rate stability, loading times, memory use, and network behavior using authorized test environments.</p>
-      </article>
-      <article class="card">
-        <div class="icon">🌐</div><h3>Multiplayer QA</h3>
-        <p>Assess latency, synchronization, reconnect behavior, and multiplayer reliability in controlled tests.</p>
-      </article>
-      <article class="card">
-        <div class="icon">🛡️</div><h3>Security Review</h3>
-        <p>Review authorized test builds for common security weaknesses and report findings responsibly.</p>
-      </article>
-      <article class="card">
-        <div class="icon">📊</div><h3>Test Analytics</h3>
-        <p>Organize test outcomes, identify recurring failures, and help teams prioritize fixes.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="projects">
-    <h2 class="section-title">Test Lab</h2>
-    <p class="section-sub">Example project pipeline — illustrative data, not live results.</p>
-    <div class="project-row"><div><strong>Project: Neon Circuit</strong><br><small>Gameplay & controls</small></div><span class="tag">READY FOR QA</span></div>
-    <div class="project-row"><div><strong>Project: Outpost Zero</strong><br><small>Multiplayer stability</small></div><span class="tag">PLANNED</span></div>
-    <div class="project-row"><div><strong>Project: Pixel Forge</strong><br><small>Performance profiling</small></div><span class="tag">IN REVIEW</span></div>
-  </section>
-</main>
-
-<footer>App Experts Network · Game Testing & Quality Assurance<br><br>© 2026 · Demo website</footer>
-
-<!-- Authentication dialog -->
-<div class="modal" id="authModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-  <div class="dialog">
-    <button class="close" onclick="closeModal()" aria-label="Close">&times;</button>
-    <div class="eyebrow">App Experts Network</div>
-    <h2 id="modalTitle">Secure Console Access</h2>
-    <p id="modalDesc">Sign in to the demo administrator console.</p>
-    <div class="tabs">
-      <button class="tab active" id="consoleTab" onclick="setMode('console')">🔐 Console</button>
-      <button class="tab" id="emailTab" onclick="setMode('email')">✉ Email</button>
-    </div>
-    <form id="authForm">
-      <div class="field" id="usernameField">
-        <label for="username">Username</label>
-        <input id="username" autocomplete="username" placeholder="Enter username">
-      </div>
-      <div class="field" id="emailField" hidden>
-        <label for="email">Email address</label>
-        <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
-      </div>
-      <div class="field" id="nameField" hidden>
-        <label for="fullName">Display name</label>
-        <input id="fullName" autocomplete="name" placeholder="Your name">
-      </div>
-      <div class="field" id="passwordField">
-        <label for="password">Password</label>
-        <input id="password" type="password" autocomplete="current-password" placeholder="Enter password">
-      </div>
-      <button class="btn primary" id="submitBtn" type="submit">Sign In →</button>
+    <form class="chatinput" id="chatform">
+      <input id="chatinput"
+             placeholder="Type your message..."
+             autocomplete="off"
+             required>
+      <button type="submit">Send</button>
     </form>
-    <div id="message" role="status"></div>
-    <div class="notice">Demo only: this page does not provide real authentication, account storage, or protected server access. Do not enter a real password.</div>
   </div>
-</div>
 
-<!-- Demo AI assistant -->
-<button class="chat-launch" id="chatLaunch" aria-label="Open AI assistant" onclick="toggleChat()">✦</button>
-<section class="chat" id="chatPanel" aria-label="Testing assistant">
-  <div class="chat-head"><strong>🤖 Testing Assistant</strong><button class="close" onclick="toggleChat()" aria-label="Close chat">&times;</button></div>
-  <div class="chat-body" id="chatBody" aria-live="polite">
-    <div class="bubble">Hey! I'm the App Experts demo assistant. Ask me about game testing, bug reports, QA, or performance testing.</div>
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <button onclick="closeModal()"
+              style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">
+        ✕
+      </button>
+
+      <h2 id="modalTitle">Login</h2>
+
+      <form id="authform">
+        <input id="username" placeholder="Username" required>
+        <input id="password" type="password" placeholder="Password" required>
+        <button class="btn" type="submit" id="authSubmit">
+          Login
+        </button>
+      </form>
+
+      <p id="authMessage" style="color:#9ab6a4;font-size:13px;line-height:1.6">
+        Demo interface only. Secure authentication requires a backend.
+      </p>
+
+      <button class="btn secondary"
+              style="width:100%"
+              onclick="switchAuth()">
+        Switch to Sign Up
+      </button>
+
+      <a class="email"
+         style="display:block;text-align:center;margin-top:15px"
+         href="mailto:appexpertsnetwork@gmail.com">
+        Email Us
+      </a>
+    </div>
   </div>
-  <form class="chat-form" id="chatForm">
-    <input id="chatInput" placeholder="Ask a testing question..." autocomplete="off" required>
-    <button class="btn primary" type="submit">Send</button>
-  </form>
-</section>
 
-<script>
-// Demo UI only. Never use client-side credentials to protect real data.
-let mode = "console";
+  <script>
+    const EMAIL = "appexpertsnetwork@gmail.com";
 
-function openModal(nextMode) {
-  document.getElementById("authModal").classList.add("show");
-  setMode(nextMode);
-}
-function closeModal() {
-  document.getElementById("authModal").classList.remove("show");
-}
-function setMode(nextMode) {
-  mode = nextMode;
-  const signup = mode === "signup";
-  const emailMode = mode === "email" || signup;
-  document.getElementById("modalTitle").textContent =
-    signup ? "Create Tester Account" :
-    mode === "email" ? "Email Sign In" : "Secure Console Access";
-  document.getElementById("modalDesc").textContent =
-    signup ? "Join the game testing network demo." :
-    mode === "email" ? "Enter your email to try the demo." :
-    "Sign in to the demo administrator console.";
-  document.getElementById("usernameField").hidden = emailMode;
-  document.getElementById("emailField").hidden = !emailMode;
-  document.getElementById("nameField").hidden = !signup;
-  document.getElementById("passwordField").hidden = mode === "email";
-  document.getElementById("consoleTab").classList.toggle("active", mode === "console");
-  document.getElementById("emailTab").classList.toggle("active", emailMode);
-  document.getElementById("submitBtn").textContent =
-    signup ? "Create Demo Account →" :
-    mode === "email" ? "Continue with Email →" : "Sign In →";
-  document.getElementById("message").textContent = "";
-}
-document.querySelector('button[onclick="openModal(\'signup\')"]')
-  .addEventListener("click", () => setMode("signup"));
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
 
-document.getElementById("authForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const message = document.getElementById("message");
+    document.addEventListener("mousemove", event => {
+      const glow = document.getElementById("glow");
+      glow.style.left = event.clientX + "px";
+      glow.style.top = event.clientY + "px";
+    });
 
-  if (mode === "console") {
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value;
+    let authMode = "login";
 
-    // Public demo credentials are NOT secure authentication.
-    if (username === "admin" && password === "admin@admin@123") {
-      message.textContent = "Demo login successful. Welcome, Admin!";
-      setTimeout(() => {
-        closeModal();
-        alert("Demo administrator view. No protected systems are connected.");
-      }, 600);
-    } else {
-      message.textContent = "Demo login failed. Check the credentials.";
+    function openModal(mode) {
+      authMode = mode;
+      updateAuth();
+      document.getElementById("modal").classList.add("show");
     }
-  } else if (mode === "email") {
-    message.textContent = "Email sign-in requires a real authentication service.";
-  } else {
-    message.textContent = "Demo sign-up received. Connect a backend to create accounts.";
-  }
-});
 
-document.getElementById("authModal").addEventListener("click", event => {
-  if (event.target.id === "authModal") closeModal();
-});
-document.addEventListener("keydown", event => {
-  if (event.key === "Escape") closeModal();
-});
+    function closeModal() {
+      document.getElementById("modal").classList.remove("show");
+    }
 
-// Local rule-based assistant, not a connected AI model.
-function toggleChat() {
-  document.getElementById("chatPanel").classList.toggle("show");
-}
-function addBubble(text, type) {
-  const bubble = document.createElement("div");
-  bubble.className = "bubble " + type;
-  bubble.textContent = text;
-  const body = document.getElementById("chatBody");
-  body.appendChild(bubble);
-  body.scrollTop = body.scrollHeight;
-}
-function assistantReply(input) {
-  const q = input.toLowerCase();
-  if (q.includes("bug") || q.includes("report")) {
-    return "A useful bug report includes the title, game/build version, steps to reproduce, expected result, actual result, severity, and screenshots or logs when safe to share.";
-  }
-  if (q.includes("performance") || q.includes("fps") || q.includes("lag")) {
-    return "Test performance in a repeatable scene. Record FPS, frame-time spikes, CPU/GPU use, memory, device specs, and whether the issue happens consistently.";
-  }
-  if (q.includes("multiplayer") || q.includes("network") || q.includes("ping")) {
-    return "Check latency, packet loss, synchronization, reconnects, and behavior with different player counts in an authorized test environment.";
-  }
-  if (q.includes("test") || q.includes("qa") || q.includes("game")) {
-    return "Start with a clear test plan: define the feature, expected behavior, supported platforms, test steps, and what counts as a failure. Then log reproducible results.";
-  }
-  if (q.includes("hello") || q.includes("hey") || q.includes("hi")) {
-    return "Hey! What game-testing problem are you working on today?";
-  }
-  return "I can help with gameplay QA, test plans, bug reports, performance profiling, and multiplayer testing. For real AI answers, connect this chat to a trusted AI API through a server-side backend.";
-}
-document.getElementById("chatForm").addEventListener("submit", event => {
-  event.preventDefault();
-  const input = document.getElementById("chatInput");
-  const value = input.value.trim();
-  if (!value) return;
-  addBubble(value, "user");
-  input.value = "";
-  setTimeout(() => addBubble(assistantReply(value), "assistant"), 250);
-});
-</script>
+    function switchAuth() {
+      authMode = authMode === "login" ? "signup" : "login";
+      updateAuth();
+    }
+
+    function updateAuth() {
+      document.getElementById("modalTitle").textContent =
+        authMode === "login" ? "Login" : "Create Account";
+
+      document.getElementById("authSubmit").textContent =
+        authMode === "login" ? "Login" : "Sign Up";
+
+      document.getElementById("authMessage").textContent =
+        "Demo interface only. Do not enter a real password. Secure authentication requires a backend.";
+    }
+
+    document.getElementById("authform").addEventListener("submit", event => {
+      event.preventDefault();
+
+      document.getElementById("authMessage").textContent =
+        "This is a front-end demo and does not create accounts or authenticate users. Email " +
+        EMAIL + " for assistance.";
+    });
+
+    function toggleChat() {
+      const box = document.getElementById("chatbox");
+      box.classList.toggle("closed");
+
+      document.getElementById("chatToggle").style.display =
+        box.classList.contains("closed") ? "block" : "none";
+    }
+
+    function addMessage(text) {
+      const message = document.createElement("div");
+      message.className = "message";
+      message.textContent = text;
+
+      const messages = document.getElementById("chatmessages");
+      messages.appendChild(message);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    document.getElementById("chatform").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const input = document.getElementById("chatinput");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      addMessage("You: " + text);
+      input.value = "";
+
+      const question = text.toLowerCase();
+      let reply;
+
+      if (question.includes("email") || question.includes("contact")) {
+        reply = "You can contact our team at " + EMAIL + ".";
+      } else if (question.includes("game") || question.includes("test")) {
+        reply = "We focus on game testing, bug reporting, and gameplay feedback. Email us to discuss your project.";
+      } else if (question.includes("project") || question.includes("request")) {
+        reply = "To submit a project request, use the Submit a Request button or email " + EMAIL + ".";
+      } else if (question.includes("service")) {
+        reply = "We offer game testing, quality assurance, and user feedback.";
+      } else {
+        reply = "Thanks for reaching out! For further assistance, please email " + EMAIL + ".";
+      }
+
+      setTimeout(() => addMessage("Assistant: " + reply), 250);
+    });
+
+    document.getElementById("modal").addEventListener("click", event => {
+      if (event.target.id === "modal") closeModal();
+    });
+  </script>
 </body>
 </html>
