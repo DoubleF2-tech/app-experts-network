@@ -1,202 +1,1465 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>App Experts Network</title>
+
 <style>
-:root{--bg:#050b08;--green:#00ff88;--panel:#0b1711;--text:#e8fff0;--muted:#9ab6a4}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;overflow-x:hidden}#glow{position:fixed;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(0,255,136,.15),transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:-1}a{color:var(--green)}.nav{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:18px 7%;background:rgba(5,11,8,.94);backdrop-filter:blur(15px);border-bottom:1px solid #143c27;z-index:5}.logo{font-size:20px;font-weight:bold;color:var(--green);text-decoration:none}.navlinks{display:flex;align-items:center;gap:15px;flex-wrap:wrap}.navlinks a:not(.btn){color:var(--text);text-decoration:none}.btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}.btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}.btn.danger{background:#702b2b;color:white!important}.hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}.tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}.hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}.hero h1 span{color:var(--green)}.hero p{max-width:650px;color:var(--muted);line-height:1.8}section{padding:75px 7%}.section-title{text-align:center;font-size:clamp(28px,4vw,42px)}.section-desc{text-align:center;color:var(--muted);max-width:650px;margin:0 auto 35px;line-height:1.7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}.card,.request{padding:24px;border:1px solid #17462e;border-radius:15px;background:rgba(11,23,17,.92)}.card h3{color:var(--green)}.card p,.request p{color:var(--muted);line-height:1.7;overflow-wrap:anywhere}.empty{text-align:center;padding:35px;border:1px dashed #245338;border-radius:12px;color:var(--muted)}.review-stars{color:var(--green);font-size:23px;letter-spacing:3px;margin:8px 0}.review-card{position:relative}.review-card h3{overflow-wrap:anywhere}.review-quote{font-style:italic;white-space:pre-wrap;overflow-wrap:anywhere}footer{text-align:center;padding:30px;color:var(--muted);border-top:1px solid #143c27;line-height:1.8}footer a{color:var(--green)}.chatbox{position:fixed;bottom:20px;right:20px;width:min(340px,calc(100vw - 40px));background:#09140e;border:1px solid var(--green);border-radius:14px;overflow:hidden;z-index:10}.chathead{padding:14px;background:#10331f;color:var(--green);font-weight:bold;display:flex;justify-content:space-between}.chatmessages{height:190px;overflow:auto;padding:12px;font-size:14px}.message{padding:9px 11px;margin:7px 0;border-radius:9px;background:#12261a;line-height:1.5;overflow-wrap:anywhere}.chatinput{display:flex;border-top:1px solid #17462e}.chatinput input{min-width:0;flex:1;padding:12px;background:transparent;border:0;color:white;outline:none}.chatinput button{background:var(--green);border:0;padding:0 14px;cursor:pointer}.chat-toggle{position:fixed;right:20px;bottom:20px;z-index:9}.closed{display:none!important}.modal{display:none;position:fixed;inset:0;background:#000c;z-index:20;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-content{width:min(440px,100%);max-height:90vh;overflow:auto;background:#0b1711;border:1px solid var(--green);border-radius:15px;padding:25px}.modal-content h2,.admin-panel h2,.admin-panel h3{color:var(--green)}.modal-content input{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.modal-content .btn{width:100%;margin-top:10px}#dashboard{display:none;min-height:75vh}.admin-panel{max-width:1000px;margin:auto}.admin-form{padding:22px;border:1px solid #17462e;border-radius:14px;margin:25px 0}.admin-input,.admin-textarea,.admin-select{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}.admin-textarea{min-height:100px;resize:vertical}.project-actions,.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}.actions{justify-content:center}.status{color:var(--green);font-size:13px;overflow-wrap:anywhere;white-space:pre-wrap}.admin-label{display:block;margin-top:12px;color:var(--muted);font-size:13px}.admin-note{color:var(--muted);font-size:13px;line-height:1.6}.service-editor{border:1px solid #17462e;border-radius:10px;padding:14px;margin:12px 0}.service-editor .admin-input,.service-editor .admin-textarea{margin:5px 0}.account-card{padding:16px;border:1px solid #17462e;border-radius:10px;margin:10px 0;background:#09140e;overflow-wrap:anywhere}.account-card strong{color:var(--green)}@media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
+:root {
+    --bg: #050b08;
+    --green: #00ff88;
+    --panel: #0b1711;
+    --text: #e8fff0;
+    --muted: #9ab6a4;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+#glow {
+    position: fixed;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,255,136,.15), transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+a { color: var(--green); }
+
+.nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 18px 7%;
+    background: rgba(5,11,8,.94);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid #143c27;
+    z-index: 5;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--green);
+    text-decoration: none;
+}
+
+.navlinks {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.navlinks a:not(.btn) {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 9px;
+    background: var(--green);
+    color: #031108 !important;
+    font-weight: bold;
+    text-decoration: none;
+    border: 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green) !important;
+}
+
+.btn.danger {
+    background: #702b2b;
+    color: white !important;
+}
+
+.hero {
+    min-height: 76vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 70px 7%;
+}
+
+.tag {
+    color: var(--green);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 7vw, 76px);
+    max-width: 900px;
+    margin: 18px 0;
+    line-height: 1.05;
+}
+
+.hero h1 span { color: var(--green); }
+
+.hero p {
+    max-width: 650px;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+section { padding: 75px 7%; }
+
+.section-title {
+    text-align: center;
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+.section-desc {
+    text-align: center;
+    color: var(--muted);
+    max-width: 650px;
+    margin: 0 auto 35px;
+    line-height: 1.7;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 20px;
+}
+
+.card, .request {
+    padding: 24px;
+    border: 1px solid #17462e;
+    border-radius: 15px;
+    background: rgba(11,23,17,.92);
+}
+
+.card h3 { color: var(--green); }
+
+.card p, .request p {
+    color: var(--muted);
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.empty {
+    text-align: center;
+    padding: 35px;
+    border: 1px dashed #245338;
+    border-radius: 12px;
+    color: var(--muted);
+}
+
+.review-stars {
+    color: var(--green);
+    font-size: 23px;
+    letter-spacing: 3px;
+    margin: 8px 0;
+}
+
+.review-card { position: relative; }
+
+.review-card h3 { overflow-wrap: anywhere; }
+
+.review-quote {
+    font-style: italic;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: var(--muted);
+    border-top: 1px solid #143c27;
+    line-height: 1.8;
+}
+
+footer a { color: var(--green); }
+
+.chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: min(340px, calc(100vw - 40px));
+    background: #09140e;
+    border: 1px solid var(--green);
+    border-radius: 14px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.chathead {
+    padding: 14px;
+    background: #10331f;
+    color: var(--green);
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chatmessages {
+    height: 190px;
+    overflow: auto;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.message {
+    padding: 9px 11px;
+    margin: 7px 0;
+    border-radius: 9px;
+    background: #12261a;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.chatinput {
+    display: flex;
+    border-top: 1px solid #17462e;
+}
+
+.chatinput input {
+    min-width: 0;
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: 0;
+    color: white;
+    outline: none;
+}
+
+.chatinput button {
+    background: var(--green);
+    border: 0;
+    padding: 0 14px;
+    cursor: pointer;
+}
+
+.chat-toggle {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9;
+}
+
+.closed { display: none !important; }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000c;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal.show { display: flex; }
+
+.modal-content {
+    width: min(440px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: #0b1711;
+    border: 1px solid var(--green);
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.modal-content h2,
+.admin-panel h2,
+.admin-panel h3 {
+    color: var(--green);
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #061009;
+    color: white;
+    border: 1px solid #245338;
+    border-radius: 7px;
+}
+
+.modal-content .btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#dashboard {
+    display: none;
+    min-height: 75vh;
+}
+
+.admin-panel {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.admin-form {
+    padding: 22px;
+    border: 1px solid #17462e;
+    border-radius: 14px;
+    margin: 25px 0;
+}
+
+.admin-input,
+.admin-textarea,
+.admin-select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #061009;
+    color: white;
+    border: 1px solid #245338;
+    border-radius: 7px;
+}
+
+.admin-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.project-actions, .actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.actions { justify-content: center; }
+
+.status {
+    color: var(--green);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.admin-label {
+    display: block;
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.admin-note {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.service-editor {
+    border: 1px solid #17462e;
+    border-radius: 10px;
+    padding: 14px;
+    margin: 12px 0;
+}
+
+.service-editor .admin-input,
+.service-editor .admin-textarea {
+    margin: 5px 0;
+}
+
+@media (max-width: 650px) {
+    .nav {
+        padding: 14px 4%;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .navlinks {
+        gap: 10px;
+        font-size: 13px;
+    }
+
+    .logo { font-size: 17px; }
+    .hero { min-height: 65vh; }
+
+    .chatbox {
+        bottom: 10px;
+        right: 10px;
+    }
+}
 </style>
-</head>
+<style>:is([id*='google_ads_iframe'],[id*='taboola-'],.taboolaHeight,.taboola-placeholder,#top-ad,#credential_picker_container,#credentials-picker-container,#credential_picker_iframe,#onetap_google_intermediate_iframe,[id*='google-one-tap-iframe'],#google-one-tap-popup-container,.google-one-tap__module,.google-one-tap-modal-div,.adthrive-auto-injected-player-container,.adthrive[id^="cls-video-container"]:has(.adthrive-auto-injected-player-container),#amp_floatingAdDiv,#ez-content-blocker-container) {display:none!important;min-height:0!important;height:0!important;}</style></head>
+
 <body>
-<div id="glow"></div>
+<div id="glow" style="left: 913px; top: 552px;"></div>
+
 <header class="nav">
-<a class="logo" href="#home" onclick="showPublic()">APP EXPERTS NETWORK</a>
-<nav class="navlinks" id="publicNav">
-<a href="#services">Services</a><a href="#projects">Projects</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
-<button class="btn" onclick="openModal()">Admin Login</button>
-<a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
-</nav>
-<nav class="navlinks" id="adminNav" style="display:none">
-<button class="btn secondary" onclick="showPublic()">View Website</button><button class="btn" onclick="logout()">Log Out</button>
-</nav>
+    <a class="logo" href="#home" onclick="showPublic()">APP EXPERTS NETWORK</a>
+
+    <nav class="navlinks" id="publicNav" style="display: none;">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+        <button class="btn" onclick="openModal()">Admin Login</button>
+        <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
+    </nav>
+
+    <nav class="navlinks" id="adminNav" style="display: flex;">
+        <button class="btn secondary" onclick="showPublic()">View Website</button>
+        <button class="btn" onclick="logout()">Log Out</button>
+    </nav>
 </header>
+
 <main>
-<div id="publicSite">
-<section class="hero" id="home">
-<div class="tag" id="heroTag">Testing • Quality • Innovation</div>
-<h1 id="heroTitle">We Help Apps Become <span>Exceptional.</span></h1>
-<p id="heroDescription">App Experts Network helps developers and businesses improve their applications through game testing, quality assurance, and useful feedback.</p>
-<div class="actions"><a class="btn" href="#contact">Submit a Request</a><a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us</a></div>
-</section>
-<section id="services">
-<h2 class="section-title" id="servicesHeading">What We Do</h2>
-<p class="section-desc" id="servicesDescription">Helping teams identify issues and deliver better app experiences.</p>
-<div class="grid" id="servicesGrid">
-<article class="card"><h3>🎮 Game Testing</h3><p>Explore gameplay, identify bugs, and provide feedback to improve the player experience.</p></article>
-<article class="card"><h3>🔍 Quality Assurance</h3><p>Review application functionality, report issues, and identify improvements.</p></article>
-<article class="card"><h3>💡 User Feedback</h3><p>Review usability, navigation, and the overall experience of an application.</p></article>
-</div>
-</section>
-<section id="projects"><h2 class="section-title">Our Projects</h2><p class="section-desc">Our project portfolio showcases work and milestones as they become available.</p><div id="publicProjects" class="grid"></div></section>
-<section id="reviews"><h2 class="section-title">Customer Reviews</h2><p class="section-desc">Feedback from people who have worked with App Experts Network.</p><div id="publicReviews" class="grid"></div></section>
-<section id="contact"><h2 class="section-title">Contact Us</h2><p class="section-desc">Have a question or want to work with us? We'd love to hear from you.</p><div class="request"><h3>Let's Discuss Your App</h3><p>Tell us about your game-testing, quality-assurance, or application-feedback needs.</p><a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Submit a Request</a><p><a href="mailto:appexpertsnetwork@gmail.com">✉ Email Us: appexpertsnetwork@gmail.com</a></p></div></section>
-</div>
-<section id="dashboard">
-<div class="admin-panel">
-<h2>Admin Dashboard</h2><p class="section-desc">Manage the website, accounts, services, projects, and reviews.</p>
-<button class="btn secondary" onclick="showPublic()">View Public Website</button> <button class="btn" onclick="logout()">Log Out</button>
-<div class="admin-form" id="accountManager">
-<h3>Account Management</h3>
-<p class="admin-note">Create local accounts and choose their account type. Accounts are saved only in this browser and are not securely protected or synced across devices. Do not use important or reused passwords here.</p>
-<form id="accountForm">
-<label class="admin-label" for="newUsername">Username</label><input class="admin-input" id="newUsername" maxlength="40" autocomplete="off" placeholder="Choose a username" required>
-<label class="admin-label" for="newPassword">Password</label><input class="admin-input" id="newPassword" type="password" minlength="4" maxlength="100" autocomplete="new-password" placeholder="Choose a password" required>
-<label class="admin-label" for="newRole">Account type</label>
-<select class="admin-select" id="newRole"><option value="user">Normal User</option><option value="admin">Admin Account</option></select>
-<div class="project-actions"><button class="btn" type="submit">Create Account</button></div>
-</form>
-<p id="accountMessage" class="status" role="status"></p>
-<h3>Saved Accounts</h3><div id="accountList"></div>
-</div>
-<div class="admin-form">
-<h3>Edit Homepage</h3>
-<label class="admin-label">Small heading</label><input class="admin-input" id="editTag" maxlength="120">
-<label class="admin-label">Main heading</label><input class="admin-input" id="editHeroTitle" maxlength="180">
-<label class="admin-label">Green heading text</label><input class="admin-input" id="editHeroAccent" maxlength="100">
-<label class="admin-label">Homepage description</label><textarea class="admin-textarea" id="editHeroDescription" maxlength="1000"></textarea>
-<label class="admin-label">Services heading</label><input class="admin-input" id="editServicesHeading" maxlength="120">
-<label class="admin-label">Services description</label><textarea class="admin-textarea" id="editServicesDescription" maxlength="1000"></textarea>
-<h3>Manage Services</h3><div id="serviceEditors"></div>
-<button class="btn secondary" type="button" onclick="addService()">Add Service</button>
-<div class="project-actions"><button class="btn" type="button" onclick="applyWebsiteEdits()">Apply Website Edits</button></div>
-<p id="editMessage" class="status">Changes applied to this page. Publish to GitHub to update the live website.</p>
-</div>
-<div class="admin-form">
-<h3 id="formTitle">Add a Project</h3>
-<form id="projectForm">
-<input class="admin-input" id="projectTitle" placeholder="Project title" maxlength="100" required>
-<textarea class="admin-textarea" id="projectDescription" placeholder="Project description" maxlength="1000" required></textarea>
-<label><input type="checkbox" id="projectComplete" style="width:auto"> Mark as completed</label>
-<div class="project-actions"><button class="btn" type="submit" id="saveProject">Add Project</button><button class="btn secondary" type="button" onclick="resetProjectForm()">Cancel</button></div>
-</form><p id="adminMessage" class="status"></p>
-</div>
-<h3>Manage Projects</h3><div id="adminProjects" class="grid"></div>
-<div class="admin-form">
-<h3 id="reviewFormTitle">Add a Review</h3>
-<form id="reviewForm">
-<label class="admin-label" for="reviewName">Customer name</label><input class="admin-input" id="reviewName" placeholder="Customer name" maxlength="100" required>
-<label class="admin-label" for="reviewRating">Star rating</label><select class="admin-select" id="reviewRating" required><option value="5">★★★★★ — 5 stars</option><option value="4">★★★★☆ — 4 stars</option><option value="3">★★★☆☆ — 3 stars</option><option value="2">★★☆☆☆ — 2 stars</option><option value="1">★☆☆☆☆ — 1 star</option></select>
-<label class="admin-label" for="reviewText">Review</label><textarea class="admin-textarea" id="reviewText" placeholder="Enter the customer's genuine feedback" maxlength="1500" required></textarea>
-<div class="project-actions"><button class="btn" type="submit" id="saveReview">Add Review</button><button class="btn secondary" type="button" onclick="resetReviewForm()">Cancel</button></div>
-</form><p id="reviewMessage" class="status"></p>
-</div>
-<h3>Manage Reviews</h3><div id="adminReviews" class="grid"></div>
-<div class="admin-form">
-<h3>Publish to GitHub</h3>
-<p class="admin-note">Use a fine-grained token restricted to this repository with Contents: Read and write permission. Your token is not included in the published HTML. This browser-based dashboard cannot keep a token secret while it is in use. Never share your token.</p>
-<label class="admin-label">GitHub username</label><input class="admin-input" id="ghOwner" value="DoubleF2-tech" autocomplete="off">
-<label class="admin-label">Repository</label><input class="admin-input" id="ghRepo" value="app-experts-network" autocomplete="off">
-<label class="admin-label">Branch</label><input class="admin-input" id="ghBranch" value="main" autocomplete="off">
-<label class="admin-label">File path</label><input class="admin-input" id="ghPath" value="index.html" autocomplete="off">
-<label class="admin-label" for="ghToken">GitHub access token</label><input class="admin-input" id="ghToken" type="password" placeholder="Paste your replacement GitHub token" autocomplete="off">
-<div class="project-actions"><button class="btn secondary" type="button" id="ghCheck">Check GitHub Connection</button><button class="btn" type="button" id="ghPublish" disabled>Publish Website</button></div>
-<p id="ghStatus" class="status" role="status">Enter your GitHub token to check the connection.</p>
-</div>
-</div>
-</section>
+    <div id="publicSite" style="display: none;">
+        <section class="hero" id="home">
+            <div class="tag" id="heroTag">Testing • Quality • Innovation</div>
+            <h1 id="heroTitle">We Help Apps Become <span>Exceptional.</span></h1>
+            <p id="heroDescription">App Experts Network helps developers and businesses improve their applications through game testing, quality assurance, and useful feedback.</p>
+            <div class="actions">
+                <a class="btn" href="#contact">Submit a Request</a>
+                <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com?subject=App%20Experts%20Network%20Inquiry">✉ Email Us</a>
+            </div>
+        </section>
+
+        <section id="services">
+            <h2 class="section-title" id="servicesHeading">What We Do</h2>
+            <p class="section-desc" id="servicesDescription">Helping teams identify issues and deliver better app experiences.</p>
+
+            <div class="grid" id="servicesGrid">
+                <article class="card">
+                    <h3>🎮 Game Testing</h3>
+                    <p>Explore gameplay, identify bugs, and provide feedback to improve the player experience.</p>
+                </article>
+                <article class="card">
+                    <h3>🔍 Quality Assurance</h3>
+                    <p>Review application functionality, report issues, and identify improvements.</p>
+                </article>
+                <article class="card">
+                    <h3>💡 User Feedback</h3>
+                    <p>Review usability, navigation, and the overall experience of an application.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2 class="section-title">Our Projects</h2>
+            <p class="section-desc">Our project portfolio showcases work and milestones as they become available.</p>
+            <div id="publicProjects" class="grid"><div class="empty" style="grid-column: 1 / -1;">Our project portfolio is coming soon. <a href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Contact us</a></div></div>
+        </section>
+
+        <section id="reviews">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-desc">Feedback from people who have worked with App Experts Network.</p>
+            <div id="publicReviews" class="grid"><div class="empty" style="grid-column: 1 / -1;">Customer reviews will appear here as feedback becomes available.</div></div>
+        </section>
+
+        <section id="contact">
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-desc">Have a question or want to work with us? We'd love to hear from you.</p>
+
+            <div class="request">
+                <h3>Let's Discuss Your App</h3>
+                <p>Tell us about your game-testing, quality-assurance, or application-feedback needs.</p>
+                <a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Submit a Request</a>
+                <p><a href="mailto:appexpertsnetwork@gmail.com">✉ Email Us: appexpertsnetwork@gmail.com</a></p>
+            </div>
+        </section>
+    </div>
+
+    <section id="dashboard" style="display: block;">
+        <div class="admin-panel">
+            <h2>Admin Dashboard</h2>
+            <p class="section-desc">Manage the website, services, projects, and reviews.</p>
+
+            <button class="btn secondary" onclick="showPublic()">View Public Website</button>
+            <button class="btn" onclick="logout()">Log Out</button>
+
+            <div class="admin-form">
+                <h3>Edit Homepage</h3>
+
+                <label class="admin-label">Small heading</label>
+                <input class="admin-input" id="editTag" maxlength="120" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">Main heading</label>
+                <input class="admin-input" id="editHeroTitle" maxlength="180" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">Green heading text</label>
+                <input class="admin-input" id="editHeroAccent" maxlength="100" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">Homepage description</label>
+                <textarea class="admin-textarea" id="editHeroDescription" maxlength="1000"></textarea>
+
+                <label class="admin-label">Services heading</label>
+                <input class="admin-input" id="editServicesHeading" maxlength="120" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">Services description</label>
+                <textarea class="admin-textarea" id="editServicesDescription" maxlength="1000"></textarea>
+
+                <h3>Manage Services</h3>
+                <div id="serviceEditors"><div class="service-editor"><label class="admin-label">Service 1 title</label><input class="admin-input" maxlength="120" data-service-title="" data-ddg-inputtype="unknown"><label class="admin-label">Description</label><textarea class="admin-textarea" maxlength="1000" data-service-description=""></textarea><button type="button" class="btn danger">Remove Service</button></div><div class="service-editor"><label class="admin-label">Service 2 title</label><input class="admin-input" maxlength="120" data-service-title="" data-ddg-inputtype="unknown"><label class="admin-label">Description</label><textarea class="admin-textarea" maxlength="1000" data-service-description=""></textarea><button type="button" class="btn danger">Remove Service</button></div><div class="service-editor"><label class="admin-label">Service 3 title</label><input class="admin-input" maxlength="120" data-service-title="" data-ddg-inputtype="unknown"><label class="admin-label">Description</label><textarea class="admin-textarea" maxlength="1000" data-service-description=""></textarea><button type="button" class="btn danger">Remove Service</button></div></div>
+
+                <button class="btn secondary" type="button" onclick="addService()">Add Service</button>
+
+                <div class="project-actions">
+                    <button class="btn" type="button" onclick="applyWebsiteEdits()">Apply Website Edits</button>
+                </div>
+
+                <p id="editMessage" class="status">Changes applied to this page. Publish to GitHub to update the live website.</p>
+            </div>
+
+            <div class="admin-form">
+                <h3 id="formTitle">Add a Project</h3>
+
+                <form id="projectForm">
+                    <input class="admin-input" id="projectTitle" placeholder="Project title" maxlength="100" required="">
+                    <textarea class="admin-textarea" id="projectDescription" placeholder="Project description" maxlength="1000" required=""></textarea>
+
+                    <label><input type="checkbox" id="projectComplete" style="width:auto"> Mark as completed</label>
+
+                    <div class="project-actions">
+                        <button class="btn" type="submit" id="saveProject">Add Project</button>
+                        <button class="btn secondary" type="button" onclick="resetProjectForm()">Cancel</button>
+                    </div>
+                </form>
+
+                <p id="adminMessage" class="status"></p>
+            </div>
+
+            <h3>Manage Projects</h3>
+            <div id="adminProjects" class="grid"><div class="empty" style="grid-column: 1 / -1;">No projects yet. Add your first project above.</div></div>
+
+            <div class="admin-form">
+                <h3 id="reviewFormTitle">Add a Review</h3>
+
+                <form id="reviewForm">
+                    <label class="admin-label" for="reviewName">Customer name</label>
+                    <input class="admin-input" id="reviewName" placeholder="Customer name" maxlength="100" required="" data-ddg-inputtype="identities.fullName">
+
+                    <label class="admin-label" for="reviewRating">Star rating</label>
+                    <select class="admin-select" id="reviewRating" required="" data-ddg-inputtype="unknown">
+                        <option value="5">★★★★★ — 5 stars</option>
+                        <option value="4">★★★★☆ — 4 stars</option>
+                        <option value="3">★★★☆☆ — 3 stars</option>
+                        <option value="2">★★☆☆☆ — 2 stars</option>
+                        <option value="1">★☆☆☆☆ — 1 star</option>
+                    </select>
+
+                    <label class="admin-label" for="reviewText">Review</label>
+                    <textarea class="admin-textarea" id="reviewText" placeholder="Enter the customer's genuine feedback" maxlength="1500" required=""></textarea>
+
+                    <div class="project-actions">
+                        <button class="btn" type="submit" id="saveReview">Add Review</button>
+                        <button class="btn secondary" type="button" onclick="resetReviewForm()">Cancel</button>
+                    </div>
+                </form>
+
+                <p id="reviewMessage" class="status"></p>
+            </div>
+
+            <h3>Manage Reviews</h3>
+            <div id="adminReviews" class="grid"><div class="empty" style="grid-column: 1 / -1;">No reviews yet. Add genuine customer feedback using the form above.</div></div>
+
+            <div class="admin-form">
+                <h3>Publish to GitHub</h3>
+                <p class="admin-note">
+                    Use a fine-grained token restricted to this repository with Contents: Read and write permission. Your token is not included in the published HTML. This browser-based dashboard cannot keep a token secret while it is in use. Never share your token.
+                </p>
+
+                <label class="admin-label">GitHub username</label>
+                <input class="admin-input" id="ghOwner" value="DoubleF2-tech" autocomplete="off" data-ddg-inputtype="credentials.username">
+
+                <label class="admin-label">Repository</label>
+                <input class="admin-input" id="ghRepo" value="app-experts-network" autocomplete="off" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">Branch</label>
+                <input class="admin-input" id="ghBranch" value="main" autocomplete="off" data-ddg-inputtype="unknown">
+
+                <label class="admin-label">File path</label>
+                <input class="admin-input" id="ghPath" value="index.html" autocomplete="off" data-ddg-inputtype="unknown">
+
+                <label class="admin-label" for="ghToken">GitHub access token</label>
+                
+
+                <div class="project-actions">
+                    <button class="btn secondary" type="button" id="ghCheck">Check GitHub Connection</button>
+                    <button class="btn" type="button" id="ghPublish" disabled="">Publish Website</button>
+                </div>
+
+                <p id="ghStatus" class="status" role="status">Enter your GitHub token in the admin dashboard to publish changes.</p>
+            </div>
+        </div>
+    </section>
 </main>
-<footer>© <span id="year"></span> App Experts Network. All rights reserved.<br><a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a></footer>
-<button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()">💬 Chat with us</button>
+
+<footer>
+    © <span id="year">2026</span> App Experts Network. All rights reserved.<br>
+    <a href="mailto:appexpertsnetwork@gmail.com">appexpertsnetwork@gmail.com</a>
+</footer>
+
+<button class="btn chat-toggle" id="chatToggle" onclick="toggleChat()" style="display: none;">💬 Chat with us</button>
+
 <div class="chatbox closed" id="chatbox">
-<div class="chathead">App Experts Assistant <button onclick="toggleChat()" style="background:none;border:0;color:white;cursor:pointer">✕</button></div>
-<div class="chatmessages" id="chatmessages"><div class="message">Hi! 👋 Welcome to App Experts Network. Ask me about our services or project requests.</div></div>
-<form class="chatinput" id="chatform"><input id="chatinput" placeholder="Type your message..." autocomplete="off" required><button type="submit">Send</button></form>
+    <div class="chathead">
+        App Experts Assistant
+        <button onclick="toggleChat()" style="background:none;border:0;color:white;cursor:pointer">✕</button>
+    </div>
+
+    <div class="chatmessages" id="chatmessages">
+        <div class="message">Hi! 👋 Welcome to App Experts Network. Ask me about our services or project requests.</div>
+    </div>
+
+    <form class="chatinput" id="chatform">
+        <input id="chatinput" placeholder="Type your message..." autocomplete="off" required="">
+        <button type="submit">Send</button>
+    </form>
 </div>
-<div class="modal" id="modal"><div class="modal-content">
-<button onclick="closeModal()" style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">✕</button>
-<h2>Admin Login</h2>
-<form id="loginForm"><input id="username" placeholder="Username" autocomplete="username" required><input id="password" type="password" placeholder="Password" autocomplete="current-password" required><button class="btn" type="submit">Log In</button></form>
-<p id="loginMessage" style="color:var(--muted);font-size:13px;line-height:1.6">Enter your login details.</p><a href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
-</div></div>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <button onclick="closeModal()" style="float:right;background:none;border:0;color:white;font-size:20px;cursor:pointer">✕</button>
+        <h2>Admin Login</h2>
+
+        <form id="loginForm">
+            <input id="username" placeholder="Username" autocomplete="username" required="" data-ddg-inputtype="credentials.username">
+            <input id="password" type="password" placeholder="Password" autocomplete="current-password" required="" data-ddg-inputtype="credentials.password.current">
+            <button class="btn" type="submit">Log In</button>
+        </form>
+
+        <p id="loginMessage" style="color:var(--muted);font-size:13px;line-height:1.6">Enter your admin login details.</p>
+        <a href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
+    </div>
+</div>
+
 <script type="application/json" id="publishedProjectData">[]</script>
 <script type="application/json" id="publishedReviewData">[]</script>
+
 <script>
-const EMAIL="appexpertsnetwork@gmail.com";
-const STORAGE_KEY="aen_projects",DATA_ID="publishedProjectData",REVIEW_STORAGE_KEY="aen_reviews",REVIEW_DATA_ID="publishedReviewData",ACCOUNT_STORAGE_KEY="aen_local_accounts";
-const DEFAULT_ACCOUNTS=[{username:"admin",password:"admin@admin@123",role:"admin"},{username:"nick",password:"polo",role:"admin"}];
-let accounts=[],projects=[],reviews=[],editingId=null,editingReviewId=null,adminLoggedIn=false,currentAccount=null;
-document.getElementById("year").textContent=new Date().getFullYear();
-function readEmbedded(id){try{return JSON.parse(document.getElementById(id).textContent||"[]")}catch(e){return[]}}
-function loadAccounts(){
-try{const saved=localStorage.getItem(ACCOUNT_STORAGE_KEY);accounts=saved===null?DEFAULT_ACCOUNTS.map(a=>({...a})):JSON.parse(saved);if(!Array.isArray(accounts))accounts=[]}catch(e){accounts=DEFAULT_ACCOUNTS.map(a=>({...a}))}
-if(!accounts.some(a=>a.role==="admin"))accounts.push({username:"admin",password:"admin@admin@123",role:"admin"});
-saveAccounts();renderAccounts()
+const EMAIL = "appexpertsnetwork@gmail.com";
+
+const ADMIN_ACCOUNTS = [
+    { username: "admin", password: "admin@admin@123" },
+    { username: "nick", password: "polo" }
+];
+
+const STORAGE_KEY = "aen_projects";
+const DATA_ID = "publishedProjectData";
+const REVIEW_STORAGE_KEY = "aen_reviews";
+const REVIEW_DATA_ID = "publishedReviewData";
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+let projects = [];
+let reviews = [];
+let editingId = null;
+let editingReviewId = null;
+let adminLoggedIn = false;
+
+function readEmbedded(id) {
+    try {
+        return JSON.parse(document.getElementById(id).textContent || "[]");
+    } catch (e) {
+        return [];
+    }
 }
-function saveAccounts(){try{localStorage.setItem(ACCOUNT_STORAGE_KEY,JSON.stringify(accounts));return true}catch(e){return false}}
-function renderAccounts(){
-const list=document.getElementById("accountList");if(!list)return;list.replaceChildren();
-if(!accounts.length){const p=document.createElement("p");p.className="empty";p.textContent="No accounts found.";list.appendChild(p);return}
-accounts.forEach(a=>{const card=document.createElement("div");card.className="account-card";const info=document.createElement("p");const name=document.createElement("strong");name.textContent=a.username;info.append(name,document.createTextNode(" — "+(a.role==="admin"?"Admin Account":"Normal User")));card.appendChild(info);
-if(adminLoggedIn&&currentAccount&&currentAccount.role==="admin"){const del=document.createElement("button");del.className="btn danger";del.textContent="Delete Account";del.onclick=()=>{if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")return;if(a.username===currentAccount.username){alert("You cannot delete the account you are currently using.");return}if(a.role==="admin"&&accounts.filter(x=>x.role==="admin").length<=1){alert("You cannot delete the last admin account.");return}if(confirm("Delete the account '"+a.username+"'?")){accounts=accounts.filter(x=>x.username!==a.username);saveAccounts();renderAccounts();document.getElementById("accountMessage").textContent="Account deleted from this browser."}};card.appendChild(del)}list.appendChild(card)})
+
+function loadProjects() {
+    try {
+        const s = localStorage.getItem(STORAGE_KEY);
+        projects = s === null ? readEmbedded(DATA_ID) : JSON.parse(s);
+        if (!Array.isArray(projects)) projects = [];
+    } catch (e) {
+        projects = readEmbedded(DATA_ID);
+    }
+    renderProjects();
 }
-document.getElementById("accountForm").addEventListener("submit",e=>{
-e.preventDefault();if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")return;
-const username=document.getElementById("newUsername").value.trim(),password=document.getElementById("newPassword").value,role=document.getElementById("newRole").value;
-const msg=document.getElementById("accountMessage");
-if(username.length<3){msg.textContent="Username must be at least 3 characters.";return}
-if(password.length<4){msg.textContent="Password must be at least 4 characters.";return}
-if(accounts.some(a=>a.username.toLowerCase()===username.toLowerCase())){msg.textContent="That username already exists.";return}
-accounts.push({username,password,role:role==="admin"?"admin":"user"});
-if(!saveAccounts()){accounts.pop();msg.textContent="Could not save the account in this browser.";return}
-document.getElementById("accountForm").reset();msg.textContent="Account created and saved in this browser.";renderAccounts()
+
+function loadReviews() {
+    try {
+        const s = localStorage.getItem(REVIEW_STORAGE_KEY);
+        reviews = s === null ? readEmbedded(REVIEW_DATA_ID) : JSON.parse(s);
+        if (!Array.isArray(reviews)) reviews = [];
+    } catch (e) {
+        reviews = readEmbedded(REVIEW_DATA_ID);
+    }
+    renderReviews();
+}
+
+function saveProjects() {
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+        return true;
+    } catch (e) {
+        document.getElementById("adminMessage").textContent = "Could not save in this browser.";
+        return false;
+    }
+}
+
+function saveReviews() {
+    try {
+        localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
+        return true;
+    } catch (e) {
+        document.getElementById("reviewMessage").textContent = "Could not save in this browser.";
+        return false;
+    }
+}
+
+document.addEventListener("mousemove", e => {
+    const g = document.getElementById("glow");
+    g.style.left = e.clientX + "px";
+    g.style.top = e.clientY + "px";
 });
-function loadProjects(){try{const s=localStorage.getItem(STORAGE_KEY);projects=s===null?readEmbedded(DATA_ID):JSON.parse(s);if(!Array.isArray(projects))projects=[]}catch(e){projects=readEmbedded(DATA_ID)}renderProjects()}
-function loadReviews(){try{const s=localStorage.getItem(REVIEW_STORAGE_KEY);reviews=s===null?readEmbedded(REVIEW_DATA_ID):JSON.parse(s);if(!Array.isArray(reviews))reviews=[]}catch(e){reviews=readEmbedded(REVIEW_DATA_ID)}renderReviews()}
-function saveProjects(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));return true}catch(e){document.getElementById("adminMessage").textContent="Could not save in this browser.";return false}}
-function saveReviews(){try{localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(reviews));return true}catch(e){document.getElementById("reviewMessage").textContent="Could not save in this browser.";return false}}
-document.addEventListener("mousemove",e=>{const g=document.getElementById("glow");g.style.left=e.clientX+"px";g.style.top=e.clientY+"px"});
-function openModal(){document.getElementById("modal").classList.add("show");document.getElementById("loginMessage").textContent="Enter your login details."}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
-document.getElementById("loginForm").addEventListener("submit",e=>{
-e.preventDefault();const u=document.getElementById("username").value.trim(),p=document.getElementById("password").value;
-const account=accounts.find(a=>a.username.toLowerCase()===u.toLowerCase()&&a.password===p);
-if(!account){document.getElementById("loginMessage").textContent="Incorrect username or password.";return}
-if(account.role!=="admin"){document.getElementById("loginMessage").textContent="This is a Normal User account. The website does not currently have a separate user dashboard.";return}
-currentAccount=account;adminLoggedIn=true;closeModal();document.getElementById("loginForm").reset();showDashboard()
-});
-function showDashboard(){if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")return;document.getElementById("publicSite").style.display="none";document.getElementById("dashboard").style.display="block";document.getElementById("publicNav").style.display="none";document.getElementById("adminNav").style.display="flex";document.getElementById("chatbox").classList.add("closed");document.getElementById("chatToggle").style.display="none";document.getElementById("accountManager").style.display="block";window.scrollTo(0,0);fillWebsiteEditor();renderProjects();renderReviews();renderAccounts()}
-function showPublic(){document.getElementById("dashboard").style.display="none";document.getElementById("publicSite").style.display="block";document.getElementById("publicNav").style.display="flex";document.getElementById("adminNav").style.display=adminLoggedIn?"flex":"none";document.getElementById("chatToggle").style.display="block";window.scrollTo(0,0)}
-function logout(){adminLoggedIn=false;currentAccount=null;document.getElementById("adminNav").style.display="none";document.getElementById("ghToken").value="";document.getElementById("ghPublish").disabled=true;showPublic();document.getElementById("adminNav").style.display="none";resetProjectForm();resetReviewForm()}
-function makeCard(p,isAdmin){
-const c=document.createElement("article");c.className="card";const h=document.createElement("h3");h.textContent=p.title;c.appendChild(h);const d=document.createElement("p");d.textContent=p.description;c.appendChild(d);const s=document.createElement("p");s.className="status";s.textContent=p.complete?"✓ Completed":"In Progress";c.appendChild(s);
-if(isAdmin){const a=document.createElement("div");a.className="project-actions";const t=document.createElement("button");t.className="btn secondary";t.textContent=p.complete?"Reopen Project":"Mark Complete";t.onclick=()=>{if(!adminLoggedIn)return;p.complete=!p.complete;saveProjects();renderProjects()};a.appendChild(t);const e=document.createElement("button");e.className="btn";e.textContent="Edit";e.onclick=()=>editProject(p.id);a.appendChild(e);const r=document.createElement("button");r.className="btn danger";r.textContent="Delete";r.onclick=()=>{if(adminLoggedIn&&confirm("Delete this project?")){projects=projects.filter(x=>x.id!==p.id);saveProjects();renderProjects();if(editingId===p.id)resetProjectForm()}};a.appendChild(r);c.appendChild(a)}return c
+
+function openModal() {
+    document.getElementById("modal").classList.add("show");
+    document.getElementById("loginMessage").textContent = "Enter your admin login details.";
 }
-function renderProjects(){const pub=document.getElementById("publicProjects"),adm=document.getElementById("adminProjects");pub.replaceChildren();adm.replaceChildren();if(!projects.length){const e=document.createElement("div");e.className="empty";e.style.gridColumn="1 / -1";e.textContent="Our project portfolio is coming soon. ";const l=document.createElement("a");l.href="mailto:"+EMAIL+"?subject=Project%20Request";l.textContent="Contact us";e.appendChild(l);pub.appendChild(e);const a=document.createElement("div");a.className="empty";a.style.gridColumn="1 / -1";a.textContent="No projects yet. Add your first project above.";adm.appendChild(a);return}projects.forEach(p=>{pub.appendChild(makeCard(p,false));adm.appendChild(makeCard(p,true))})}
-function resetProjectForm(){editingId=null;document.getElementById("projectForm").reset();document.getElementById("formTitle").textContent="Add a Project";document.getElementById("saveProject").textContent="Add Project"}
-function editProject(id){if(!adminLoggedIn)return;const p=projects.find(x=>x.id===id);if(!p)return;editingId=id;document.getElementById("projectTitle").value=p.title;document.getElementById("projectDescription").value=p.description;document.getElementById("projectComplete").checked=p.complete;document.getElementById("formTitle").textContent="Edit Project";document.getElementById("saveProject").textContent="Save Changes";document.getElementById("projectTitle").focus()}
-document.getElementById("projectForm").addEventListener("submit",e=>{e.preventDefault();if(!adminLoggedIn)return;const title=document.getElementById("projectTitle").value.trim(),description=document.getElementById("projectDescription").value.trim(),complete=document.getElementById("projectComplete").checked;if(!title||!description)return;if(editingId){const p=projects.find(x=>x.id===editingId);if(p)Object.assign(p,{title,description,complete})}else projects.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2),title,description,complete});if(saveProjects()){renderProjects();resetProjectForm();document.getElementById("adminMessage").textContent="Saved in this browser. Publish to GitHub to make changes live."}});
-function makeReviewCard(r,isAdmin){const c=document.createElement("article");c.className="card review-card";const rating=Math.max(0,Math.min(5,Number(r.rating)||0));const stars=document.createElement("div");stars.className="review-stars";stars.setAttribute("aria-label",rating+" out of 5 stars");stars.textContent="★".repeat(rating)+"☆".repeat(5-rating);c.appendChild(stars);const h=document.createElement("h3");h.textContent=r.name;c.appendChild(h);const p=document.createElement("p");p.className="review-quote";p.textContent="“"+r.text+"”";c.appendChild(p);if(isAdmin){const a=document.createElement("div");a.className="project-actions";const e=document.createElement("button");e.className="btn secondary";e.textContent="Edit";e.onclick=()=>editReview(r.id);a.appendChild(e);const d=document.createElement("button");d.className="btn danger";d.textContent="Delete";d.onclick=()=>{if(adminLoggedIn&&confirm("Delete this review?")){reviews=reviews.filter(x=>x.id!==r.id);saveReviews();renderReviews();if(editingReviewId===r.id)resetReviewForm();document.getElementById("reviewMessage").textContent="Review deleted. Publish to GitHub to update the live website."}};a.appendChild(d);c.appendChild(a)}return c}
-function renderReviews(){const pub=document.getElementById("publicReviews"),adm=document.getElementById("adminReviews");pub.replaceChildren();adm.replaceChildren();if(!reviews.length){const e=document.createElement("div");e.className="empty";e.style.gridColumn="1 / -1";e.textContent="Customer reviews will appear here as feedback becomes available.";pub.appendChild(e);const a=document.createElement("div");a.className="empty";a.style.gridColumn="1 / -1";a.textContent="No reviews yet. Add genuine customer feedback using the form above.";adm.appendChild(a);return}reviews.forEach(r=>{pub.appendChild(makeReviewCard(r,false));adm.appendChild(makeReviewCard(r,true))})}
-function resetReviewForm(){editingReviewId=null;document.getElementById("reviewForm").reset();document.getElementById("reviewRating").value="5";document.getElementById("reviewFormTitle").textContent="Add a Review";document.getElementById("saveReview").textContent="Add Review"}
-function editReview(id){if(!adminLoggedIn)return;const r=reviews.find(x=>x.id===id);if(!r)return;editingReviewId=id;document.getElementById("reviewName").value=r.name;document.getElementById("reviewRating").value=String(r.rating);document.getElementById("reviewText").value=r.text;document.getElementById("reviewFormTitle").textContent="Edit Review";document.getElementById("saveReview").textContent="Save Changes";document.getElementById("reviewName").focus()}
-document.getElementById("reviewForm").addEventListener("submit",e=>{e.preventDefault();if(!adminLoggedIn)return;const name=document.getElementById("reviewName").value.trim(),rating=Number(document.getElementById("reviewRating").value),text=document.getElementById("reviewText").value.trim();if(!name||!text||rating<1||rating>5)return;const item={name,rating,text};if(editingReviewId){const r=reviews.find(x=>x.id===editingReviewId);if(r)Object.assign(r,item)}else reviews.unshift({id:Date.now().toString(36)+Math.random().toString(36).slice(2),...item});if(saveReviews()){renderReviews();resetReviewForm();document.getElementById("reviewMessage").textContent="Review saved in this browser. Publish to GitHub to make it live."}});
-function serviceData(){return Array.from(document.querySelectorAll("#servicesGrid .card")).map(c=>({title:c.querySelector("h3").textContent,description:c.querySelector("p").textContent}))}
-function rebuildServiceEditors(){const box=document.getElementById("serviceEditors");box.replaceChildren();serviceData().forEach((s,i)=>{const w=document.createElement("div");w.className="service-editor";const label=document.createElement("label");label.className="admin-label";label.textContent="Service "+(i+1)+" title";const title=document.createElement("input");title.className="admin-input";title.maxLength=120;title.value=s.title;title.dataset.serviceTitle="";const dl=document.createElement("label");dl.className="admin-label";dl.textContent="Description";const desc=document.createElement("textarea");desc.className="admin-textarea";desc.maxLength=1000;desc.value=s.description;desc.dataset.serviceDescription="";const del=document.createElement("button");del.type="button";del.className="btn danger";del.textContent="Remove Service";del.onclick=()=>{if(!adminLoggedIn)return;document.querySelectorAll("#servicesGrid .card")[i].remove();rebuildServiceEditors()};w.append(label,title,dl,desc,del);box.appendChild(w)})}
-function addService(){if(!adminLoggedIn)return;const c=document.createElement("article");c.className="card";const h=document.createElement("h3");h.textContent="New Service";const p=document.createElement("p");p.textContent="Describe your service here.";c.append(h,p);document.getElementById("servicesGrid").appendChild(c);rebuildServiceEditors()}
-function fillWebsiteEditor(){document.getElementById("editTag").value=document.getElementById("heroTag").textContent;const h=document.getElementById("heroTitle"),span=h.querySelector("span");document.getElementById("editHeroTitle").value=span?h.textContent.replace(span.textContent,"").trim():"";document.getElementById("editHeroAccent").value=span?span.textContent:"";document.getElementById("editHeroDescription").value=document.getElementById("heroDescription").textContent;document.getElementById("editServicesHeading").value=document.getElementById("servicesHeading").textContent;document.getElementById("editServicesDescription").value=document.getElementById("servicesDescription").textContent;rebuildServiceEditors()}
-function applyWebsiteEdits(){if(!adminLoggedIn)return;document.getElementById("heroTag").textContent=document.getElementById("editTag").value.trim();const h=document.getElementById("heroTitle");h.replaceChildren(document.createTextNode(document.getElementById("editHeroTitle").value.trim()+" "));const sp=document.createElement("span");sp.textContent=document.getElementById("editHeroAccent").value.trim();h.appendChild(sp);document.getElementById("heroDescription").textContent=document.getElementById("editHeroDescription").value.trim();document.getElementById("servicesHeading").textContent=document.getElementById("editServicesHeading").value.trim();document.getElementById("servicesDescription").textContent=document.getElementById("editServicesDescription").value.trim();const cards=Array.from(document.querySelectorAll("#servicesGrid .card")),editors=Array.from(document.querySelectorAll("#serviceEditors .service-editor"));editors.forEach((w,i)=>{if(cards[i]){cards[i].querySelector("h3").textContent=w.querySelector("[data-service-title]").value.trim();cards[i].querySelector("p").textContent=w.querySelector("[data-service-description]").value.trim()}});document.getElementById("editMessage").textContent="Changes applied to this page. Publish to GitHub to update the live website."}
-function toggleChat(){const b=document.getElementById("chatbox");b.classList.toggle("closed");document.getElementById("chatToggle").style.display=b.classList.contains("closed")?"block":"none"}
-function addMessage(t){const m=document.createElement("div");m.className="message";m.textContent=t;const a=document.getElementById("chatmessages");a.appendChild(m);a.scrollTop=a.scrollHeight}
-document.getElementById("chatform").addEventListener("submit",e=>{e.preventDefault();const i=document.getElementById("chatinput"),t=i.value.trim();if(!t)return;addMessage("You: "+t);i.value="";const q=t.toLowerCase();addMessage("Assistant: "+(q.includes("email")||q.includes("contact")?"Email our team at "+EMAIL+".":q.includes("project")||q.includes("request")?"To discuss a project, email "+EMAIL+".":q.includes("game")||q.includes("test")?"We focus on game testing, bug reporting, and gameplay feedback. Contact us at "+EMAIL+".":q.includes("service")?"We offer game testing, quality assurance, and user feedback.":"Thanks for reaching out! Email "+EMAIL+" for further assistance."))});
-document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
-function ghConfig(){const owner=document.getElementById("ghOwner").value.trim(),repo=document.getElementById("ghRepo").value.trim(),branch=document.getElementById("ghBranch").value.trim(),path=document.getElementById("ghPath").value.trim(),token=document.getElementById("ghToken").value.trim();if(!owner||!repo||!branch||!path||!token)throw Error("Fill in all GitHub settings and enter your token.");return{owner,repo,branch,path,token,url:"https://api.github.com/repos/"+encodeURIComponent(owner)+"/"+encodeURIComponent(repo)+"/contents/"+path.split("/").map(encodeURIComponent).join("/")}}
-async function ghRequest(url,token,options={}){const r=await fetch(url,{...options,headers:{"Accept":"application/vnd.github+json","Authorization":"Bearer "+token,"X-GitHub-Api-Version":"2022-11-28","Content-Type":"application/json",...(options.headers||{})}});let d={};try{d=await r.json()}catch(e){}if(!r.ok)throw Error(d.message||"GitHub API error "+r.status);return d}
-document.getElementById("ghCheck").onclick=async()=>{const b=document.getElementById("ghCheck"),s=document.getElementById("ghStatus");b.disabled=true;try{const c=ghConfig(),d=await ghRequest(c.url+"?ref="+encodeURIComponent(c.branch),c.token);if(d.type!=="file")throw Error("The selected path is not a file.");s.textContent="Connected! Found "+c.path+" on branch "+c.branch+". Ready to publish.";document.getElementById("ghPublish").disabled=false}catch(e){s.textContent="Connection failed: "+e.message;document.getElementById("ghPublish").disabled=true}finally{b.disabled=false}};
-function pageForPublishing(){const clone=document.documentElement.cloneNode(true),publicSite=clone.querySelector("#publicSite"),dashboard=clone.querySelector("#dashboard"),publicNav=clone.querySelector("#publicNav"),adminNav=clone.querySelector("#adminNav");if(publicSite)publicSite.style.display="block";if(dashboard)dashboard.style.display="none";if(publicNav)publicNav.style.display="flex";if(adminNav)adminNav.style.display="none";const modal=clone.querySelector("#modal");if(modal)modal.classList.remove("show");const chatbox=clone.querySelector("#chatbox"),chatToggle=clone.querySelector("#chatToggle");if(chatbox)chatbox.classList.add("closed");if(chatToggle)chatToggle.style.display="block";const loginForm=clone.querySelector("#loginForm");if(loginForm)loginForm.reset();const loginMessage=clone.querySelector("#loginMessage");if(loginMessage)loginMessage.textContent="Enter your login details.";const token=clone.querySelector("#ghToken");if(token)token.remove();const status=clone.querySelector("#ghStatus");if(status)status.textContent="Enter your GitHub token in the admin dashboard to publish changes.";const pd=clone.querySelector("#"+DATA_ID);if(pd)pd.textContent=JSON.stringify(projects).replace(/</g,"\\u003c");const rd=clone.querySelector("#"+REVIEW_DATA_ID);if(rd)rd.textContent=JSON.stringify(reviews).replace(/</g,"\\u003c");return"<!DOCTYPE html>\n"+clone.outerHTML}
-document.getElementById("ghPublish").onclick=async()=>{const b=document.getElementById("ghPublish"),s=document.getElementById("ghStatus");b.disabled=true;try{if(!adminLoggedIn||!currentAccount||currentAccount.role!=="admin")throw Error("Please log in to the admin dashboard first.");const c=ghConfig();if(!confirm("Publish the complete website, including projects and reviews, to "+c.owner+"/"+c.repo+" on branch "+c.branch+"?"))return;s.textContent="Checking the current GitHub file…";const latest=await ghRequest(c.url+"?ref="+encodeURIComponent(c.branch),c.token);if(latest.type!=="file")throw Error("The selected path is not a file.");applyWebsiteEdits();const html=pageForPublishing(),bytes=new TextEncoder().encode(html);let binary="";for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));const payload={message:"Update App Experts Network website",content:btoa(binary),branch:c.branch,sha:latest.sha};s.textContent="Publishing your website…";const result=await ghRequest(c.url,c.token,{method:"PUT",body:JSON.stringify(payload)});try{localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(reviews))}catch(e){}s.textContent="Published successfully! Commit: "+(result.commit?.sha||"created")+"\nGitHub updated index.html. GitHub Pages may take a few minutes to show the changes."}catch(e){s.textContent="Publish failed: "+e.message+"\nCheck your token permissions, repository, branch, and file path."}finally{b.disabled=false}};
-loadAccounts();loadProjects();loadReviews();
+
+function closeModal() {
+    document.getElementById("modal").classList.remove("show");
+}
+
+document.getElementById("loginForm").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+
+    const valid = ADMIN_ACCOUNTS.some(account =>
+        account.username === u && account.password === p
+    );
+
+    if (valid) {
+        adminLoggedIn = true;
+        closeModal();
+        document.getElementById("loginForm").reset();
+        showDashboard();
+    } else {
+        document.getElementById("loginMessage").textContent =
+            "Incorrect username or password.";
+    }
+});
+
+function showDashboard() {
+    if (!adminLoggedIn) return;
+
+    document.getElementById("publicSite").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("publicNav").style.display = "none";
+    document.getElementById("adminNav").style.display = "flex";
+    document.getElementById("chatbox").classList.add("closed");
+    document.getElementById("chatToggle").style.display = "none";
+
+    window.scrollTo(0, 0);
+    fillWebsiteEditor();
+    renderProjects();
+    renderReviews();
+}
+
+function showPublic() {
+    document.getElementById("dashboard").style.display = "none";
+    document.getElementById("publicSite").style.display = "block";
+    document.getElementById("publicNav").style.display = "flex";
+    document.getElementById("adminNav").style.display = adminLoggedIn ? "flex" : "none";
+    document.getElementById("chatToggle").style.display = "block";
+    window.scrollTo(0, 0);
+}
+
+function logout() {
+    adminLoggedIn = false;
+    document.getElementById("adminNav").style.display = "none";
+    document.getElementById("ghToken").value = "";
+    document.getElementById("ghPublish").disabled = true;
+
+    showPublic();
+
+    document.getElementById("adminNav").style.display = "none";
+    resetProjectForm();
+    resetReviewForm();
+}
+
+/* PROJECTS */
+
+function makeCard(p, isAdmin) {
+    const c = document.createElement("article");
+    c.className = "card";
+
+    const h = document.createElement("h3");
+    h.textContent = p.title;
+    c.appendChild(h);
+
+    const d = document.createElement("p");
+    d.textContent = p.description;
+    c.appendChild(d);
+
+    const s = document.createElement("p");
+    s.className = "status";
+    s.textContent = p.complete ? "✓ Completed" : "In Progress";
+    c.appendChild(s);
+
+    if (isAdmin) {
+        const a = document.createElement("div");
+        a.className = "project-actions";
+
+        const t = document.createElement("button");
+        t.className = "btn secondary";
+        t.textContent = p.complete ? "Reopen Project" : "Mark Complete";
+        t.onclick = () => {
+            if (!adminLoggedIn) return;
+            p.complete = !p.complete;
+            saveProjects();
+            renderProjects();
+        };
+        a.appendChild(t);
+
+        const e = document.createElement("button");
+        e.className = "btn";
+        e.textContent = "Edit";
+        e.onclick = () => editProject(p.id);
+        a.appendChild(e);
+
+        const r = document.createElement("button");
+        r.className = "btn danger";
+        r.textContent = "Delete";
+        r.onclick = () => {
+            if (adminLoggedIn && confirm("Delete this project?")) {
+                projects = projects.filter(x => x.id !== p.id);
+                saveProjects();
+                renderProjects();
+                if (editingId === p.id) resetProjectForm();
+            }
+        };
+        a.appendChild(r);
+
+        c.appendChild(a);
+    }
+
+    return c;
+}
+
+function renderProjects() {
+    const pub = document.getElementById("publicProjects");
+    const adm = document.getElementById("adminProjects");
+
+    pub.replaceChildren();
+    adm.replaceChildren();
+
+    if (!projects.length) {
+        const e = document.createElement("div");
+        e.className = "empty";
+        e.style.gridColumn = "1 / -1";
+        e.textContent = "Our project portfolio is coming soon. ";
+
+        const l = document.createElement("a");
+        l.href = "mailto:" + EMAIL + "?subject=Project%20Request";
+        l.textContent = "Contact us";
+        e.appendChild(l);
+        pub.appendChild(e);
+
+        const a = document.createElement("div");
+        a.className = "empty";
+        a.style.gridColumn = "1 / -1";
+        a.textContent = "No projects yet. Add your first project above.";
+        adm.appendChild(a);
+        return;
+    }
+
+    projects.forEach(p => {
+        pub.appendChild(makeCard(p, false));
+        adm.appendChild(makeCard(p, true));
+    });
+}
+
+function resetProjectForm() {
+    editingId = null;
+    document.getElementById("projectForm").reset();
+    document.getElementById("formTitle").textContent = "Add a Project";
+    document.getElementById("saveProject").textContent = "Add Project";
+}
+
+function editProject(id) {
+    if (!adminLoggedIn) return;
+
+    const p = projects.find(x => x.id === id);
+    if (!p) return;
+
+    editingId = id;
+    document.getElementById("projectTitle").value = p.title;
+    document.getElementById("projectDescription").value = p.description;
+    document.getElementById("projectComplete").checked = p.complete;
+    document.getElementById("formTitle").textContent = "Edit Project";
+    document.getElementById("saveProject").textContent = "Save Changes";
+    document.getElementById("projectTitle").focus();
+}
+
+document.getElementById("projectForm").addEventListener("submit", e => {
+    e.preventDefault();
+    if (!adminLoggedIn) return;
+
+    const title = document.getElementById("projectTitle").value.trim();
+    const description = document.getElementById("projectDescription").value.trim();
+    const complete = document.getElementById("projectComplete").checked;
+
+    if (!title || !description) return;
+
+    if (editingId) {
+        const p = projects.find(x => x.id === editingId);
+        if (p) Object.assign(p, { title, description, complete });
+    } else {
+        projects.unshift({
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+            title,
+            description,
+            complete
+        });
+    }
+
+    if (saveProjects()) {
+        renderProjects();
+        resetProjectForm();
+        document.getElementById("adminMessage").textContent =
+            "Saved in this browser. Publish to GitHub to make changes live.";
+    }
+});
+
+/* REVIEWS */
+
+function makeReviewCard(r, isAdmin) {
+    const c = document.createElement("article");
+    c.className = "card review-card";
+
+    const rating = Math.max(0, Math.min(5, Number(r.rating) || 0));
+
+    const stars = document.createElement("div");
+    stars.className = "review-stars";
+    stars.setAttribute("aria-label", rating + " out of 5 stars");
+    stars.textContent = "★".repeat(rating) + "☆".repeat(5 - rating);
+    c.appendChild(stars);
+
+    const h = document.createElement("h3");
+    h.textContent = r.name;
+    c.appendChild(h);
+
+    const p = document.createElement("p");
+    p.className = "review-quote";
+    p.textContent = "“" + r.text + "”";
+    c.appendChild(p);
+
+    if (isAdmin) {
+        const a = document.createElement("div");
+        a.className = "project-actions";
+
+        const e = document.createElement("button");
+        e.className = "btn secondary";
+        e.textContent = "Edit";
+        e.onclick = () => editReview(r.id);
+        a.appendChild(e);
+
+        const d = document.createElement("button");
+        d.className = "btn danger";
+        d.textContent = "Delete";
+        d.onclick = () => {
+            if (adminLoggedIn && confirm("Delete this review?")) {
+                reviews = reviews.filter(x => x.id !== r.id);
+                saveReviews();
+                renderReviews();
+
+                if (editingReviewId === r.id) resetReviewForm();
+
+                document.getElementById("reviewMessage").textContent =
+                    "Review deleted. Publish to GitHub to update the live website.";
+            }
+        };
+        a.appendChild(d);
+
+        c.appendChild(a);
+    }
+
+    return c;
+}
+
+function renderReviews() {
+    const pub = document.getElementById("publicReviews");
+    const adm = document.getElementById("adminReviews");
+
+    pub.replaceChildren();
+    adm.replaceChildren();
+
+    if (!reviews.length) {
+        const e = document.createElement("div");
+        e.className = "empty";
+        e.style.gridColumn = "1 / -1";
+        e.textContent = "Customer reviews will appear here as feedback becomes available.";
+        pub.appendChild(e);
+
+        const a = document.createElement("div");
+        a.className = "empty";
+        a.style.gridColumn = "1 / -1";
+        a.textContent = "No reviews yet. Add genuine customer feedback using the form above.";
+        adm.appendChild(a);
+        return;
+    }
+
+    reviews.forEach(r => {
+        pub.appendChild(makeReviewCard(r, false));
+        adm.appendChild(makeReviewCard(r, true));
+    });
+}
+
+function resetReviewForm() {
+    editingReviewId = null;
+    document.getElementById("reviewForm").reset();
+    document.getElementById("reviewRating").value = "5";
+    document.getElementById("reviewFormTitle").textContent = "Add a Review";
+    document.getElementById("saveReview").textContent = "Add Review";
+}
+
+function editReview(id) {
+    if (!adminLoggedIn) return;
+
+    const r = reviews.find(x => x.id === id);
+    if (!r) return;
+
+    editingReviewId = id;
+    document.getElementById("reviewName").value = r.name;
+    document.getElementById("reviewRating").value = String(r.rating);
+    document.getElementById("reviewText").value = r.text;
+    document.getElementById("reviewFormTitle").textContent = "Edit Review";
+    document.getElementById("saveReview").textContent = "Save Changes";
+    document.getElementById("reviewName").focus();
+}
+
+document.getElementById("reviewForm").addEventListener("submit", e => {
+    e.preventDefault();
+    if (!adminLoggedIn) return;
+
+    const name = document.getElementById("reviewName").value.trim();
+    const rating = Number(document.getElementById("reviewRating").value);
+    const text = document.getElementById("reviewText").value.trim();
+
+    if (!name || !text || rating < 1 || rating > 5) return;
+
+    const item = { name, rating, text };
+
+    if (editingReviewId) {
+        const r = reviews.find(x => x.id === editingReviewId);
+        if (r) Object.assign(r, item);
+    } else {
+        reviews.unshift({
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+            ...item
+        });
+    }
+
+    if (saveReviews()) {
+        renderReviews();
+        resetReviewForm();
+        document.getElementById("reviewMessage").textContent =
+            "Review saved in this browser. Publish to GitHub to make it live.";
+    }
+});
+
+/* SERVICES AND HOMEPAGE EDITOR */
+
+function serviceData() {
+    return Array.from(document.querySelectorAll("#servicesGrid .card")).map(c => ({
+        title: c.querySelector("h3").textContent,
+        description: c.querySelector("p").textContent
+    }));
+}
+
+function rebuildServiceEditors() {
+    const box = document.getElementById("serviceEditors");
+    box.replaceChildren();
+
+    serviceData().forEach((s, i) => {
+        const w = document.createElement("div");
+        w.className = "service-editor";
+
+        const label = document.createElement("label");
+        label.className = "admin-label";
+        label.textContent = "Service " + (i + 1) + " title";
+
+        const title = document.createElement("input");
+        title.className = "admin-input";
+        title.maxLength = 120;
+        title.value = s.title;
+        title.dataset.serviceTitle = "";
+
+        const descLabel = document.createElement("label");
+        descLabel.className = "admin-label";
+        descLabel.textContent = "Description";
+
+        const desc = document.createElement("textarea");
+        desc.className = "admin-textarea";
+        desc.maxLength = 1000;
+        desc.value = s.description;
+        desc.dataset.serviceDescription = "";
+
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "btn danger";
+        del.textContent = "Remove Service";
+
+        del.onclick = () => {
+            if (!adminLoggedIn) return;
+            document.querySelectorAll("#servicesGrid .card")[i].remove();
+            rebuildServiceEditors();
+        };
+
+        w.append(label, title, descLabel, desc, del);
+        box.appendChild(w);
+    });
+}
+
+function addService() {
+    if (!adminLoggedIn) return;
+
+    const c = document.createElement("article");
+    c.className = "card";
+
+    const h = document.createElement("h3");
+    h.textContent = "New Service";
+
+    const p = document.createElement("p");
+    p.textContent = "Describe your service here.";
+
+    c.append(h, p);
+    document.getElementById("servicesGrid").appendChild(c);
+    rebuildServiceEditors();
+}
+
+function fillWebsiteEditor() {
+    document.getElementById("editTag").value =
+        document.getElementById("heroTag").textContent;
+
+    const h = document.getElementById("heroTitle");
+    const span = h.querySelector("span");
+
+    document.getElementById("editHeroTitle").value =
+        span ? h.textContent.replace(span.textContent, "").trim() : "";
+
+    document.getElementById("editHeroAccent").value =
+        span ? span.textContent : "";
+
+    document.getElementById("editHeroDescription").value =
+        document.getElementById("heroDescription").textContent;
+
+    document.getElementById("editServicesHeading").value =
+        document.getElementById("servicesHeading").textContent;
+
+    document.getElementById("editServicesDescription").value =
+        document.getElementById("servicesDescription").textContent;
+
+    rebuildServiceEditors();
+}
+
+function applyWebsiteEdits() {
+    if (!adminLoggedIn) return;
+
+    document.getElementById("heroTag").textContent =
+        document.getElementById("editTag").value.trim();
+
+    const h = document.getElementById("heroTitle");
+    h.replaceChildren(
+        document.createTextNode(
+            document.getElementById("editHeroTitle").value.trim() + " "
+        )
+    );
+
+    const sp = document.createElement("span");
+    sp.textContent = document.getElementById("editHeroAccent").value.trim();
+    h.appendChild(sp);
+
+    document.getElementById("heroDescription").textContent =
+        document.getElementById("editHeroDescription").value.trim();
+
+    document.getElementById("servicesHeading").textContent =
+        document.getElementById("editServicesHeading").value.trim();
+
+    document.getElementById("servicesDescription").textContent =
+        document.getElementById("editServicesDescription").value.trim();
+
+    const cards = Array.from(document.querySelectorAll("#servicesGrid .card"));
+    const editors = Array.from(document.querySelectorAll("#serviceEditors .service-editor"));
+
+    editors.forEach((w, i) => {
+        if (cards[i]) {
+            cards[i].querySelector("h3").textContent =
+                w.querySelector("[data-service-title]").value.trim();
+
+            cards[i].querySelector("p").textContent =
+                w.querySelector("[data-service-description]").value.trim();
+        }
+    });
+
+    document.getElementById("editMessage").textContent =
+        "Changes applied to this page. Publish to GitHub to update the live website.";
+}
+
+/* CHAT */
+
+function toggleChat() {
+    const b = document.getElementById("chatbox");
+    b.classList.toggle("closed");
+
+    document.getElementById("chatToggle").style.display =
+        b.classList.contains("closed") ? "block" : "none";
+}
+
+function addMessage(t) {
+    const m = document.createElement("div");
+    m.className = "message";
+    m.textContent = t;
+
+    const a = document.getElementById("chatmessages");
+    a.appendChild(m);
+    a.scrollTop = a.scrollHeight;
+}
+
+document.getElementById("chatform").addEventListener("submit", e => {
+    e.preventDefault();
+
+    const i = document.getElementById("chatinput");
+    const t = i.value.trim();
+
+    if (!t) return;
+
+    addMessage("You: " + t);
+    i.value = "";
+
+    const q = t.toLowerCase();
+
+    addMessage("Assistant: " + (
+        q.includes("email") || q.includes("contact")
+            ? "Email our team at " + EMAIL + "."
+            : q.includes("project") || q.includes("request")
+                ? "To discuss a project, email " + EMAIL + "."
+                : q.includes("game") || q.includes("test")
+                    ? "We focus on game testing, bug reporting, and gameplay feedback. Contact us at " + EMAIL + "."
+                    : q.includes("service")
+                        ? "We offer game testing, quality assurance, and user feedback."
+                        : "Thanks for reaching out! Email " + EMAIL + " for further assistance."
+    ));
+});
+
+document.getElementById("modal").addEventListener("click", e => {
+    if (e.target.id === "modal") closeModal();
+});
+
+/* GITHUB PUBLISHING */
+
+function ghConfig() {
+    const owner = document.getElementById("ghOwner").value.trim();
+    const repo = document.getElementById("ghRepo").value.trim();
+    const branch = document.getElementById("ghBranch").value.trim();
+    const path = document.getElementById("ghPath").value.trim();
+    const token = document.getElementById("ghToken").value.trim();
+
+    if (!owner || !repo || !branch || !path || !token) {
+        throw Error("Fill in all GitHub settings and enter your token.");
+    }
+
+    return {
+        owner,
+        repo,
+        branch,
+        path,
+        token,
+        url: "https://api.github.com/repos/" +
+            encodeURIComponent(owner) + "/" +
+            encodeURIComponent(repo) + "/contents/" +
+            path.split("/").map(encodeURIComponent).join("/")
+    };
+}
+
+async function ghRequest(url, token, options = {}) {
+    const r = await fetch(url, {
+        ...options,
+        headers: {
+            "Accept": "application/vnd.github+json",
+            "Authorization": "Bearer " + token,
+            "X-GitHub-Api-Version": "2022-11-28",
+            "Content-Type": "application/json",
+            ...(options.headers || {})
+        }
+    });
+
+    let d = {};
+
+    try {
+        d = await r.json();
+    } catch (e) {}
+
+    if (!r.ok) {
+        throw Error(d.message || "GitHub API error " + r.status);
+    }
+
+    return d;
+}
+
+document.getElementById("ghCheck").onclick = async () => {
+    const b = document.getElementById("ghCheck");
+    const s = document.getElementById("ghStatus");
+
+    b.disabled = true;
+
+    try {
+        const c = ghConfig();
+
+        const d = await ghRequest(
+            c.url + "?ref=" + encodeURIComponent(c.branch),
+            c.token
+        );
+
+        if (d.type !== "file") {
+            throw Error("The selected path is not a file.");
+        }
+
+        s.textContent =
+            "Connected! Found " + c.path + " on branch " + c.branch + ". Ready to publish.";
+
+        document.getElementById("ghPublish").disabled = false;
+    } catch (e) {
+        s.textContent = "Connection failed: " + e.message;
+        document.getElementById("ghPublish").disabled = true;
+    } finally {
+        b.disabled = false;
+    }
+};
+
+function pageForPublishing() {
+    const clone = document.documentElement.cloneNode(true);
+
+    const token = clone.querySelector("#ghToken");
+
+    if (token) {
+        token.value = "";
+        token.removeAttribute("value");
+        token.remove();
+    }
+
+    const status = clone.querySelector("#ghStatus");
+
+    if (status) {
+        status.textContent = "Enter your GitHub token in the admin dashboard to publish changes.";
+    }
+
+    const pd = clone.querySelector("#" + DATA_ID);
+
+    if (pd) {
+        pd.textContent = JSON.stringify(projects).replace(/</g, "\\u003c");
+    }
+
+    const rd = clone.querySelector("#" + REVIEW_DATA_ID);
+
+    if (rd) {
+        rd.textContent = JSON.stringify(reviews).replace(/</g, "\\u003c");
+    }
+
+    return "<!DOCTYPE html>\n" + clone.outerHTML;
+}
+
+document.getElementById("ghPublish").onclick = async () => {
+    const b = document.getElementById("ghPublish");
+    const s = document.getElementById("ghStatus");
+
+    b.disabled = true;
+
+    try {
+        if (!adminLoggedIn) {
+            throw Error("Please log in to the admin dashboard first.");
+        }
+
+        const c = ghConfig();
+
+        if (!confirm(
+            "Publish the complete website, including projects and reviews, to " +
+            c.owner + "/" + c.repo + " on branch " + c.branch + "?"
+        )) {
+            return;
+        }
+
+        s.textContent = "Checking the current GitHub file…";
+
+        const latest = await ghRequest(
+            c.url + "?ref=" + encodeURIComponent(c.branch),
+            c.token
+        );
+
+        if (latest.type !== "file") {
+            throw Error("The selected path is not a file.");
+        }
+
+        applyWebsiteEdits();
+
+        const html = pageForPublishing();
+        const bytes = new TextEncoder().encode(html);
+
+        let binary = "";
+
+        for (let i = 0; i < bytes.length; i += 32768) {
+            binary += String.fromCharCode(
+                ...bytes.subarray(i, i + 32768)
+            );
+        }
+
+        const payload = {
+            message: "Update App Experts Network website",
+            content: btoa(binary),
+            branch: c.branch,
+            sha: latest.sha
+        };
+
+        s.textContent = "Publishing your website…";
+
+        const result = await ghRequest(c.url, c.token, {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        });
+
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+            localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
+        } catch (e) {}
+
+        s.textContent =
+            "Published successfully! Commit: " +
+            (result.commit?.sha || "created") +
+            "\nGitHub updated index.html. GitHub Pages may take a few minutes to show the changes.";
+
+    } catch (e) {
+        s.textContent =
+            "Publish failed: " + e.message +
+            "\nCheck your token permissions, repository, branch, and file path.";
+    } finally {
+        b.disabled = false;
+    }
+};
+
+loadProjects();
+loadReviews();
 </script>
-</body>
-</html>
+
+
+</body></html>
