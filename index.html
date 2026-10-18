@@ -18,6 +18,7 @@ a{color:var(--green)}
 .navlinks a:not(.btn){color:var(--text);text-decoration:none}
 .btn{display:inline-block;padding:12px 18px;border-radius:9px;background:var(--green);color:#031108!important;font-weight:bold;text-decoration:none;border:0;cursor:pointer;font-size:14px}
 .btn.secondary{background:transparent;border:1px solid var(--green);color:var(--green)!important}
+.btn.danger{background:#702b2b;color:white!important}
 .hero{min-height:76vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:70px 7%}
 .tag{color:var(--green);letter-spacing:3px;text-transform:uppercase;font-size:12px}
 .hero h1{font-size:clamp(38px,7vw,76px);max-width:900px;margin:18px 0;line-height:1.05}
@@ -50,6 +51,14 @@ footer a{color:var(--green)}
 .modal-content h2{color:var(--green)}
 .modal-content input{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}
 .modal-content .btn{width:100%;margin-top:10px}
+#dashboard{display:none;min-height:75vh}
+.admin-panel{max-width:1000px;margin:auto}
+.admin-panel h2,.admin-panel h3{color:var(--green)}
+.admin-form{padding:22px;border:1px solid #17462e;border-radius:14px;margin:25px 0}
+.admin-input,.admin-textarea{width:100%;padding:12px;margin:8px 0;background:#061009;color:white;border:1px solid #245338;border-radius:7px}
+.admin-textarea{min-height:100px;resize:vertical}
+.project-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.status{color:var(--green);font-size:13px}
 @media(max-width:650px){.nav{padding:14px 4%;align-items:flex-start;flex-direction:column}.navlinks{gap:10px;font-size:13px}.logo{font-size:17px}.hero{min-height:65vh}.chatbox{bottom:10px;right:10px}}
 </style>
 </head>
@@ -57,17 +66,22 @@ footer a{color:var(--green)}
 <div id="glow"></div>
 
 <header class="nav">
-<a class="logo" href="#home">APP EXPERTS NETWORK</a>
-<nav class="navlinks">
+<a class="logo" href="#home" onclick="showPublic()">APP EXPERTS NETWORK</a>
+<nav class="navlinks" id="publicNav">
 <a href="#services">Services</a>
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 <button class="btn" onclick="openModal()">Admin Login</button>
 <a class="btn secondary" href="mailto:appexpertsnetwork@gmail.com">Email Us</a>
 </nav>
+<nav class="navlinks" id="adminNav" style="display:none">
+<button class="btn secondary" onclick="showPublic()">View Website</button>
+<button class="btn" onclick="logout()">Log Out</button>
+</nav>
 </header>
 
 <main>
+<div id="publicSite">
 <section class="hero" id="home">
 <div class="tag">Testing • Quality • Innovation</div>
 <h1>We Help Apps Become <span>Exceptional.</span></h1>
@@ -90,7 +104,7 @@ footer a{color:var(--green)}
 
 <section id="projects">
 <h2 class="section-title">Our Projects</h2>
-<p class="section-desc">Our project portfolio will showcase work and milestones as they become available.</p>
+<p class="section-desc">Our project portfolio showcases work and milestones as they become available.</p>
 <div id="publicProjects" class="grid"></div>
 </section>
 
@@ -102,6 +116,33 @@ footer a{color:var(--green)}
 <p>Tell us about your game-testing, quality-assurance, or application-feedback needs.</p>
 <a class="btn" href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Submit a Request</a>
 <p><a href="mailto:appexpertsnetwork@gmail.com">✉ Email Us: appexpertsnetwork@gmail.com</a></p>
+</div>
+</section>
+</div>
+
+<section id="dashboard">
+<div class="admin-panel">
+<h2>Admin Dashboard</h2>
+<p class="section-desc">Manage projects, update their status, and control your portfolio.</p>
+<button class="btn secondary" onclick="showPublic()">View Public Website</button>
+<button class="btn" onclick="logout()">Log Out</button>
+
+<div class="admin-form">
+<h3 id="formTitle">Add a Project</h3>
+<form id="projectForm">
+<input class="admin-input" id="projectTitle" placeholder="Project title" maxlength="100" required>
+<textarea class="admin-textarea" id="projectDescription" placeholder="Project description" maxlength="1000" required></textarea>
+<label><input type="checkbox" id="projectComplete" style="width:auto"> Mark as completed</label>
+<div class="project-actions">
+<button class="btn" type="submit" id="saveProject">Add Project</button>
+<button class="btn secondary" type="button" onclick="resetProjectForm()">Cancel</button>
+</div>
+</form>
+<p id="adminMessage" class="status"></p>
+</div>
+
+<h3>Manage Projects</h3>
+<div id="adminProjects" class="grid"></div>
 </div>
 </section>
 </main>
@@ -134,7 +175,32 @@ footer a{color:var(--green)}
 
 <script>
 const EMAIL="appexpertsnetwork@gmail.com";
+const ADMIN_USER="admin";
+const ADMIN_PASS="admin@admin@123";
+const STORAGE_KEY="aen_projects";
 document.getElementById("year").textContent=new Date().getFullYear();
+
+let projects=[];
+let editingId=null;
+let adminLoggedIn=false;
+
+function loadProjects(){
+try{
+const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");
+projects=Array.isArray(saved)?saved:[];
+}catch(e){projects=[]}
+renderProjects();
+}
+
+function saveProjects(){
+try{
+localStorage.setItem(STORAGE_KEY,JSON.stringify(projects));
+return true;
+}catch(e){
+document.getElementById("adminMessage").textContent="Could not save projects in this browser.";
+return false;
+}
+}
 
 document.addEventListener("mousemove",event=>{
 const glow=document.getElementById("glow");
@@ -142,12 +208,200 @@ glow.style.left=event.clientX+"px";
 glow.style.top=event.clientY+"px";
 });
 
-function openModal(){document.getElementById("modal").classList.add("show")}
-function closeModal(){document.getElementById("modal").classList.remove("show")}
+function openModal(){
+document.getElementById("modal").classList.add("show");
+document.getElementById("loginMessage").textContent="Enter your admin login details.";
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("show");
+}
 
 document.getElementById("loginForm").addEventListener("submit",event=>{
 event.preventDefault();
-document.getElementById("loginMessage").textContent="Login authentication has not been connected. Contact "+EMAIL+" for assistance.";
+const username=document.getElementById("username").value;
+const password=document.getElementById("password").value;
+
+if(username===ADMIN_USER&&password===ADMIN_PASS){
+adminLoggedIn=true;
+closeModal();
+document.getElementById("loginForm").reset();
+showDashboard();
+}else{
+document.getElementById("loginMessage").textContent="Incorrect username or password. Please try again.";
+}
+});
+
+function showDashboard(){
+if(!adminLoggedIn)return;
+document.getElementById("publicSite").style.display="none";
+document.getElementById("dashboard").style.display="block";
+document.getElementById("publicNav").style.display="none";
+document.getElementById("adminNav").style.display="flex";
+document.getElementById("chatbox").classList.add("closed");
+document.getElementById("chatToggle").style.display="none";
+window.scrollTo(0,0);
+renderProjects();
+}
+
+function showPublic(){
+document.getElementById("dashboard").style.display="none";
+document.getElementById("publicSite").style.display="block";
+document.getElementById("publicNav").style.display="flex";
+document.getElementById("adminNav").style.display=adminLoggedIn?"flex":"none";
+document.getElementById("chatToggle").style.display="block";
+window.scrollTo(0,0);
+}
+
+function logout(){
+adminLoggedIn=false;
+editingId=null;
+document.getElementById("adminNav").style.display="none";
+showPublic();
+document.getElementById("adminNav").style.display="none";
+resetProjectForm();
+}
+
+function makeCard(project,isAdmin){
+const card=document.createElement("article");
+card.className="card";
+
+const title=document.createElement("h3");
+title.textContent=project.title;
+card.appendChild(title);
+
+const description=document.createElement("p");
+description.textContent=project.description;
+card.appendChild(description);
+
+const status=document.createElement("p");
+status.className="status";
+status.textContent=project.complete?"✓ Completed":"In Progress";
+card.appendChild(status);
+
+if(isAdmin){
+const actions=document.createElement("div");
+actions.className="project-actions";
+
+const toggle=document.createElement("button");
+toggle.className="btn secondary";
+toggle.textContent=project.complete?"Reopen Project":"Mark Complete";
+toggle.onclick=()=>{
+if(!adminLoggedIn)return;
+project.complete=!project.complete;
+saveProjects();
+renderProjects();
+};
+actions.appendChild(toggle);
+
+const edit=document.createElement("button");
+edit.className="btn";
+edit.textContent="Edit";
+edit.onclick=()=>editProject(project.id);
+actions.appendChild(edit);
+
+const remove=document.createElement("button");
+remove.className="btn danger";
+remove.textContent="Delete";
+remove.onclick=()=>{
+if(!adminLoggedIn)return;
+if(confirm("Are you sure you want to delete this project?")){
+projects=projects.filter(item=>item.id!==project.id);
+saveProjects();
+renderProjects();
+if(editingId===project.id)resetProjectForm();
+}
+};
+actions.appendChild(remove);
+card.appendChild(actions);
+}
+return card;
+}
+
+function renderProjects(){
+const publicContainer=document.getElementById("publicProjects");
+const adminContainer=document.getElementById("adminProjects");
+publicContainer.replaceChildren();
+adminContainer.replaceChildren();
+
+if(projects.length===0){
+const empty=document.createElement("div");
+empty.className="empty";
+empty.style.gridColumn="1/-1";
+empty.textContent="Our project portfolio is coming soon. Have a project in mind? ";
+const link=document.createElement("a");
+link.href="mailto:"+EMAIL+"?subject=Project%20Request";
+link.textContent="Contact us";
+empty.appendChild(link);
+publicContainer.appendChild(empty);
+
+const adminEmpty=document.createElement("div");
+adminEmpty.className="empty";
+adminEmpty.style.gridColumn="1/-1";
+adminEmpty.textContent="No projects yet. Add your first project above.";
+adminContainer.appendChild(adminEmpty);
+return;
+}
+
+projects.forEach(project=>{
+publicContainer.appendChild(makeCard(project,false));
+adminContainer.appendChild(makeCard(project,true));
+});
+}
+
+function resetProjectForm(){
+editingId=null;
+document.getElementById("projectForm").reset();
+document.getElementById("formTitle").textContent="Add a Project";
+document.getElementById("saveProject").textContent="Add Project";
+}
+
+function editProject(id){
+if(!adminLoggedIn)return;
+const project=projects.find(item=>item.id===id);
+if(!project)return;
+
+editingId=id;
+document.getElementById("projectTitle").value=project.title;
+document.getElementById("projectDescription").value=project.description;
+document.getElementById("projectComplete").checked=project.complete;
+document.getElementById("formTitle").textContent="Edit Project";
+document.getElementById("saveProject").textContent="Save Changes";
+document.getElementById("projectTitle").focus();
+window.scrollTo({top:document.getElementById("dashboard").offsetTop,behavior:"smooth"});
+}
+
+document.getElementById("projectForm").addEventListener("submit",event=>{
+event.preventDefault();
+if(!adminLoggedIn)return;
+
+const title=document.getElementById("projectTitle").value.trim();
+const description=document.getElementById("projectDescription").value.trim();
+const complete=document.getElementById("projectComplete").checked;
+
+if(!title||!description)return;
+
+if(editingId){
+const project=projects.find(item=>item.id===editingId);
+if(project){
+project.title=title;
+project.description=description;
+project.complete=complete;
+}
+}else{
+projects.unshift({
+id:Date.now().toString(36)+Math.random().toString(36).slice(2),
+title,
+description,
+complete
+});
+}
+
+if(saveProjects()){
+renderProjects();
+resetProjectForm();
+document.getElementById("adminMessage").textContent="Project saved successfully in this browser.";
+}
 });
 
 function toggleChat(){
@@ -170,10 +424,12 @@ event.preventDefault();
 const input=document.getElementById("chatinput");
 const text=input.value.trim();
 if(!text)return;
+
 addMessage("You: "+text);
 input.value="";
 const question=text.toLowerCase();
 let reply;
+
 if(question.includes("email")||question.includes("contact")){
 reply="Email our team at "+EMAIL+".";
 }else if(question.includes("project")||question.includes("request")){
@@ -185,14 +441,15 @@ reply="We offer game testing, quality assurance, and user feedback.";
 }else{
 reply="Thanks for reaching out! Email "+EMAIL+" for further assistance.";
 }
-setTimeout(()=>addMessage("Assistant: "+reply),250);
+
+addMessage("Assistant: "+reply);
 });
 
 document.getElementById("modal").addEventListener("click",event=>{
 if(event.target.id==="modal")closeModal();
 });
 
-document.getElementById("publicProjects").innerHTML='<div class="empty" style="grid-column:1/-1">Our project portfolio is coming soon. Have a project in mind? <a href="mailto:appexpertsnetwork@gmail.com?subject=Project%20Request">Contact us</a>.</div>';
+loadProjects();
 </script>
 </body>
 </html>
